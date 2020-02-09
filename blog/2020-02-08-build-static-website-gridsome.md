@@ -238,7 +238,7 @@ Let's head back to our editor and let's create the `netlify.toml` file at the ro
 
 ```
 [build]
-  pubilsh = "dist"
+  publish = "dist"
   command = "gridsome build"
 ```
 
