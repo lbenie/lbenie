@@ -26,9 +26,7 @@
           :class="isOpen ? 'block' : 'hidden'"
         >
           <li class="mr-8 mb-6 lg:mb-0">
-            <g-link to="/" class="hover:text-gray-600">{{
-              $static.metadata.siteName
-            }}</g-link>
+            <g-link to="/" class="hover:text-gray-600">Home</g-link>
           </li>
           <li class="mr-8 mb-6 lg:mb-0">
             <g-link class="hover:text-gray-600" to="/projects" v-smooth-scroll
@@ -161,9 +159,6 @@
 
 <static-query>
   query {
-    metadata {
-      siteName
-    }
     socials: allContentfulSocialLinks {
       edges {
         node {
