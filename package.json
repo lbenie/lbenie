@@ -17,6 +17,7 @@
     "gridsome": "^0.7.12",
     "gridsome-plugin-remark-prismjs-all": "^0.3.1",
     "gridsome-plugin-robots-txt": "^1.0.2",
+    "gridsome-plugin-tailwindcss": "^2.2.34",
     "markdown-it": "^10.0.0",
     "remark-toc": "^7.0.0",
     "tailwindcss": "^1.2.0",

@@ -3,12 +3,12 @@
 
 // Changes here require a server restart.
 // To restart press CTRL + C in terminal and run `gridsome develop`
-const tailwind = require('tailwindcss')
-const purgecss = require('@fullhuman/postcss-purgecss')
+// const tailwind = require('tailwindcss')
+// const purgecss = require('@fullhuman/postcss-purgecss')
 
-const postcssPlugins = [tailwind()]
+// const postcssPlugins = [tailwind()]
 
-if (process.env.NODE_ENV === 'production') postcssPlugins.push(purgecss())
+// if (process.env.NODE_ENV === 'production') postcssPlugins.push(purgecss())
 
 module.exports = {
   titleTemplate: '%s',
@@ -52,6 +52,9 @@ module.exports = {
         typeName: 'Contentful',
       },
     },
+    {
+      use: 'gridsome-plugin-tailwindcss',
+    },
   ],
 
   transformers: {
@@ -79,11 +82,11 @@ module.exports = {
     ContentfulContribution: '/contributions/:slug',
   },
 
-  css: {
-    loaderOptions: {
-      postcss: {
-        plugins: postcssPlugins,
-      },
-    },
-  },
+  // css: {
+  //   loaderOptions: {
+  //     postcss: {
+  //       plugins: postcssPlugins,
+  //     },
+  //   },
+  // },
 }
