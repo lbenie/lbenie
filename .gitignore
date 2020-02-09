@@ -1,0 +1,20 @@
+*.log
+.cache
+.DS_Store
+src/.temp
+node_modules
+dist
+.env
+.env.*
+
+# Vim swap files
+*.swp
+
+# Service worker
+sw.*
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz

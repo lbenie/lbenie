@@ -1,0 +1,38 @@
+{
+  "name": "lucien",
+  "private": true,
+  "scripts": {
+    "build": "gridsome build",
+    "develop": "gridsome develop",
+    "explore": "gridsome explore"
+  },
+  "dependencies": {
+    "@fullhuman/postcss-purgecss": "^2.0.6",
+    "@gridsome/plugin-google-analytics": "^0.1.0",
+    "@gridsome/plugin-sitemap": "^0.2.3",
+    "@gridsome/source-contentful": "^0.5.2",
+    "@gridsome/source-filesystem": "^0.6.2",
+    "@gridsome/transformer-remark": "^0.4.0",
+    "@vue/composition-api": "^0.3.4",
+    "gridsome": "^0.7.12",
+    "gridsome-plugin-remark-prismjs-all": "^0.3.1",
+    "gridsome-plugin-robots-txt": "^1.0.2",
+    "markdown-it": "^10.0.0",
+    "remark-toc": "^7.0.0",
+    "tailwindcss": "^1.2.0",
+    "vue-disqus": "^3.0.5",
+    "vue-smooth-scroll": "^1.0.13"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-gridsome": "^1.4.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-vue": "^6.1.2",
+    "prettier": "^1.19.1",
+    "prettier-eslint": "^9.0.1",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2"
+  }
+}

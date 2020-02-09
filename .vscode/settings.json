@@ -1,0 +1,40 @@
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": false
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": false
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": false
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": false
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  },
+  "eslint.validate": [
+    // "javascript",
+    // "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
+  "vetur.format.defaultFormatter.js": "prettier-eslint",
+  "vetur.format.defaultFormatter.html": "prettier",
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "vetur.grammar.customBlocks": {
+    "page-query": "graphql",
+    "static-query": "graphql"
+  },
+}
