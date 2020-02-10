@@ -137,7 +137,7 @@ We officially have linked our data to our static website. We can now build a pag
 
 <page-query>
   query Posts($page: Int) {
-    posts: allcontentfulBlogPost(sortBy: "date", order: DESC, perPage: 3, page: $page)
+    posts: allContentfulBlogPost(sortBy: "date", order: DESC, perPage: 3, page: $page)
       @paginate {
       totalCount
       pageInfo {
