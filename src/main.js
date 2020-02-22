@@ -34,6 +34,11 @@ export default function(Vue, { router, head, isClient }) {
     content: 'My personal website written with Gridsome',
   })
 
+  head.meta.push({
+    name: 'google-site-verification',
+    content: 'OZmBZ8h0VeLU5_J3TYM3t6yfEqA9_lVuFn2hyq_Q974',
+  })
+
   head.link.push({
     rel: 'stylesheet',
     href: 'https://fonts.googleapis.com/css?family=Roboto',
