@@ -26,7 +26,8 @@ export default function(Vue, { router, head, isClient }) {
 
   head.meta.push({
     name: 'keywords',
-    content: 'Vue,Portfolio,Lucien,Bénié,Gridsome,Vue.js,Lucien Bénié,VueJS',
+    content:
+      'Vue,Portfolio,Lucien,Bénié,Gridsome,Vue.js,Lucien Bénié,VueJS,lbenie,React,react,React.js,react.js,Angular,angular,angular.js',
   })
 
   head.meta.push({

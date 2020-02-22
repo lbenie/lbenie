@@ -110,6 +110,9 @@ import Tag from '@/components/Tag.vue'
 import { Pager } from 'gridsome'
 
 export default {
+  metaInfo: {
+    title: 'Projects & Contributions',
+  },
   components: {
     Tag,
     Pager,
