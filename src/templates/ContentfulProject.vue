@@ -45,8 +45,32 @@ import MarkdownIt from 'markdown-it'
 
 export default {
   metaInfo() {
+    const title = this.$page.project.title
+    const description = this.$page.project.description
+
     return {
-      title: this.$page.project.title,
+      title,
+      meta: [
+        { key: 'og:type', name: 'og:type', content: 'article' },
+        { key: 'og:title', name: 'og:title', content: title },
+        { key: 'og:url', name: 'og:url', content: `${location.href}` },
+        { key: 'og:locale', name: 'og:locale', content: 'en_CA' },
+        {
+          key: 'og:description',
+          name: 'og:description',
+          content: description,
+        },
+        {
+          key: 'description',
+          name: 'description',
+          content: description,
+        },
+        {
+          key: 'keywords',
+          name: 'keywords',
+          content: `${this.$page.project.tags},Lucien Bénié,Blog,lbenie,Lucien,Bénié,benie`,
+        },
+      ],
     }
   },
   components: {

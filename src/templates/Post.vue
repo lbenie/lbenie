@@ -32,6 +32,7 @@
       date(format: "MMMM D, Y")
       content
       timeToRead
+      excerpt
       tags {
         title
         path
@@ -45,8 +46,23 @@ import Tag from '@/components/Tag.vue'
 
 export default {
   metaInfo() {
+    const title = this.$page.post.title
+
     return {
-      title: this.$page.post.title,
+      title,
+      meta: [
+        { property: 'og:type', content: 'article' },
+        { property: 'og:title', content: title },
+        { property: 'og:url', content: `${location.href}` },
+        { property: 'og:locale', content: 'en_CA' },
+        { property: 'og:description', content: this.$page.post.excerpt },
+        {
+          property: 'keywords',
+          content: `${this.$page.post.tags.map(
+            ({ title }) => title,
+          )},Lucien Bénié,Blog,lbenie,Lucien,Bénié,benie`,
+        },
+      ],
     }
   },
   components: {

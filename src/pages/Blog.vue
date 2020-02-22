@@ -62,8 +62,22 @@
 import { Pager } from 'gridsome'
 
 export default {
-  metaInfo: {
-    title: 'Blog',
+  metaInfo() {
+    const title = 'Blog'
+
+    return {
+      title: title,
+      meta: [
+        { property: 'og:type', content: 'website' },
+        { property: 'og:title', content: title },
+        { property: 'og:url', content: `${location.href}` },
+        {
+          hid: 'keywords',
+          property: 'keywords',
+          content: `Blog,blog,Lucien Bénié,lbenie,Lucien,Bénié,benie,personalblog,`,
+        },
+      ],
+    }
   },
   components: {
     Pager,

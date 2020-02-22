@@ -20,19 +20,47 @@ export default function(Vue, { router, head, isClient }) {
   Vue.use(VueDisqus)
 
   head.meta.push({
+    key: 'author',
     name: 'author',
     content: 'Lucien Bénié',
   })
 
   head.meta.push({
-    name: 'keywords',
-    content:
-      'Vue,Portfolio,Lucien,Bénié,Gridsome,Vue.js,Lucien Bénié,VueJS,lbenie,React,react,React.js,react.js,Angular,angular,angular.js',
+    key: 'og:title',
+    name: 'og:title',
+    content: 'Lucien Bénié',
   })
 
   head.meta.push({
+    key: 'og:url',
+    name: 'og:url',
+    content: 'https://lbenie.xyz',
+  })
+
+  head.meta.push({
+    key: 'og:image',
+    name: 'og:image',
+    content:
+      'https://lbenie.xyz/assets/static/avatar.d64be67.11e288e1028f311e40457eae7279989b.png',
+  })
+
+  head.meta.push({
+    key: 'og:type',
+    name: 'og:type',
+    content: 'website',
+  })
+
+  head.meta.push({
+    key: 'keywords',
+    name: 'keywords',
+    content:
+      'Vue,Portfolio,Lucien,Bénié,Gridsome,Vue.js,Lucien Bénié,lbenie,Lucien,Bénié,benie,VueJS,lbenie,React,react,React.js,react.js,Angular,angular,angular.js',
+  })
+
+  head.meta.push({
+    key: 'description',
     name: 'description',
-    content: 'My personal website written with Gridsome',
+    content: 'My personal website',
   })
 
   head.meta.push({
@@ -51,5 +79,5 @@ export default function(Vue, { router, head, isClient }) {
     charset: 'UTF-8',
   })
 
-  head.htmlAttrs = { lang: 'en' }
+  head.htmlAttrs = { lang: 'en_CA' }
 }

@@ -1,7 +1,7 @@
 ---
 title: 'Build a static website with Contentful and Gridsome'
 slug: 'build-a-static-website-with-contentful-and-gridsome'
-tags: ['Gridsome', 'Vue.js', 'Contentful']
+tags: ['Gridsome', 'Vue.js', 'Contentful', 'vue.js']
 excerpt: 'How to get started with Contentful and Gridsome. Requires a base knowledge of Vue.js and some coding background.'
 date: 2020-02-08
 ---
@@ -36,16 +36,19 @@ To install `Gridsome`, you can use [Yarn](https://yarnpkg.com/) or [NPM](https:/
 1. Install Gridsome CLI tool
 
 - Using **YARN**
+
 ```bash
 yarn global add @gridsome/cli
 ```
 
 - Using **NPM**
+
 ```bash
 npm install --global @gridsome/cli
 ```
 
 2. Create our Gridsome project
+
 ```bash
 gridsome create my-first-blog
 cd my-first-blog
@@ -60,6 +63,7 @@ Now that our project has been scaffolded, let's dive in!
 Now that we are up and running, we can add our data from `Contentful` to our static site `Gridsome`. We have to configure `Gridsome` with the contentful plugin.
 
 First, let's add these modules:
+
 ```bash
 yarn add @gridsome/source-contentful markdown-it
 ```
@@ -75,7 +79,6 @@ CTF_SPACE_ID="<YOUR_CONTENTFUL_SPACE_ID>"
 CTF_ACCESS_TOKEN="<YOUR_CONTENTFUL_ACCESS_TOKEN>"
 ```
 
-
 Now, let's head to our `gridsome.config.js` file and add this configuration.
 
 ```js{3-15}
@@ -89,13 +92,14 @@ module.exports = {
       host: 'cdn.contentful.com',
       environment: 'master',
       typeName: 'Contentful',
-    }
+    },
   ],
   templates: {
-    ContentfulBlog: '/blog/:slug'
-  }
+    ContentfulBlog: '/blog/:slug',
+  },
 }
 ```
+
 By default Gridsome is already setup to read data from our `.env` file.
 
 We officially have linked our data to our static website. We can now build a page where we can list all of our blog posts. Let's create a file `pages/Blog.vue` and add this code snippet below:
@@ -105,10 +109,7 @@ We officially have linked our data to our static website. We can now build a pag
   <Layout>
     <section v-if="$page">
       <ul>
-        <li
-          v-for="{ node } in $page.posts.edges"
-          :key="node.id"
-        >
+        <li v-for="{ node } in $page.posts.edges" :key="node.id">
           <h2>
             <g-link :to="node.path">{{ node.title }}</g-link>
           </h2>
@@ -121,9 +122,7 @@ We officially have linked our data to our static website. We can now build a pag
             {{ node.excerpt }}
           </div>
           <div>
-            <g-link :to="node.path"
-              >Read More</g-link
-            >
+            <g-link :to="node.path">Read More</g-link>
           </div>
         </li>
       </ul>
@@ -136,41 +135,26 @@ We officially have linked our data to our static website. We can now build a pag
 </template>
 
 <page-query>
-  query Posts($page: Int) {
-    posts: allContentfulBlogPost(sortBy: "date", order: DESC, perPage: 3, page: $page)
-      @paginate {
-      totalCount
-      pageInfo {
-        totalPages
-        currentPage
-      }
-      edges {
-        node {
-          id
-          title
-          timeToRead
-          excerpt
-          path
-          date(format: "MMMM D, Y")
-        }
-      }
-    }
-  }
+  query Posts($page: Int) { posts: allContentfulBlogPost(sortBy: "date", order:
+  DESC, perPage: 3, page: $page) @paginate { totalCount pageInfo { totalPages
+  currentPage } edges { node { id title timeToRead excerpt path date(format:
+  "MMMM D, Y") } } } }
 </page-query>
 
 <script>
-import { Pager } from 'gridsome'
+  import { Pager } from 'gridsome'
 
-export default {
-  metaInfo: {
-    title: 'Blog',
-  },
-  components: {
-    Pager,
-  },
-}
+  export default {
+    metaInfo: {
+      title: 'Blog',
+    },
+    components: {
+      Pager,
+    },
+  }
 </script>
 ```
+
 We are now ready to add a link to our new `Blog` page. Let's head to `layouts/Default.vue` and add the following after the `/about` link:
 
 ```html

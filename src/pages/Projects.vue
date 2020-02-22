@@ -110,8 +110,24 @@ import Tag from '@/components/Tag.vue'
 import { Pager } from 'gridsome'
 
 export default {
-  metaInfo: {
-    title: 'Projects & Contributions',
+  metaInfo() {
+    const title = 'Projects & Contributions'
+
+    return {
+      title: title,
+      meta: [
+        { key: 'og:type', name: 'og:type', content: 'website' },
+        { key: 'og:title', name: 'og:title', content: title },
+        { key: 'og:url', name: 'og:url', content: `${location.href}` },
+        { key: 'og:description', name: 'og:description', content: title },
+        { key: 'description', name: 'description', content: title },
+        {
+          key: 'keywords',
+          name: 'keywords',
+          content: `Projects,projects,Contributions,contributions,vue,Vue,vue.js,Vue.js,angular,Angular,angular.js,TypeScript,typescript,JavaScript,javascript,Nuxt,nuxt,Nuxt.js,nuxt.js,HTML,CSS,html,css,api,API,Lucien Bénié,lbenie,Lucien,Bénié,benie`,
+        },
+      ],
+    }
   },
   components: {
     Tag,
