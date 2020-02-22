@@ -118,7 +118,6 @@ export default {
       meta: [
         { key: 'og:type', name: 'og:type', content: 'website' },
         { key: 'og:title', name: 'og:title', content: title },
-        { key: 'og:url', name: 'og:url', content: `${location.href}` },
         { key: 'og:description', name: 'og:description', content: title },
         { key: 'description', name: 'description', content: title },
         {

@@ -53,7 +53,6 @@ export default {
       meta: [
         { property: 'og:type', content: 'article' },
         { property: 'og:title', content: title },
-        { property: 'og:url', content: `${location.href}` },
         { property: 'og:locale', content: 'en_CA' },
         { property: 'og:description', content: this.$page.post.excerpt },
         {

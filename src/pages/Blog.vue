@@ -70,7 +70,6 @@ export default {
       meta: [
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: title },
-        { property: 'og:url', content: `${location.href}` },
         {
           hid: 'keywords',
           property: 'keywords',
