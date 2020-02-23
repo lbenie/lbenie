@@ -79,6 +79,7 @@ module.exports = {
   },
 
   templates: {
+    Post: '/blog/:slug',
     Tag: '/tag/:id',
     ContentfulProject: '/projects/:slug',
     ContentfulContribution: '/contributions/:slug',
