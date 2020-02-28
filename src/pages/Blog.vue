@@ -5,10 +5,10 @@
         <li
           v-for="{ node } in $page.posts.edges"
           :key="node.id"
-          class="post border-gray-400 border-b mb-12"
+          class="border-gray-400 border-b mb-12"
         >
           <h2 class="text-3xl font-bold">
-            <g-link :to="node.path">{{ node.title }}</g-link>
+            {{ node.title }}
           </h2>
           <div class="mb-4">
             <span>{{ node.date }}</span>

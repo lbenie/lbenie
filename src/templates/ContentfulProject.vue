@@ -10,14 +10,7 @@
         </li>
       </ul>
       <div class="markdown-body mb-8" v-html="content" />
-      <a
-        :href="$page.project.url"
-        class="embedly-card"
-        rel="noopener noreferrer"
-        data-card-width="100%"
-        data-card-controls="0"
-        >{{ $page.project.title }}</a
-      >
+      <EmbedlyCard :url="$page.project.url" :title="$page.project.title" />
       <div class="mb-8">
         <g-link class="btn border border-blue-500" to="/projects"
           >Back to Projects</g-link
@@ -41,6 +34,7 @@
 
 <script>
 import Tag from '@/components/Tag.vue'
+import EmbedlyCard from '@/components/EmbedlyCard.vue'
 import MarkdownIt from 'markdown-it'
 
 export default {
@@ -74,6 +68,7 @@ export default {
   },
   components: {
     Tag,
+    EmbedlyCard,
   },
   computed: {
     content() {

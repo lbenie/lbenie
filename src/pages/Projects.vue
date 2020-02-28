@@ -2,62 +2,59 @@
   <Layout>
     <section class="container-inner mx-auto py-16" v-if="$page">
       <h1 class="text-4xl font-bold">My Projects and Contributions</h1>
-      <h2 class="text-2xl font-bold flex justify-center my-4">Projects</h2>
-      <ul class="flex flex-wrap justify-between">
+      <h2 class="text-3xl font-bold  my-4">Projects</h2>
+      <ul>
         <li
-          class="max-w-sm rounded overflow-hidden shadow-lg my-4"
+          class="border-gray-400 border-b mb-12"
           v-for="{ node } in $page.projects.edges"
           :key="node.id"
         >
-          <div class="px-6 py-4">
-            <h3 class="font-bold text-xl mb-2">{{ node.title }}</h3>
-            <p class="text-gray-700 text-base">
-              {{ node.summary }}
-            </p>
-          </div>
-          <div class="max-w-sm px-6 py-2 flex justify-center">
-            <g-link :to="node.path" class="text-sm btn border border-blue-500"
-              >Read More</g-link
-            >
-          </div>
-          <ul class="px-6 py-4 flex flex-wrap justify-center">
+          <h3 class="text-2xl font-bold">{{ node.title }}</h3>
+          <p class="text-gray-700 text-lg mb-4">
+            {{ node.summary }}
+          </p>
+          <h4 class="text-xl my-1">Topics</h4>
+          <ul class="flex flex-wrap">
             <li v-for="(tag, index) in node.tags" :key="index" class="my-2">
               <tag :name="tag" />
             </li>
           </ul>
+          <div class="my-8">
+            <g-link :to="node.path" class="btn border border-blue-500"
+              >Read More</g-link
+            >
+          </div>
         </li>
       </ul>
 
       <pager
-        class="flex justify-evenly my-6"
+        class="flex justify-evenly mt-12 mb-6"
         v-if="$page.projects.pageInfo.totalPages > 1"
         linkClass="btn"
         :info="$page.projects.pageInfo"
       />
-
-      <h2 class="text-2xl font-bold flex justify-center my-4">Contributions</h2>
-      <ul class="flex flex-wrap justify-between">
+      <h2 class="text-2xl font-bold my-4">Contributions</h2>
+      <ul>
         <li
-          class="max-w-sm rounded overflow-hidden shadow-lg my-4"
+          class="border-gray-400 border-b mb-12"
           v-for="{ node } in $page.contributions.edges"
           :key="node.id"
         >
-          <div class="px-6 py-4">
-            <h3 class="font-bold text-xl mb-2">{{ node.title }}</h3>
-            <p class="text-gray-700 text-base">
-              {{ node.summary }}
-            </p>
-          </div>
-          <div class="max-w-sm px-6 py-2 flex justify-center">
-            <g-link :to="node.path" class="text-sm btn border border-blue-500"
-              >Read More</g-link
-            >
-          </div>
-          <ul class="px-6 py-4 flex flex-wrap justify-center">
+          <h3 class="text-2xl font-bold">{{ node.title }}</h3>
+          <p class="text-gray-700 text-lg mb-4">
+            {{ node.summary }}
+          </p>
+          <h4 class="text-xl my-1">Topics</h4>
+          <ul class="flex flex-wrap">
             <li v-for="(tag, index) in node.tags" :key="index" class="my-2">
               <tag :name="tag" />
             </li>
           </ul>
+          <div class="my-8">
+            <g-link :to="node.path" class="btn border border-blue-500"
+              >Read More</g-link
+            >
+          </div>
         </li>
       </ul>
     </section>
