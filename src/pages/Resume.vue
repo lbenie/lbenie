@@ -21,7 +21,7 @@
           <p class="mb-4 text-lg">{{ node.role }}</p>
           <div class="ml-5">
             <p class="mb-4 leading-5">
-              {{ months(node.from, node.to || Date.now()) }}
+              {{ months(node.from, node.to) }}
             </p>
             <p class="mb-4 leading-5">{{ node.address }}</p>
           </div>
@@ -113,13 +113,13 @@ export default {
   },
   setup(_, { root }) {
     const month = (from, to) =>
-      differenceInMonths(new Date(to), new Date(from)) + 1
+      differenceInMonths(new Date(to || Date.now()), new Date(from)) + 1
     const months = (from, to) => `${month(from, to)} months`
 
     const yearsOfExperience = computed(() =>
       Math.round(
         root.$page.experiences.edges.reduce(
-          (acc, { node: { from, to } }) => acc + month(from, to || Date.now()),
+          (acc, { node: { from, to } }) => acc + month(from, to),
           0,
         ) / 12,
       ),
