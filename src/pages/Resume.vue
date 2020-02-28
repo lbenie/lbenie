@@ -86,7 +86,6 @@
 import Tag from '@/components/Tag.vue'
 import { Pager } from 'gridsome'
 import { differenceInMonths } from 'date-fns'
-import { computed } from '@vue/composition-api'
 
 export default {
   metaInfo() {
@@ -116,16 +115,11 @@ export default {
       differenceInMonths(new Date(to || Date.now()), new Date(from)) + 1
     const months = (from, to) => `${month(from, to)} months`
 
-    const yearsOfExperience = computed(() =>
-      Math.round(
-        (root.$page.experiences &&
-          root.$page.experiences.edges.reduce(
-            (acc, { node: { from, to } }) => acc + month(from, to),
-            0,
-          ) / 12) ||
-          0,
-      ),
-    )
+    const yearsOfExperience =
+      root.$page.experiences.edges.reduce(
+        (acc, { node: { from, to } }) => acc + month(from, to),
+        0,
+      ) / 12
 
     return {
       months,
