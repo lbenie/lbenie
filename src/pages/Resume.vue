@@ -3,7 +3,7 @@
     <section class="container-inner mx-auto py-16" v-if="$page">
       <h1 class="text-4xl font-bold mb-8">My Resume</h1>
       <h2 class="text-3xl font-bold mb-8">
-        I am a veteran of {{ yearsOfExperience }} years in Web Development.
+        I am a veteran of 6 years in Web Development.
       </h2>
       <ul>
         <li
@@ -110,24 +110,13 @@ export default {
     Tag,
     Pager,
   },
-  setup(_, { root }) {
+  setup() {
     const month = (from, to) =>
       differenceInMonths(new Date(to || Date.now()), new Date(from)) + 1
     const months = (from, to) => `${month(from, to)} months`
 
-    const yearsOfExperience =
-      (root.$page &&
-        Math.round(
-          root.$page.experiences.edges.reduce(
-            (acc, { node: { from, to } }) => acc + month(from, to),
-            0,
-          ) / 12,
-        )) ||
-      0
-
     return {
       months,
-      yearsOfExperience,
     }
   },
 }
