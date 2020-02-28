@@ -83,6 +83,7 @@ module.exports = {
     Tag: '/tag/:id',
     ContentfulProject: '/projects/:slug',
     ContentfulContribution: '/contributions/:slug',
+    ContentfulExperience: '/resume/:slug',
   },
 
   // css: {

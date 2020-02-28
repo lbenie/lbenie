@@ -33,11 +33,11 @@
               >Projects</g-link
             >
           </li>
-          <!-- <li class="mr-8 mb-6 lg:mb-0">
+          <li class="mr-8 mb-6 lg:mb-0">
             <g-link class="hover:text-gray-600" to="/resume" v-smooth-scroll
               >Resume</g-link
             >
-          </li> -->
+          </li>
           <li class="mr-8 mb-6 lg:mb-0">
             <g-link class="hover:text-gray-600" to="/blog" v-smooth-scroll
               >Blog</g-link
