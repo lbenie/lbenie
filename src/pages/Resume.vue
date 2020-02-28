@@ -115,11 +115,12 @@ export default {
       differenceInMonths(new Date(to || Date.now()), new Date(from)) + 1
     const months = (from, to) => `${month(from, to)} months`
 
-    const yearsOfExperience =
+    const yearsOfExperience = Math.round(
       root.$page.experiences.edges.reduce(
         (acc, { node: { from, to } }) => acc + month(from, to),
         0,
-      ) / 12
+      ) / 12,
+    )
 
     return {
       months,
