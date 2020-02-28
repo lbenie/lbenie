@@ -118,10 +118,12 @@ export default {
 
     const yearsOfExperience = computed(() =>
       Math.round(
-        root.$page.experiences.edges.reduce(
-          (acc, { node: { from, to } }) => acc + month(from, to),
+        (root.$page.experiences &&
+          root.$page.experiences.edges.reduce(
+            (acc, { node: { from, to } }) => acc + month(from, to),
+            0,
+          ) / 12) ||
           0,
-        ) / 12,
       ),
     )
 
