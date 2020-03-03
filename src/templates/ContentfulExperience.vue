@@ -1,9 +1,32 @@
 <template>
   <Layout>
-    <div class="container-inner mx-auto my-16">
-      <h1 class="text-4xl font-bold leading-tight mb-4">
+    <div
+      class="container-inner mx-auto my-16"
+      v-if="$page && content.length > 20"
+    >
+      <h1 class="text-4xl font-bold leading-tight">
         {{ $page.experience.title }}
       </h1>
+      <div class="text-xl text-gray-600">
+        <span> {{ $page.experience.from }} -&nbsp; </span>
+        <span v-if="$page.experience.to">{{ $page.experience.to }}</span>
+        <span v-else>Present</span>
+      </div>
+      <div class="text-md font-bold text-green-700">
+        {{ $page.experience.role }}
+      </div>
+      <div class="text-md font-bold text-gray-600">
+        {{ $page.experience.address }}
+      </div>
+      <ul class="flex mb-8 text-sm mt-4">
+        <li v-for="stack in $page.experience.stack" :key="stack.id">
+          <tag :name="stack" />
+        </li>
+      </ul>
+      <div class="markdown-body" v-html="content" />
+    </div>
+    <div class="container-inner mx-auto my-16 text-6xl" v-else>
+      Coming soon...
     </div>
   </Layout>
 </template>
@@ -12,11 +35,10 @@
   query Experience($path: String!) {
     experience: contentfulExperience(path: $path) {
       title
-      company
       address
       role
-      from
-      to
+      from(format: "MMMM D, Y")
+      to(format: "MMMM D, Y")
       description
       stack
     }
@@ -24,6 +46,10 @@
 </page-query>
 
 <script>
+import MarkdownIt from 'markdown-it'
+import Tag from '@/components/Tag.vue'
+import { computed } from '@vue/composition-api'
+
 export default {
   metaInfo() {
     const title = this.$page.experience.title
@@ -51,6 +77,17 @@ export default {
           content: `${this.$page.experience.stack},Lucien Bénié,Blog,lbenie,Lucien,Bénié,benie`,
         },
       ],
+    }
+  },
+  components: {
+    Tag,
+  },
+  setup(_, { root }) {
+    const md = new MarkdownIt()
+    const content = computed(() => md.render(root.$page.experience.description))
+
+    return {
+      content,
     }
   },
 }

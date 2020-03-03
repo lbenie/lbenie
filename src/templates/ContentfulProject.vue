@@ -36,6 +36,7 @@
 import Tag from '@/components/Tag.vue'
 import EmbedlyCard from '@/components/EmbedlyCard.vue'
 import MarkdownIt from 'markdown-it'
+import { computed } from '@vue/composition-api'
 
 export default {
   metaInfo() {
@@ -70,12 +71,13 @@ export default {
     Tag,
     EmbedlyCard,
   },
-  computed: {
-    content() {
-      const md = new MarkdownIt()
+  setup(_, { root }) {
+    const md = new MarkdownIt()
+    const content = computed(() => md.render(root.$page.project.description))
 
-      return md.render(this.$page.project.description)
-    },
+    return {
+      content,
+    }
   },
 }
 </script>

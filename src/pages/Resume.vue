@@ -20,9 +20,15 @@
           </h2>
           <p class="mb-4 text-lg">{{ node.role }}</p>
           <div class="ml-5">
-            <p class="mb-4 leading-5">
-              {{ months(node.from, node.to) }}
-            </p>
+            <span class="mb-4 leading-5">
+              <span> {{ node.from }} -</span>
+              <span v-if="node.to">
+                {{ node.to }}
+              </span>
+              <span v-else>
+                Present
+              </span>
+            </span>
             <p class="mb-4 leading-5">{{ node.address }}</p>
           </div>
           <h4 class="text-xl my-1">Technology stack</h4>
@@ -31,14 +37,14 @@
               <tag :name="tag" />
             </li>
           </ul>
-          <div class="text-lg mb-8">
+          <p class="text-lg mb-8">
             {{ node.excerpt }}
-          </div>
-          <!-- <div class="mb-8">
+          </p>
+          <div class="mb-8">
             <g-link :to="node.path" class="btn border border-blue-500"
               >Read More</g-link
             >
-          </div> -->
+          </div>
         </li>
       </ul>
       <pager
@@ -71,8 +77,8 @@
           company
           address
           role
-          from
-          to
+          from(format: "MMMM D, Y")
+          to(format: "MMMM D, Y")
           description
           stack
           path
@@ -85,7 +91,6 @@
 <script>
 import Tag from '@/components/Tag.vue'
 import { Pager } from 'gridsome'
-import { differenceInMonths } from 'date-fns'
 
 export default {
   metaInfo() {
@@ -109,15 +114,6 @@ export default {
   components: {
     Tag,
     Pager,
-  },
-  setup() {
-    const month = (from, to) =>
-      differenceInMonths(new Date(to || Date.now()), new Date(from)) + 1
-    const months = (from, to) => `${month(from, to)} months`
-
-    return {
-      months,
-    }
   },
 }
 </script>
