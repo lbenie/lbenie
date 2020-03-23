@@ -48,7 +48,6 @@
 <script>
 import MarkdownIt from 'markdown-it'
 import Tag from '@/components/Tag.vue'
-import { computed } from '@vue/composition-api'
 
 export default {
   metaInfo() {
@@ -82,13 +81,11 @@ export default {
   components: {
     Tag,
   },
-  setup(_, { root }) {
-    const md = new MarkdownIt()
-    const content = computed(() => md.render(root.$page.experience.description))
-
-    return {
-      content,
-    }
+  computed: {
+    content() {
+      const md = new MarkdownIt()
+      return md.render(this.$page.experience.description)
+    },
   },
 }
 </script>
