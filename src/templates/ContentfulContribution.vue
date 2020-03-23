@@ -76,7 +76,7 @@ export default {
   computed: {
     content() {
       const md = new MarkdownIt()
-      return root.$page.contribution.description
+      return md.render(this.$page.contribution.description)
     },
   },
 }
