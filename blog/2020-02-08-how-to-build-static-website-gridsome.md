@@ -1,5 +1,5 @@
 ---
-title: 'How To Build a static Website with Contentful and Gridsome'
+title: 'How To Build a Static Website With Contentful and Gridsome'
 slug: 'how-to-build-a-static-website-with-contentful-and-gridsome'
 tags: ['Gridsome', 'Vue.js', 'Contentful', 'GraphQl']
 excerpt: 'How to get started with Contentful and Gridsome. Requires a base knowledge of Vue.js and some coding background.'
