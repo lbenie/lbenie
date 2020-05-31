@@ -21,7 +21,7 @@
     "gridsome-plugin-robots-txt": "^1.0.2",
     "gridsome-plugin-tailwindcss": "^2.2.48",
     "markdown-it": "^11.0.0",
-    "snyk": "^1.316.1",
+    "snyk": "^1.333.0",
     "vue-disqus": "^3.0.5",
     "vue-smooth-scroll": "^1.0.13"
   },

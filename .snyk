@@ -48,3 +48,5 @@ patch:
         patched: '2020-05-01T04:26:05.288Z'
     - gridsome > @vue/babel-preset-app > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
         patched: '2020-05-01T04:26:05.288Z'
+    - '@gridsome/transformer-remark > sanitize-html > lodash':
+        patched: '2020-05-31T19:24:45.913Z'
