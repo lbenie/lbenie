@@ -12,7 +12,7 @@ import './css/main.css'
 import './styl/main.styl'
 import './styl/markdown.styl'
 
-export default function(Vue, { router, head, isClient }) {
+export default function (Vue, { router, head, isClient }) {
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout)
   Vue.use(VueCompositionApi)
@@ -79,5 +79,5 @@ export default function(Vue, { router, head, isClient }) {
     charset: 'UTF-8',
   })
 
-  head.htmlAttrs = { lang: 'en_CA' }
+  head.htmlAttrs = { lang: 'en' }
 }
