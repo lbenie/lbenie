@@ -3,11 +3,11 @@
   command = "gridsome build"
 
 [[plugins]]
-  package = "netlify-plugin-submit-sitemap"
-    [plugins.inputs]
-      providers = [
-        "google",
-        "bing"
-      ]
-
-  package = "netlify-plugin-a11y"
+package = "netlify-plugin-submit-sitemap"
+  [plugins.inputs]
+    providers = [
+      "google",
+      "bing"
+    ]
+[[plugins]]
+package = "netlify-plugin-a11y"
