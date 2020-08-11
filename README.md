@@ -1,14 +1,8 @@
-# Default starter for Gridsome
+# Hi, I'm Lucien 👋🏾
 
-This is the project you get when you run `gridsome create new-project`.
+I'm a Senior Software Developer Engineer based in Québec City, Québec, Canada. I've started doing web development back in 2014. I've had the opportunity to work with modern frameworks like angular.js, angular, react & vue.js. Also, I'm a proud father of a 2-year-old. I like watching movies, sports and listening to music. In my spare time, I like having a great time with my family and friends.
 
-### 1. Install Gridsome CLI tool if you don't have
+## Find me around the web 🌎:
 
-`npm install --global @gridsome/cli`
-
-### 2. Create a Gridsome project
-
-1. `gridsome create my-gridsome-site` to install default starter
-2. `cd my-gridsome-site` to open the folder
-3. `gridsome develop` to start a local dev server at `http://localhost:8080`
-4. Happy coding 🎉🙌
+- Personal website <a href="https://lbenie.xyz">lbene.xyz</a>
+- Network with me on <a href="https://www.linkedin.com/in/lbenie/">LinkedIn</a> 💼
