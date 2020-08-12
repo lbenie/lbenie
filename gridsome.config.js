@@ -74,11 +74,11 @@ module.exports = {
           output: '/feed.xml',
         },
         atom: {
-          enabled: true,
+          enabled: false,
           output: '/feed.atom',
         },
         json: {
-          enabled: true,
+          enabled: false,
           output: '/feed.json',
         },
         maxItems: 25,
