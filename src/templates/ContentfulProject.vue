@@ -21,15 +21,15 @@
 </template>
 
 <page-query>
-  query Project($path: String!) {
-    project: contentfulProject(path: $path) {
-      title
-      url
-      description
-      funFact
-      tags
-    }
+query Project($path: String!) {
+  project: contentfulProject(path: $path) {
+    title
+    url
+    description
+    funFact
+    tags
   }
+}
 </page-query>
 
 <script>

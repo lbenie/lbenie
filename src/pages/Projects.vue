@@ -2,7 +2,7 @@
   <Layout>
     <section class="container-inner mx-auto py-16" v-if="$page">
       <h1 class="text-4xl font-bold">My Projects and Contributions</h1>
-      <h2 class="text-3xl font-bold  my-4">Projects</h2>
+      <h2 class="text-3xl font-bold my-4">Projects</h2>
       <ul>
         <li
           class="border-gray-400 border-b mb-12"
@@ -62,44 +62,44 @@
 </template>
 
 <page-query>
-  query Projects($page: Int) {
-    projects: allContentfulProject(
-      sortBy: "date"
-      order: DESC
-      perPage: 6
-      page: $page
-    ) @paginate {
-      pageInfo {
-        totalPages
-        currentPage
-      }
-      edges {
-        node {
-          id
-          title
-          slug
-          url
-          summary
-          tags
-          path
-        }
-      }
+query Projects($page: Int) {
+  projects: allContentfulProject(
+    sortBy: "date"
+    order: DESC
+    perPage: 6
+    page: $page
+  ) @paginate {
+    pageInfo {
+      totalPages
+      currentPage
     }
-    contributions: allContentfulContribution(sortBy: "date", order: DESC) {
-      edges {
-        node {
-          id
-          title
-          slug
-          url
-          summary
-          tags
-          description
-          path
-        }
+    edges {
+      node {
+        id
+        title
+        slug
+        url
+        summary
+        tags
+        path
       }
     }
   }
+  contributions: allContentfulContribution(sortBy: "date", order: DESC) {
+    edges {
+      node {
+        id
+        title
+        slug
+        url
+        summary
+        tags
+        description
+        path
+      }
+    }
+  }
+}
 </page-query>
 
 <script>

@@ -26,19 +26,19 @@
 </template>
 
 <page-query>
-  query Post($path: String!) {
-    post: post(path: $path) {
+query Post($path: String!) {
+  post: post(path: $path) {
+    title
+    date(format: "MMMM D, Y")
+    content
+    timeToRead
+    excerpt
+    tags {
       title
-      date(format: "MMMM D, Y")
-      content
-      timeToRead
-      excerpt
-      tags {
-        title
-        path
-      }
+      path
     }
   }
+}
 </page-query>
 
 <script>

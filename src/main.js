@@ -12,6 +12,7 @@ import './css/main.css'
 import './styl/main.styl'
 import './styl/markdown.styl'
 
+// eslint-disable-next-line no-unused-vars
 export default function (Vue, { router, head, isClient }) {
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout)

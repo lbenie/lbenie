@@ -24,15 +24,15 @@
 </template>
 
 <page-query>
-  query Contribution($path: String!) {
-    contribution: contentfulContribution(path: $path) {
-      title
-      url
-      description
-      funFact
-      tags
-    }
+query Contribution($path: String!) {
+  contribution: contentfulContribution(path: $path) {
+    title
+    url
+    description
+    funFact
+    tags
   }
+}
 </page-query>
 
 <script>

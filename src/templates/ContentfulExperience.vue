@@ -32,17 +32,17 @@
 </template>
 
 <page-query>
-  query Experience($path: String!) {
-    experience: contentfulExperience(path: $path) {
-      title
-      address
-      role
-      from(format: "MMMM D, Y")
-      to(format: "MMMM D, Y")
-      description
-      stack
-    }
+query Experience($path: String!) {
+  experience: contentfulExperience(path: $path) {
+    title
+    address
+    role
+    from(format: "MMMM D, Y")
+    to(format: "MMMM D, Y")
+    description
+    stack
   }
+}
 </page-query>
 
 <script>

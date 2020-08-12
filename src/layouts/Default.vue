@@ -158,18 +158,18 @@
 </template>
 
 <static-query>
-  query {
-    socials: allContentfulSocialLinks {
-      edges {
-        node {
-          id
-          title
-          uri
-          icon
-        }
+query {
+  socials: allContentfulSocialLinks {
+    edges {
+      node {
+        id
+        title
+        uri
+        icon
       }
     }
   }
+}
 </static-query>
 
 <script>

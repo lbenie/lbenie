@@ -58,6 +58,49 @@ module.exports = {
         shouldPurge: false,
       },
     },
+    {
+      use: 'gridsome-plugin-feed',
+      options: {
+        // Required: array of `GraphQL` type names you wish to include
+        contentTypes: ['Post'],
+        // Optional: any properties you wish to set for `Feed()` constructor
+        // See https://www.npmjs.com/package/feed#example for available properties
+        feedOptions: {
+          title: `Lucien Bénié's Blog Feed`,
+          description: 'Personal blog',
+        },
+        rss: {
+          enabled: true,
+          output: '/feed.xml',
+        },
+        atom: {
+          enabled: true,
+          output: '/feed.atom',
+        },
+        json: {
+          enabled: true,
+          output: '/feed.json',
+        },
+        maxItems: 25,
+        // Optional: an array of properties passed to `Feed.addItem()` that will be parsed for
+        // URLs in HTML (ensures that URLs are full `http` URLs rather than site-relative).
+        // To disable this functionality, set to `null`.
+        htmlFields: ['description', 'content'],
+        // Optional: if you wish to enforce trailing slashes for site URLs
+        enforceTrailingSlashes: false,
+        // Optional: a method that accepts a node and returns true (include) or false (exclude)
+        // Example: only past-dated nodes: `filterNodes: (node) => node.date <= new Date()`
+        filterNodes: () => true,
+        // Optional: a method that accepts a node and returns an object for `Feed.addItem()`
+        // See https://www.npmjs.com/package/feed#example for available properties
+        // NOTE: `date` field MUST be a Javascript `Date` object
+        nodeToFeedItem: ({ title, date, fields, content }) => ({
+          title: title,
+          date: date || fields.date,
+          content: content,
+        }),
+      },
+    },
   ],
 
   transformers: {

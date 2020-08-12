@@ -6,7 +6,8 @@
     "develop": "gridsome develop",
     "explore": "gridsome explore",
     "snyk-protect": "snyk protect",
-    "prepare": "yarn run snyk-protect"
+    "prepare": "yarn run snyk-protect",
+    "lint:fix": "eslint . --fix --ext .js,.vue"
   },
   "dependencies": {
     "@gridsome/plugin-google-analytics": "^0.1.1",
@@ -17,6 +18,7 @@
     "@vue/composition-api": "^1.0.0-beta.9",
     "date-fns": "^2.15.0",
     "gridsome": "^0.7.19",
+    "gridsome-plugin-feed": "^1.0.2",
     "gridsome-plugin-remark-prismjs-all": "^0.3.5",
     "gridsome-plugin-robots-txt": "^1.0.2",
     "gridsome-plugin-tailwindcss": "^3.0.1",
@@ -32,6 +34,8 @@
     "eslint-plugin-gridsome": "^1.5.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^6.2.2",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
     "prettier-eslint": "^11.0.0",
     "stylus": "^0.54.8",

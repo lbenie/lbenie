@@ -58,34 +58,34 @@
 </template>
 
 <page-query>
-  query Experiences($page: Int) {
-    experiences: allContentfulExperience(
-      sortBy: "from"
-      order: DESC
-      perPage: 6
-      page: $page
-    ) @paginate {
-      totalCount
-      pageInfo {
-        totalPages
-        currentPage
-      }
-      edges {
-        node {
-          id
-          title
-          company
-          address
-          role
-          from(format: "MMMM D, Y")
-          to(format: "MMMM D, Y")
-          description
-          stack
-          path
-        }
+query Experiences($page: Int) {
+  experiences: allContentfulExperience(
+    sortBy: "from"
+    order: DESC
+    perPage: 6
+    page: $page
+  ) @paginate {
+    totalCount
+    pageInfo {
+      totalPages
+      currentPage
+    }
+    edges {
+      node {
+        id
+        title
+        company
+        address
+        role
+        from(format: "MMMM D, Y")
+        to(format: "MMMM D, Y")
+        description
+        stack
+        path
       }
     }
   }
+}
 </page-query>
 
 <script>

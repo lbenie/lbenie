@@ -36,26 +36,26 @@
 </template>
 
 <page-query>
-  query Posts($page: Int) {
-    posts: allPost(sortBy: "date", order: DESC, perPage: 3, page: $page)
-      @paginate {
-      totalCount
-      pageInfo {
-        totalPages
-        currentPage
-      }
-      edges {
-        node {
-          id
-          title
-          timeToRead
-          excerpt
-          path
-          date(format: "MMMM D, Y")
-        }
+query Posts($page: Int) {
+  posts: allPost(sortBy: "date", order: DESC, perPage: 3, page: $page)
+    @paginate {
+    totalCount
+    pageInfo {
+      totalPages
+      currentPage
+    }
+    edges {
+      node {
+        id
+        title
+        timeToRead
+        excerpt
+        path
+        date(format: "MMMM D, Y")
       }
     }
   }
+}
 </page-query>
 
 <script>
