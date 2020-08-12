@@ -54,9 +54,6 @@ module.exports = {
     },
     {
       use: 'gridsome-plugin-tailwindcss',
-      options: {
-        shouldPurge: false,
-      },
     },
     {
       use: 'gridsome-plugin-feed',
