@@ -1,5 +1,5 @@
 <template>
-  <div
+  <main
     class="bg-background-primary font-sans leading-normal flex flex-col min-h-screen"
   >
     <header>
@@ -154,7 +154,7 @@
         </ul>
       </div>
     </footer>
-  </div>
+  </main>
 </template>
 
 <static-query>
