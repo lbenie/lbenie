@@ -4,5 +4,5 @@ I'm a Senior Software Developer Engineer based in Québec City, Québec, Canada.
 
 ## Find me around the web 🌎:
 
-- Personal website <a href="https://lbenie.xyz">lbene.xyz</a>
+- Personal website <a href="https://lbenie.xyz">lbenie.xyz</a>
 - Network with me on <a href="https://www.linkedin.com/in/lbenie/">LinkedIn</a> 💼
