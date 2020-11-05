@@ -14,7 +14,7 @@
     "@gridsome/plugin-sitemap": "^0.4.0",
     "@gridsome/source-contentful": "^0.5.3",
     "@gridsome/source-filesystem": "^0.6.2",
-    "@gridsome/transformer-remark": "^0.6.1",
+    "@gridsome/transformer-remark": "^0.6.2",
     "@vue/composition-api": "^1.0.0-beta.9",
     "date-fns": "^2.15.0",
     "gridsome": "^0.7.19",
