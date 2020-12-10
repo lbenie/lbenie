@@ -3,7 +3,7 @@
     <section class="container-inner mx-auto py-16" v-if="$page">
       <h1 class="text-4xl font-bold mb-8">My Resume</h1>
       <h2 class="text-3xl font-bold mb-8">
-        I am a veteran of 6 years in Web Development.
+        I am a veteran of {{ yoe }} years in Web Development.
       </h2>
       <ul>
         <li
@@ -25,9 +25,7 @@
               <span v-if="node.to">
                 {{ node.to }}
               </span>
-              <span v-else>
-                Present
-              </span>
+              <span v-else> Present </span>
             </span>
             <p class="mb-4 leading-5">{{ node.address }}</p>
           </div>
@@ -114,6 +112,11 @@ export default {
   components: {
     Tag,
     Pager,
+  },
+  computed: {
+    yoe() {
+      return new Date().getFullYear() - 2014
+    },
   },
 }
 </script>

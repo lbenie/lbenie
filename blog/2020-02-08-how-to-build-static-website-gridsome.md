@@ -6,7 +6,7 @@ excerpt: 'How to get started with Contentful and Gridsome. Requires a base knowl
 date: 2020-02-08
 ---
 
-I never took the time to properly build my website even though I am a Senior Software Developer Engineer. I started to look at some technologies in 2018 and 2019, I found some amazing projects (nuxt, vuepress, etc...) but I never did finish my personal website.
+I never took the time to properly build my website even though I am a Senior Software Developer. I started to look at some technologies in 2018 and 2019, I found some amazing projects (nuxt, vuepress, etc...) but I never did finish my personal website.
 
 That trend came to an end when I found Gridsome. It has everything I was looking for. It's BYOD (bring your data), uses a single source of truth (GraphQL) and powered by `Vue.js`. Of course, it has more features, check them out at [gridsome.org](https://gridsome.org/).
 
@@ -118,9 +118,7 @@ We officially have linked our data to our static website. We can now build a pag
             <span> &middot; </span>
             <span>{{ node.timeToRead }} min read</span>
           </div>
-          <div>
-            {{ node.excerpt }}
-          </div>
+          <div>{{ node.excerpt }}</div>
           <div>
             <g-link :to="node.path">Read More</g-link>
           </div>
