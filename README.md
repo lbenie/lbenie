@@ -1,6 +1,20 @@
-# Hi, I'm Lucien 👋🏾
+### Hi 👋🏾
 
-I'm a Senior Software Developer based in Québec City, Québec, Canada. I've started doing web development back in 2014. I've had the opportunity to work with modern frameworks like angular.js, angular, react & vue.js. Also, I'm a proud father of a 2-year-old. I like watching movies, sports and listening to music. In my spare time, I like having a great time with my family and friends.
+#### My name is Lucen, and I'm a Senior Developer and Tech Lead @LogMeIn
+
+I am a guy who just loves coding and learning new stuff about the web
+
+I have worked with `vue.js`, `react` and `angular`. Recently, I am mostly working with `Web Components`.
+
+I am currently working on a micro-frontend architecture for our [GoTo](https://www.goto.com/) application.
+
+P.S. I love a11y too!
+
+<hr />
+
+![lbenie's github stats](https://github-readme-stats.vercel.app/api?username=lbenie&theme=dracula&count_private=true&show_icons=true)
+<br />
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=lbenie&theme=dracula)
 
 ## Find me around the web 🌎:
 
