@@ -3,7 +3,6 @@ module.exports = {
     'plugin:vue/essential',
     'eslint:recommended',
     'prettier',
-    'prettier/vue',
     'plugin:gridsome/recommended',
   ],
   plugins: ['prettier', 'vue', 'gridsome'],
