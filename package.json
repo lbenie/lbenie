@@ -17,7 +17,7 @@
     "vue-smooth-scroll": "^1.0.13"
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^4.0.3",
+    "@fullhuman/postcss-purgecss": "3.0.0",
     "@gridsome/plugin-google-analytics": "^0.1.2",
     "@gridsome/plugin-sitemap": "^0.4.0",
     "@gridsome/source-contentful": "^0.6.0",
