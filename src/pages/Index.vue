@@ -11,7 +11,7 @@
             I've had the opportunity to work with modern frameworks like
             <strong>angular.js</strong>, <strong>angular</strong>,
             <strong>react</strong> &amp; <strong>vue.js</strong>. Also, I'm a
-            proud father of a 2-year-old. I like watching movies, sports and
+            proud father of 2 children. I like watching movies, sports and
             listening to music. In my spare time, I like having a great time
             with my family and friends.
           </p>
