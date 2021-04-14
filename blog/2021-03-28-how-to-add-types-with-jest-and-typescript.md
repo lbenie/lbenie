@@ -108,26 +108,29 @@ This package abstracts away a custom type and a utility function that we can use
 
 #### Example with ts-jest-mock
 
-```ts{2-3,8-12,14}
+```ts{2,6,11,16}
 import { myAwesomeFn } from './my-awesome-module'
-import type { JestMock } from 'ts-jest-mock'
 import { createMock } from 'ts-jest-mock'
 
 jest.mock('./my-awesome-module')
 
+const myAwesomeFnMock = createMock(myAwesomeFn)
+
 describe('my awesome describe', () => {
-  let myAwesomeFnMock: JestMock<typeof myAwesomeFn>
   beforeEach(() => {
-    myAwesomeFnMock = createMock(myAwesomeFn)
+    // Type error, TypeScript will complain that we are passing a string instead of a number
+    myAwesomeFnMock.mockReturnValue('myAwesomeReturn')
   })
 
   it('should assert something cool', () => {
-    myAwesomeFn.mockReturnValue('myAwesomeReturn')
+    // won't get executed because of compiler error
+    expect(myAwesomeFnMock()).toBe('myAwesomeReturn')
   })
 })
 ```
 
-First on lines `2-3` we import the typings and the utility function from `ts-jest-mock`. Then on lines `8-12` we use the `beforeEach` pattern to properly create and infer our mock with the actual return type from our mocked module. Finally, the line `14` won't compile because we are trying to return a `string` but the actual return type is a `number` if you circle back when we defined this function [here](#the-problem).
+First on line `2` we import the utility function from `ts-jest-mock`. Then on line `11` we use the `beforeEach` pattern to properly create and infer our mock with the actual return type from our mocked module.
+Since it properly infered the arguments and return types expected, line `11` will get a compiler error because we are trying to return a `string` but the actual return type is a `number` if you circle back when we defined this function [here](#the-problem). Finally, line `16` won't get executed at jest will exit with an error code.
 
 ## Conclusion
 
