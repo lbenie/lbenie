@@ -130,7 +130,7 @@ describe('my awesome describe', () => {
 ```
 
 First on line `2` we import the utility function from `ts-jest-mock`. Then on line `11` we use the `beforeEach` pattern to properly create and infer our mock with the actual return type from our mocked module.
-Since it properly infered the arguments and return types expected, line `11` will get a compiler error because we are trying to return a `string` but the actual return type is a `number` if you circle back when we defined this function [here](#the-problem). Finally, line `16` won't get executed at jest will exit with an error code.
+Since it properly infered the arguments and return types expected, line `11` will get a compiler error because we are trying to return a `string` but the actual return type is a `number` if you circle back when we defined this function [here](#the-problem). Finally, line `16` won't get executed at all and jest will exit with an error code.
 
 ## Conclusion
 
