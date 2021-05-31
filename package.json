@@ -34,7 +34,7 @@
     "gridsome-plugin-remark-prismjs-all": "0.4.8",
     "gridsome-plugin-robots-txt": "1.0.2",
     "husky": "6.0.0",
-    "lint-staged": "10.5.4",
+    "lint-staged": "11.0.0",
     "netlify-plugin-a11y": "0.0.12",
     "netlify-plugin-submit-sitemap": "0.2.3",
     "postcss": "8.3.0",
