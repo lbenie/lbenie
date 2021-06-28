@@ -1,6 +1,6 @@
 ### Hi 👋🏾
 
-#### My name is Lucien, and I'm a Senior Developer and Tech Lead @LogMeIn
+#### My name is Lucien, and I'm a Senior Software Developer @Shopify
 
 I am a guy who just loves coding and learning new stuff about the web
 
