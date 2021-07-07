@@ -6,7 +6,7 @@ I am a guy who just loves coding and learning new stuff about the web
 
 I have worked with `vue.js`, `react` and `angular`. Recently, I am mostly working with `Web Components`.
 
-I am currently working on a micro-frontend architecture for our [GoTo](https://www.goto.com/) application.
+I am currently working on a Shopify's admin portal.
 
 P.S. I love a11y too!
 
