@@ -4,9 +4,13 @@
 
 I am a guy who just loves coding and learning new stuff about the web
 
-I have worked with `vue.js`, `react` and `angular`. Recently, I am mostly working with `Web Components`.
+Frontend technologies I worked with
+- React
+- Angular
+- Vue
+- Web Components
 
-I am currently working on a Shopify's admin portal.
+I am currently working on Shopify's admin portal.
 
 P.S. I love a11y too!
 
