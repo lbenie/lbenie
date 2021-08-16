@@ -45,7 +45,7 @@
     "snyk": "1.683.0",
     "stylus": "0.54.8",
     "stylus-loader": "3.0.2",
-    "tailwindcss": "2.2.4"
+    "tailwindcss": "2.2.7"
   },
   "snyk": true
 }
