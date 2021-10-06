@@ -10,7 +10,7 @@
     "lint:fix": "eslint . --fix --ext .js,.vue"
   },
   "dependencies": {
-    "date-fns": "2.24.0",
+    "date-fns": "2.25.0",
     "gridsome": "0.7.23",
     "markdown-it": "12.2.0",
     "vue-disqus": "4.0.1",
