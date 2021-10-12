@@ -44,7 +44,7 @@
     "prettier-eslint": "13.0.0",
     "snyk": "1.733.0",
     "stylus": "0.55.0",
-    "stylus-loader": "3.0.2",
+    "stylus-loader": "6.2.0",
     "tailwindcss": "2.2.16"
   },
   "snyk": true
