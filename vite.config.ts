@@ -11,9 +11,6 @@ export default defineConfig({
       external: /^lit/,
     },
   },
-  server: {
-    open: true,
-  },
   // @ts-expect-error: "normal"
   plugins: [{ ...postcssLit(), enforce: 'post' }],
 })

@@ -1,8 +1,8 @@
 import { html, LitElement } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 import styles from './entry.styl'
-import './components/link'
-import { attachRouter } from './router'
+import { attachRouter, router } from './router'
+import './components'
 
 const name = 'my-app'
 
@@ -20,9 +20,8 @@ export class MyElement extends LitElement {
   render() {
     return html`
       <header>
-        <nav>
-          <!-- <app-link name="home"></app-link> -->
-        </nav>
+        <a href=${router.urlForName('home')}>Lucien Bénié</a>
+        <app-navigation></app-navigation>
       </header>
       <main role="main"></main>
     `

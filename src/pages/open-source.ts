@@ -1,17 +1,19 @@
 import { LitElement } from 'lit'
 import { html } from 'lit-html'
 import { customElement } from 'lit/decorators.js'
+import '../components/navigation/navigation'
 
-const name = 'page-home'
+const name = 'page-open-source'
+
 @customElement(name)
-export class PageHome extends LitElement {
+export class PageOpenSource extends LitElement {
   render() {
-    return html`<h1>Home</h1>`
+    return html`<h1>Open Source</h1>`
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    readonly [name]: PageHome
+    readonly [name]: PageOpenSource
   }
 }

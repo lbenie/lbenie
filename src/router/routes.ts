@@ -10,11 +10,35 @@ export const routes: ReadonlyArray<Route> = [
     },
   },
   {
-    path: '/project',
-    name: 'project',
-    component: 'page-project',
+    path: '/projects',
+    name: 'projects',
+    component: 'page-projects',
     action: async () => {
-      await import('../pages/project')
+      await import('../pages/projects')
+    },
+  },
+  {
+    path: '/work',
+    name: 'work',
+    component: 'page-work',
+    action: async () => {
+      await import('../pages/work')
+    },
+  },
+  {
+    path: '/open-source',
+    name: 'open-source',
+    component: 'page-open-source',
+    action: async () => {
+      await import('../pages/open-source')
+    },
+  },
+  {
+    path: '/resume',
+    name: 'resume',
+    component: 'page-resume',
+    action: async () => {
+      await import('../pages/resume')
     },
   },
   {
