@@ -2,3 +2,4 @@
 import './navigation/navigation'
 import './page-link/page-link'
 import './embely-card/embely-card'
+import './sidebar/sidebar'

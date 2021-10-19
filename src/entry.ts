@@ -23,6 +23,7 @@ export class MyElement extends LitElement {
         <a href=${router.urlForName('home')}>Lucien Bénié</a>
         <app-navigation></app-navigation>
       </header>
+      <app-sidebar></app-sidebar>
       <main role="main"></main>
     `
   }

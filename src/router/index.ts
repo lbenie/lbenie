@@ -19,9 +19,9 @@ export const attachRouter = (outlet: HTMLElement) => router.setOutlet(outlet)
 
 export const isRouteActive = (name: string) => {
   const url = router.urlForPath(name)
+  const location = router.location.getUrl()
 
   return (
-    (url === 'home' && router.location.getUrl() === '') ||
-    url === router.location.getUrl().replace('/', '')
+    (url === 'home' && location === '') || url === location.replace('/', '')
   )
 }

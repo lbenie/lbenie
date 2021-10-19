@@ -10,15 +10,21 @@ const name = 'page-link'
 export class PageLink extends LitElement {
   static readonly styles = styles
 
-  constructor() {
-    super()
-
-    window.addEventListener('vaadin-router-location-changed', () => {
-      this.requestUpdate()
-    })
-  }
   @property({ type: String })
   readonly name = ''
+
+  private readonly eventHandler = () => this.requestUpdate()
+  private readonly eventName = 'vaadin-router-location-changed'
+
+  connectedCallback() {
+    super.connectedCallback()
+    window.addEventListener(this.eventName, this.eventHandler)
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener(this.eventName, this.eventHandler)
+    super.disconnectedCallback()
+  }
 
   render() {
     return html`
@@ -26,6 +32,7 @@ export class PageLink extends LitElement {
         href=${router.urlForName(this.name)}
         rel="noreferrer noopener"
         ?active=${isRouteActive(this.name)}
+        class="link"
         >${this.name}
       </a>
     `
