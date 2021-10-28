@@ -1,28 +1,27 @@
 {
   "compilerOptions": {
-    "module": "esnext",
-    "lib": ["es2021", "dom", "dom.iterable"],
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "outDir": "./types",
-    "rootDir": ".",
+    "baseUrl": ".",
+    "module": "ESNext",
+    "target": "ES2019",
+    "lib": ["DOM", "ESNext"],
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "incremental": false,
+    "skipLibCheck": true,
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
-    "useDefineForClassFields": false
+    "types": [
+      "vite/client",
+      "vite-plugin-pages/client",
+      "vite-plugin-vue-layouts/client"
+    ],
+    "paths": {
+      "~/*": ["src/*"]
+    }
   },
-  "include": [
-    "src/**/*.ts",
-    "vite.config.ts",
-    ".eslintrc.js",
-    "global.d.ts",
-    "env.d.ts"
-  ],
-  "exclude": ["node_modules"]
+  "include": ["src", "vite.config.ts", ".eslintrc.js"],
+  "exclude": ["dist", "node_modules"]
 }
