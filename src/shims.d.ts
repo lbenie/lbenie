@@ -10,6 +10,4 @@ declare module '*.md' {
   export default component
 }
 
-declare module "*.vue" {
-
-}
+declare module '*.vue' {}

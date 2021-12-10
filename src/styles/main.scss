@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  background-color: var(--oxford-blue);
+}
+
+:root {
+  --richard-black: #000814;
+  --magic-mint: #aef6c7;
+  --dark-sky-blue: #93b7be;
+  --opal: #b3ccd0;
+  --gainsboro: #d9e5e8;
+  --turquoise-green: #afe3c0;
+  --oxford-blue: #001d3d;
+  --prussian-blue: #003566;
+  --beige: #e6eed6;
+  --cultured: #f2f4f3;
+
+  --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
