@@ -5,8 +5,8 @@ const messages = Object.fromEntries(
   Object.entries(import.meta.globEager('../../i18n/*.y(a)?ml')).map(
     ([key, value]) => [
       key
-        .substr(0, key.lastIndexOf('.'))
-        .substr(key.lastIndexOf('/') + 1, key.length),
+        .substring(0, key.lastIndexOf('.'))
+        .substring(key.lastIndexOf('/') + 1, key.length),
       value.default,
     ],
   ),

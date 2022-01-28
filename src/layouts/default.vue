@@ -1,52 +1,30 @@
-<script setup lang="ts">
-import { useRoute } from 'vue-router'
-import { watch, nextTick } from 'vue'
-
-const route = useRoute()
-
-nextTick(() => {
-  watch(
-    () => route.name,
-    () => {
-      document
-        .querySelector('.content')
-        ?.querySelectorAll('a')
-        .forEach((anchor) => {
-          anchor.target = '_blank'
-          anchor.rel = 'noreferrer noopener'
-        })
-    },
-    {
-      immediate: true,
-    },
-  )
-})
-</script>
-
 <template>
-  <main>
+  <main class="h-screen grid">
     <Sidebar class="sidebar" />
 
     <Navbar class="navbar" />
 
-    <div class="content">
-      <transition name="fade">
-        <router-view />
-      </transition>
+    <div class="content p-4">
+      <router-view v-slot="{ Component }">
+        <transition name="fade">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </div>
+
+    <Footer class="footer" />
   </main>
 </template>
 
 <style lang="scss" scoped>
 main {
-  height: 100vh;
-  display: grid;
   grid-template-columns: 0.5fr 3fr 0;
   grid-template-rows: 2fr 3fr 0;
   grid-template-areas:
     'header header header'
     'sidebar content content'
-    'sidebar content content';
+    'sidebar content content'
+    'footer footer footer';
 }
 
 .sidebar {
@@ -57,8 +35,11 @@ main {
   grid-area: header;
 }
 
+.footer {
+  grid-area: footer;
+}
+
 .content {
-  padding: 1rem;
   color: var(--gainsboro);
   grid-area: content;
 }

@@ -25,6 +25,7 @@ export default defineConfig({
     }),
     Pages({
       extensions: ['vue', 'md'],
+      importMode: 'async',
     }),
     Layouts(),
     AutoImport({

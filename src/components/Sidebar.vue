@@ -1,54 +1,36 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-import { socialStore } from '~/stores/social'
+import { useContentful } from '~/hooks'
+import type { SocialCollection } from '~/models'
 
-const social = socialStore()
-const { items } = storeToRefs(social)
-
-onMounted(() => {
-  social.getSocialItems()
-})
-</script>
-
-<template>
-  <ul>
-    <li v-for="({ title, uri }, index) in items" :key="index">
-      <a :href="uri" rel="noreferrer" target="_blank">{{ title }}</a>
-    </li>
-  </ul>
-</template>
-
-<style lang="scss" scoped>
-ul {
-  padding: 0;
-  list-style: none;
-  display: inline-flex;
-  flex-direction: column;
-  align-self: flex-end;
-  align-items: center;
-  justify-content: center;
-
-  &::after {
-    content: '';
-    display: block;
-    width: 1px;
-    height: 90px;
-    margin: 0 auto;
-    background-color: var(--gainsboro);
-    margin-top: 1rem;
-  }
-
-  li {
-    margin: auto 2px;
-
-    a {
-      text-decoration: none;
-      color: var(--opal);
-
-      &:visited {
-        color: var(--opal);
+const query = `
+  {
+    socialCollection {
+      items {
+        title
+        uri
+        icon
       }
     }
   }
-}
-</style>
+`
+const { data } = useContentful<SocialCollection>(query)
+</script>
+
+<template>
+  <ul
+    class="p-0 list-none inline-flex flex-col self-end items-center justify-center after:content-[''] after:block after:w-[1px] after:h-24 after:my-0 after:mx-auto after:bg-white"
+  >
+    <li
+      v-for="({ title, uri }, index) in data?.items"
+      :key="index"
+      class="m-auto"
+    >
+      <Link
+        :href="uri"
+        :label="title"
+        is-external
+        class="no-underline text-white"
+      />
+    </li>
+  </ul>
+</template>
