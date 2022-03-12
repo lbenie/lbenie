@@ -14,20 +14,13 @@ const query = `
 `
 
 const { data } = useContentful<NavigationCollection>(query)
-
-const resume = computed(() =>
-  data.value?.items?.find(({ name }) => name === 'resume'),
-)
-const itemsNoResume = computed(() =>
-  data.value?.items?.filter(({ name }) => name !== 'resume'),
-)
 </script>
 
 <template>
-  <nav class="flex flex-row self-start justify-end">
-    <ol class="p-0 inline-flex list-none text-[#fff]">
+  <nav class="flex flex-col self-start justify-end">
+    <ol class="p-0 inline-flex flex-col list-none text-[#fff]">
       <li
-        v-for="({ name, slug }, index) in itemsNoResume"
+        v-for="({ name, slug }, index) in data?.items"
         :key="index"
         class="my-auto mr-1 ml-1 text-inherit"
       >
@@ -35,7 +28,7 @@ const itemsNoResume = computed(() =>
           {{ name }}
         </router-link>
       </li>
-      <li
+      <!-- <li
         v-if="resume"
         class="text-blue-300 border border-solid border-[#fff] rounded-md px-3 py-3 pr-4 pl-4 text-xl"
       >
@@ -44,7 +37,7 @@ const itemsNoResume = computed(() =>
           class="my-auto mr-1 ml-1 text-inherit capitalize"
           :label="resume.name"
         />
-      </li>
+      </li> -->
     </ol>
   </nav>
 </template>

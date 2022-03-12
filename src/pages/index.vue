@@ -1,7 +1,13 @@
-<script setup lang="ts"></script>
-
 <template>
-  <div class="flex flex-wrap">
+  <div class="flex flex-col justify-center items-center h-full">
+    <h1 class="text-[color:var(--text-primary)] text-7xl font-bold">
+      Lucien Bénié
+    </h1>
+    <p class="text-[color:var(--text-primary)] text-3xl font-semibold">
+      Senior Frontend Developer
+    </p>
+  </div>
+  <!-- <div class="flex flex-wrap">
     <div>
       <h1 class="text-[color:var(--text-primary)] text-7xl font-bold">
         Hello! <span role="img" aria-label="wave emoji">👋</span>
@@ -30,5 +36,5 @@
         class="h-48 w-full object-cover rounded-md"
       />
     </div>
-  </div>
+  </div> -->
 </template>

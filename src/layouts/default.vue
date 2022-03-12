@@ -1,8 +1,8 @@
 <template>
   <main class="h-screen grid">
-    <Sidebar class="sidebar" />
-
     <Navbar class="navbar" />
+
+    <Header class="header" />
 
     <div class="content p-4">
       <router-view v-slot="{ Component }">
@@ -11,32 +11,21 @@
         </transition>
       </router-view>
     </div>
-
-    <Footer class="footer" />
   </main>
 </template>
 
 <style lang="scss" scoped>
 main {
-  grid-template-columns: 0.5fr 3fr 0;
-  grid-template-rows: 2fr 3fr 0;
-  grid-template-areas:
-    'header header header'
-    'sidebar content content'
-    'sidebar content content'
-    'footer footer footer';
+  grid-template-columns: 0.25fr 0.75fr 2fr;
+  grid-template-areas: 'navbar header content';
 }
 
-.sidebar {
-  grid-area: sidebar;
-}
-
-.navbar {
+.header {
   grid-area: header;
 }
 
-.footer {
-  grid-area: footer;
+.navbar {
+  grid-area: navbar;
 }
 
 .content {
