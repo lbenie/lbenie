@@ -10,6 +10,8 @@ import Prism from 'markdown-it-prism'
 import LinkAttributes from 'markdown-it-link-attributes'
 import { VitePWA } from 'vite-plugin-pwa'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 
 const markdownWrapperClasses = 'prose prose-sm m-auto text-left'
 
@@ -23,6 +25,7 @@ export default defineConfig({
     Vue({
       include: [/\.vue$/, /\.md$/],
     }),
+    Icons({ autoInstall: true }),
     Pages({
       extensions: ['vue', 'md'],
       importMode: 'async',
@@ -45,6 +48,7 @@ export default defineConfig({
       // allow auto import and register components used in markdown
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       dts: true,
+      resolvers: [IconsResolver()],
     }),
     Markdown({
       wrapperClasses: markdownWrapperClasses,
