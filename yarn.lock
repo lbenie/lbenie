@@ -996,10 +996,52 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@iconify-json/carbon@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@iconify-json/carbon/-/carbon-1.1.1.tgz#614856156522840e0e7aaf12f74560489716f941"
+  integrity sha512-ClOYc+82CKlDAKH1tfDTJTzNz4oHhYD04ALA5uemw9PdWXg05yIJb9bxWjSz4UgdUbH5N/yd8s9hNPI3h6jnlg==
+  dependencies:
+    "@iconify/types" "^1.0.12"
+
+"@iconify-json/clarity@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@iconify-json/clarity/-/clarity-1.1.1.tgz#ab1186fb5947b12662cdc3657f75c355710a50f2"
+  integrity sha512-DOg6+ZXSm0J6IF4sBhL0rCi+kcb7/iEJoUFU4xgHXkDCwSNUMERPpSjTPihvnZlh97SRWdkWNAl+6EwYfqAW3Q==
+  dependencies:
+    "@iconify/types" "^1.0.12"
+
 "@iconify-json/fa-regular@1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@iconify-json/fa-regular/-/fa-regular-1.1.1.tgz#085fc5518291123548edc20309fbebe471b583b7"
   integrity sha512-KFMX9DurKhOUpKqGlYRqlnCbcieEKo35961pnyf7NqUvHefBk1PZCU/kKbM2ib3piy8cn3V7RGvmZKq/INKGAA==
+  dependencies:
+    "@iconify/types" "^1.0.12"
+
+"@iconify-json/fa@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@iconify-json/fa/-/fa-1.1.1.tgz#b5092e0ccde4939b21002d062fdd4bc8af14d045"
+  integrity sha512-/j8U2vbuD8OdY21wue9Q1a7m9NNWvQ6UT4Ey4P41rlqwFZnDVWAGkYlUP4T19BmOZdY7M+odXiDwKksgA1RkBg==
+  dependencies:
+    "@iconify/types" "^1.0.12"
+
+"@iconify-json/fluent@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@iconify-json/fluent/-/fluent-1.1.2.tgz#254c7dfe592088661019a52b275aa3a052d35540"
+  integrity sha512-3WnB5xCGD29Iu4asZRaK0NqxCsn4vnDt2x1y2YzhjobC23JZrFn/nOw+65WbisuqeSvnTHIdHk61s6YFjkfjtA==
+  dependencies:
+    "@iconify/types" "^1.0.12"
+
+"@iconify-json/la@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@iconify-json/la/-/la-1.1.1.tgz#e14552283b282b740ec3533ae23a8cd7585a0211"
+  integrity sha512-SoE9MaJc6hK+BnwqRNgf8UvYjrLyJvCotp9vi+yEP0Cbuy3U20/Z6ETlaVrEHaQVN9CXfEmnA70feXL8306h5w==
+  dependencies:
+    "@iconify/types" "^1.0.12"
+
+"@iconify-json/ph@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@iconify-json/ph/-/ph-1.1.1.tgz#17b3dee91a47055bac93d65c32b9ee33c654d56f"
+  integrity sha512-sIHTY+c1F8x29BM49IqoccJ3T8mvVXPcrE4WOpJ3GsBaip2YqFJRYU60rw64UL6GEI13vWSD7NsZKq8ytTO87g==
   dependencies:
     "@iconify/types" "^1.0.12"
 
@@ -1454,10 +1496,10 @@
     "@typescript-eslint/types" "5.14.0"
     eslint-visitor-keys "^3.0.0"
 
-"@vitejs/plugin-vue@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@vitejs/plugin-vue/-/plugin-vue-2.1.0.tgz#ddf5e0059f84f2ff649afc25ce5a59211e670542"
-  integrity sha512-AZ78WxvFMYd8JmM/GBV6a6SGGTU0GgN/0/4T+FnMMsLzFEzTeAUwuraapy50ifHZsC+G5SvWs86bvaCPTneFlA==
+"@vitejs/plugin-vue@2.2.4":
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@vitejs/plugin-vue/-/plugin-vue-2.2.4.tgz#ab8b199ca82496b05d2654c5f34ffcf9b947243d"
+  integrity sha512-ev9AOlp0ljCaDkFZF3JwC/pD2N4Hh+r5srl5JHM6BKg5+99jiiK0rE/XaRs3pVm1wzyKkjUy/StBSoXX5fFzcw==
 
 "@volar/code-gen@0.32.1":
   version "0.32.1"
