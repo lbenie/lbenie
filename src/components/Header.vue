@@ -2,6 +2,10 @@
 import { useContentful } from '~/hooks'
 import type { SocialCollection } from '~/models'
 import { getYear } from 'date-fns'
+import type { Component } from 'vue'
+import IconMail from '~icons/ic/outline-attach-email?width=2em&height=2em'
+import IconGithub from '~icons/codicon/github-inverted?width=2em&height=2em'
+import IconLinkedIn from '~icons/akar-icons/linkedin-v1-fill?width=2em&height=2em'
 
 const { t } = useI18n()
 const currentYear = getYear(Date.now())
@@ -18,10 +22,18 @@ const query = `
   }
 `
 const { data } = useContentful<SocialCollection>(query)
+
+const iconMap: Record<string, Component> = {
+  email: IconMail,
+  github: IconGithub,
+  linkedin: IconLinkedIn,
+}
 </script>
 
 <template>
-  <div class="flex flex-col justify-around items-center bg-[#d5d5d5]">
+  <div
+    class="flex flex-col justify-around items-center bg-[color:var(--header-background)]"
+  >
     <img
       src="/luke.jpeg"
       alt="Lucien Bénié"
@@ -38,8 +50,15 @@ const { data } = useContentful<SocialCollection>(query)
     </div>
 
     <ul class="inline-flex list-none">
-      <li v-for="{ title, icon, uri } in data?.items" :key="title">
-        {{ uri }}
+      <li v-for="{ title, icon, uri } in data?.items" :key="title" class="mx-2">
+        <Link
+          :href="uri"
+          is-external
+          :a11y-label="title"
+          class="text-[color:var(--text-primary)]"
+        >
+          <component :is="iconMap[icon]" />
+        </Link>
       </li>
     </ul>
 

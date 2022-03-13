@@ -36,23 +36,19 @@ const iconMap: Record<string, Component> = {
       <li
         v-for="({ name, slug }, index) in data?.items"
         :key="index"
-        class="my-2 mr-1 ml-1 text-inherit flex flex-col items-center"
+        class="my-2 text-inherit flex flex-col items-center border-b-gray-100 border-b-[0.01em] border-solid"
       >
-        <router-link :to="`/${slug ?? ''}`" class="p-1 no-underline capitalize">
+        <router-link
+          :to="`/${slug ?? ''}`"
+          class="p-1 no-underline capitalize text-[color:var(--icon-color)] hover:text-[color:var(--icon-color-active)]"
+          :aria-label="name"
+        >
           <component :is="iconMap[name]" />
         </router-link>
-        <p class="text-xs">{{ name }}</p>
+        <p class="text-xs text-[color:var(--text-primary)] mb-4">{{ name }}</p>
       </li>
-      <!-- <li
-        v-if="resume"
-        class="text-blue-300 border border-solid border-[#fff] rounded-md px-3 py-3 pr-4 pl-4 text-xl"
-      >
-        <Link
-          :href="resume.slug"
-          class="my-auto mr-1 ml-1 text-inherit capitalize"
-          :label="resume.name"
-        />
-      </li> -->
     </ol>
   </nav>
 </template>
+
+<style lang="scss"></style>

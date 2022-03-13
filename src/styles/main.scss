@@ -7,10 +7,14 @@ body {
 }
 
 :root {
-  --main-background: rgba(24, 24, 27, 1);
+  --main-background: #222222;
+
+  --header-background: #444444;
 
   --text-primary: #fff;
   --text-name: rgba(234, 179, 8, 1);
+  --icon-color: #b5b6b7;
+  --icon-color-active: #04b4e0;
 
   --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }

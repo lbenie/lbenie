@@ -2,7 +2,8 @@
 const props = defineProps<{
   href: string
   isExternal?: boolean
-  label: string
+  label?: string
+  a11yLabel?: string
 }>()
 </script>
 
@@ -10,7 +11,10 @@ const props = defineProps<{
   <a
     :href="props.href"
     :target="props.isExternal ? '_blank' : undefined"
+    :aria-label="props.a11yLabel ?? props.label"
     rel="noreferrer"
-    >{{ props.label }}</a
   >
+    <slot />
+    {{ props.label }}
+  </a>
 </template>
