@@ -50,7 +50,11 @@ const iconMap: Record<string, Component> = {
     </div>
 
     <ul class="inline-flex list-none">
-      <li v-for="{ title, icon, uri } in data?.items" :key="title" class="mx-2">
+      <li
+        v-for="{ title, icon, uri } in data?.items"
+        :key="title"
+        class="mx-2 hover:rounded-full hover:bg-[color:var(--icon-background)] p-2"
+      >
         <Link
           :href="uri"
           is-external
@@ -61,6 +65,12 @@ const iconMap: Record<string, Component> = {
         </Link>
       </li>
     </ul>
+
+    <button
+      class="px-4 py-2 rounded-3xl border-2 border-[color:var(--text-primary)] text-[color:var(--text-primary)] hover:bg-[color:var(--text-primary)] hover:text-[color:var(--icon-color-active)]"
+    >
+      {{ t('button.resume') }}
+    </button>
 
     <div class="text-white text-sm">
       &copy; 2019 - {{ currentYear }}. {{ t('rights') }}.

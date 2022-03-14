@@ -32,7 +32,7 @@ const iconMap: Record<string, Component> = {
 
 <template>
   <nav class="flex flex-col self-start justify-end">
-    <ol class="p-0 inline-flex flex-col list-none text-[#fff]">
+    <ol class="p-0 inline-flex flex-col list-none text-[#fff] mt-2">
       <li
         v-for="({ name, slug }, index) in data?.items"
         :key="index"
