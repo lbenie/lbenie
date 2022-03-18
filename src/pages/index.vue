@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col justify-center items-center h-full">
-    <h1 class="text-[color:var(--text-primary)] text-7xl font-bold">
+    <h1 class="text-7xl font-bold text-[color:var(--text-primary)]">
       Lucien Bénié
     </h1>
-    <p class="text-[color:var(--text-primary)] text-3xl font-semibold">
+    <p class="text-3xl font-semibold text-[color:var(--text-primary)]">
       Senior Frontend Developer
     </p>
   </div>

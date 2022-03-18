@@ -3,8 +3,10 @@ export interface Experience {
   readonly address: string
   readonly description: string
   readonly role: string
-  readonly from: Date
-  readonly to: Date
+  readonly from: string
+  readonly to?: string
   readonly stack: readonly string[]
   readonly slug: string
+  readonly isRemote: boolean
+  readonly exerpt: string
 }

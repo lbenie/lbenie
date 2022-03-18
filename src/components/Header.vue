@@ -37,14 +37,14 @@ const iconMap: Record<string, Component> = {
     <img
       src="/luke.jpeg"
       alt="Lucien Bénié"
-      class="h-60 w-60 rounded-full ring-2 ring-white"
+      class="w-60 h-60 rounded-full ring-2 ring-white"
     />
 
     <div class="flex flex-col items-center">
-      <h1 class="text-[color:var(--text-primary)] text-2xl font-bold">
+      <h1 class="text-2xl font-bold text-[color:var(--text-primary)]">
         Lucien Bénié
       </h1>
-      <p class="text-[color:var(--text-primary)] text-xl font-semibold">
+      <p class="text-xl font-semibold text-[color:var(--text-primary)]">
         Senior Frontend Developer
       </p>
     </div>
@@ -53,7 +53,7 @@ const iconMap: Record<string, Component> = {
       <li
         v-for="{ title, icon, uri } in data?.items"
         :key="title"
-        class="mx-2 hover:rounded-full hover:bg-[color:var(--icon-background)] p-2"
+        class="p-2 mx-2 hover:bg-[color:var(--icon-background)] hover:rounded-full"
       >
         <Link
           :href="uri"
@@ -67,12 +67,12 @@ const iconMap: Record<string, Component> = {
     </ul>
 
     <button
-      class="px-4 py-2 rounded-3xl border-2 border-[color:var(--text-primary)] text-[color:var(--text-primary)] hover:bg-[color:var(--text-primary)] hover:text-[color:var(--icon-color-active)]"
+      class="py-2 px-4 font-semibold text-[color:var(--text-primary)] hover:text-[color:var(--text-primary)] hover:bg-[color:var(--icon-color-active)] rounded-3xl border-2 border-[color:var(--text-primary)] hover:border-[color:var(--icon-color-active)]"
     >
       {{ t('button.resume') }}
     </button>
 
-    <div class="text-white text-sm">
+    <div class="text-sm text-white">
       &copy; 2019 - {{ currentYear }}. {{ t('rights') }}.
     </div>
   </div>

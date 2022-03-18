@@ -12,6 +12,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
+import generateSitemap from 'vite-ssg-sitemap'
 
 const markdownWrapperClasses = 'prose prose-sm m-auto text-left'
 
@@ -24,6 +25,7 @@ export default defineConfig({
   plugins: [
     Vue({
       include: [/\.vue$/, /\.md$/],
+      reactivityTransform: true,
     }),
     Icons({ autoInstall: true }),
     Pages({
@@ -105,6 +107,11 @@ export default defineConfig({
   ssgOptions: {
     script: 'async',
     formatting: 'minify',
+    onFinished() {
+      generateSitemap({
+        hostname: '',
+      })
+    },
   },
   optimizeDeps: {
     include: ['vue', 'vue-router', '@vueuse/core', '@vueuse/head'],

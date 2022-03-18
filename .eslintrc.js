@@ -8,6 +8,7 @@ module.exports = {
     'plugin:vue/vue3-recommended',
     'prettier',
     'plugin:vuejs-accessibility/recommended',
+    'plugin:tailwindcss/recommended',
   ],
   parserOptions: {
     parser: '@typescript-eslint/parser',
@@ -16,7 +17,12 @@ module.exports = {
     extraFileExtensions: ['.vue'],
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['prettier', '@typescript-eslint', 'vuejs-accessibility'],
+  plugins: [
+    'prettier',
+    '@typescript-eslint',
+    'vuejs-accessibility',
+    'tailwindcss',
+  ],
   rules: {
     'prettier/prettier': [
       'error',
@@ -43,6 +49,7 @@ module.exports = {
         'vue/max-attributes-per-line': ['warn', { singleline: 5 }],
         'vue/no-v-html': 'off',
         'vue/multi-word-component-names': 'off',
+        'tailwindcss/no-custom-classname': 'off',
       },
     },
   ],

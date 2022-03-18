@@ -1,48 +1,22 @@
 <template>
-  <main class="h-screen grid">
-    <Navbar class="navbar" />
+  <main class="grid grid-cols-layout h-screen grid-areas-layout">
+    <Navbar class="grid-in-navbar" />
 
-    <Header class="header" />
+    <Header class="grid-in-header" />
 
-    <div class="content p-4">
+    <div class="right-0 p-16 w-full h-full bg-transparent grid-in-content">
       <router-view v-slot="{ Component }">
-        <transition name="fade">
+        <transition
+          enter-active-class="transform-gpu transition  duration-75 ease-out"
+          enter-class="opacity-0"
+          enter-to-class="opacity-100"
+          leave-active-class="transform-gpu transition duration-3 ease-[cubic-bezier(1, 0.5, 0.8, 1)]"
+          leave-class="opacity-0"
+          leave-to-class="opacity-50"
+        >
           <component :is="Component" />
         </transition>
       </router-view>
     </div>
   </main>
 </template>
-
-<style lang="scss" scoped>
-main {
-  grid-template-columns: 0.25fr 0.75fr 2fr;
-  grid-template-areas: 'navbar header content';
-}
-
-.header {
-  grid-area: header;
-}
-
-.navbar {
-  grid-area: navbar;
-}
-
-.content {
-  color: var(--gainsboro);
-  grid-area: content;
-}
-
-.fade-enter-active {
-  transition: all 0.8s ease-out;
-}
-
-.fade-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

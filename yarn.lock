@@ -1249,6 +1249,13 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
+"@savvywombat/tailwindcss-grid-areas@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@savvywombat/tailwindcss-grid-areas/-/tailwindcss-grid-areas-2.0.1.tgz#33133cdd833da07a311021bc1123a56d0d124d2c"
+  integrity sha512-ZOUC3aykNi02MnK/ShX1GO41c7igK5FG9TjUWjlnfRZg7BURv+3Ik17zmvHjlXoKkBN9oumW18aBIeQCeF/I7Q==
+  dependencies:
+    lodash "^4.17.21"
+
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@surma/rollup-plugin-off-main-thread/-/rollup-plugin-off-main-thread-2.2.3.tgz#ee34985952ca21558ab0d952f00298ad2190c053"
@@ -3086,6 +3093,15 @@ eslint-plugin-prettier@4.0.0:
   integrity sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==
   dependencies:
     prettier-linter-helpers "^1.0.0"
+
+eslint-plugin-tailwindcss@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-tailwindcss/-/eslint-plugin-tailwindcss-3.5.0.tgz#861b2c3bc7c058fa24e72ca49910e2ad487cda33"
+  integrity sha512-m1NyKX1qii3arb+zWrsNO5R15b27aaEm6m1ie9JM9a6yBrU9Q8H62obzT/U8PSITIucMY864uxljV8MiP7H6xg==
+  dependencies:
+    fast-glob "^3.2.5"
+    postcss "^8.4.4"
+    tailwindcss "^3.0.7"
 
 eslint-plugin-vue@8.5.0:
   version "8.5.0"
@@ -5066,6 +5082,15 @@ postcss@^8.1.10, postcss@^8.3.7:
     picocolors "^1.0.0"
     source-map-js "^1.0.1"
 
+postcss@^8.4.4:
+  version "8.4.12"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.12.tgz#1e7de78733b28970fa4743f7da6f3763648b1905"
+  integrity sha512-lg6eITwYe9v6Hr5CncVbK70SoioNQIq81nsaG86ev5hAidQvmOeETBqs7jm43K2F5/Ley3ytDtriImV6TpNiSg==
+  dependencies:
+    nanoid "^3.3.1"
+    picocolors "^1.0.0"
+    source-map-js "^1.0.2"
+
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
@@ -5926,7 +5951,7 @@ table@^6.0.9:
     string-width "^4.2.3"
     strip-ansi "^6.0.1"
 
-tailwindcss@3.0.23:
+tailwindcss@3.0.23, tailwindcss@^3.0.7:
   version "3.0.23"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.0.23.tgz#c620521d53a289650872a66adfcb4129d2200d10"
   integrity sha512-+OZOV9ubyQ6oI2BXEhzw4HrqvgcARY38xv3zKcjnWtMIZstEsXdI9xftd1iB7+RbOnj2HOEzkA0OyB5BaSxPQA==
@@ -6323,6 +6348,11 @@ vite-plugin-vue-layouts@0.6.0:
     "@vue/compiler-sfc" "^3.2.4"
     debug "^4.3.2"
     fast-glob "^3.2.7"
+
+vite-ssg-sitemap@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/vite-ssg-sitemap/-/vite-ssg-sitemap-0.2.0.tgz#1b8fb7b1792bebda44a0de8307c0ce3aaac50495"
+  integrity sha512-A//oCANsy/W3ueG8tMRwk3JsdtjTHquLE3lLsRoQArer5sFPD1Tl72hlhKqpRIudVTZp3Z9IvtWAhJv/2dhoeQ==
 
 vite-ssg@0.17.11:
   version "0.17.11"

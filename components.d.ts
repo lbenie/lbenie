@@ -4,10 +4,14 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    BlockTitle: typeof import('./src/components/BlockTitle.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
     Link: typeof import('./src/components/Link.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
+    PageTitle: typeof import('./src/components/PageTitle.vue')['default']
+    Skill: typeof import('./src/components/Skill.vue')['default']
     Tag: typeof import('./src/components/Tag.vue')['default']
+    TimelineItem: typeof import('./src/components/Timeline-Item.vue')['default']
   }
 }
 

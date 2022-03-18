@@ -19,7 +19,7 @@ const query = `
   }
 `
 
-const { data } = useContentful<NavigationCollection>(query)
+const { data } = useContentful<NavigationCollection>(query, true)
 
 const iconMap: Record<string, Component> = {
   home: IconCarbonHome,
@@ -31,21 +31,21 @@ const iconMap: Record<string, Component> = {
 </script>
 
 <template>
-  <nav class="flex flex-col self-start justify-end">
-    <ol class="p-0 inline-flex flex-col list-none text-[#fff] mt-2">
+  <nav class="flex flex-col justify-end self-start">
+    <ol class="inline-flex flex-col p-0 mt-2 list-none text-[#fff]">
       <li
         v-for="({ name, slug }, index) in data?.items"
         :key="index"
-        class="my-2 text-inherit flex flex-col items-center border-b-gray-100 border-b-[0.01em] border-solid"
+        class="flex flex-col items-center my-2 text-inherit border-b-[0.01em] border-b-gray-100 border-solid"
       >
         <router-link
           :to="`/${slug ?? ''}`"
-          class="p-1 no-underline capitalize text-[color:var(--icon-color)] hover:text-[color:var(--icon-color-active)]"
+          class="p-1 text-[color:var(--icon-color)] hover:text-[color:var(--icon-color-active)] no-underline capitalize"
           :aria-label="name"
         >
           <component :is="iconMap[name]" />
         </router-link>
-        <p class="text-xs text-[color:var(--text-primary)] mb-4">{{ name }}</p>
+        <p class="mb-4 text-xs text-[color:var(--text-primary)]">{{ name }}</p>
       </li>
     </ol>
   </nav>

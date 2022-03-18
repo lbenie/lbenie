@@ -4,15 +4,15 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <main class="flex align-middle justify-center flex-wrap h-screen">
+  <main class="flex flex-wrap justify-center h-screen align-middle">
     <div
-      class="w-screen flex justify-center self-center text-white text-6xl uppercase font-bold"
+      class="flex justify-center self-center w-screen text-6xl font-bold text-white uppercase"
     >
       <router-view />
     </div>
-    <div class="w-screen flex justify-center self-start">
+    <div class="flex justify-center self-start w-screen">
       <button
-        class="text-4xl text-white uppercase font-bold border border-white border-solid p-3 rounded-md"
+        class="p-3 text-4xl font-bold text-white uppercase rounded-md border border-white border-solid"
         @click="router.back()"
       >
         {{ t('button.back') }}
