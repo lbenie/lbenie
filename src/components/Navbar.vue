@@ -34,7 +34,7 @@ const iconMap: Record<string, Component> = {
   <nav class="flex flex-col justify-end self-start">
     <ol class="inline-flex flex-col p-0 mt-2 list-none text-[#fff]">
       <li
-        v-for="({ name, slug }, index) in data?.items"
+        v-for="({ name, slug }, index) in data?.navigationCollection?.items"
         :key="index"
         class="flex flex-col items-center my-2 text-inherit border-b-[0.01em] border-b-gray-100 border-solid"
       >

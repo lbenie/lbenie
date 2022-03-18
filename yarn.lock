@@ -6507,10 +6507,10 @@ vscode-vue-languageservice@0.32.1:
     vscode-pug-languageservice "0.32.1"
     vscode-typescript-languageservice "0.32.1"
 
-vue-contentful-hook@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/vue-contentful-hook/-/vue-contentful-hook-1.1.0.tgz#ee349750c437270318c518ea1333663cbdb09d92"
-  integrity sha512-CwdFy5e80YJQyvNg53F+FLTJ1q5F7Xw2XFe9/7N5dFJSzpAD/yFIAiwYnbcXsLdpNHgFMsVKjoD8NM5vu9EpSA==
+vue-contentful-hook@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vue-contentful-hook/-/vue-contentful-hook-1.2.0.tgz#d217374558c475a0c0576f6c68d5f5638c490744"
+  integrity sha512-tGkfwX7YnlFGeq1p8ebQzvGQdzaNh0GAeURO+7yLIQRCg7dPut4Ro+wYKqbydGns1obne1gB/LJIozRste/Kmw==
 
 vue-demi@*:
   version "0.12.1"

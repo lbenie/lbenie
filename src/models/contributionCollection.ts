@@ -1,4 +1,6 @@
 import type { BaseCollection } from './baseCollection'
 import type { Contribution } from './contribution'
 
-export type ContributionCollection = BaseCollection<Contribution>
+export type ContributionCollection = {
+  readonly contributionCollection: Readonly<BaseCollection<Contribution>>
+}
