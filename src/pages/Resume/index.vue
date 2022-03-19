@@ -47,11 +47,11 @@ const query = `
   }
 `
 
-const { data } = useContentful<Result>(query)
+const { data, isLoading } = useContentful<Result>(query)
 </script>
 
 <template>
-  <section class="flex flex-col h-full">
+  <section v-if="!isLoading" class="flex flex-col">
     <div class="px-4">
       <page-title>
         {{ resume }}

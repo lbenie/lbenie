@@ -19,7 +19,7 @@ const query = `
   }
 `
 
-const { data } = useContentful<NavigationCollection>(query, true)
+const { data, isLoading } = useContentful<NavigationCollection>(query, true)
 
 const iconMap: Record<string, Component> = {
   home: IconCarbonHome,
@@ -31,7 +31,7 @@ const iconMap: Record<string, Component> = {
 </script>
 
 <template>
-  <nav class="flex flex-col justify-end self-start">
+  <nav v-if="!isLoading" class="flex flex-col justify-end self-start">
     <ol class="inline-flex flex-col p-0 mt-2 list-none text-[#fff]">
       <li
         v-for="({ name, slug }, index) in data?.navigationCollection?.items"

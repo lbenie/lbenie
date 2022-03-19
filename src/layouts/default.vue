@@ -4,15 +4,17 @@
 
     <Header class="grid-in-header" />
 
-    <div class="right-0 p-16 w-full h-full bg-transparent grid-in-content">
+    <div
+      class="overflow-y-auto right-0 p-16 h-screen bg-transparent grid-in-content"
+    >
       <router-view v-slot="{ Component }">
         <transition
-          enter-active-class="transform-gpu transition  duration-75 ease-out"
-          enter-class="opacity-0"
-          enter-to-class="opacity-100"
-          leave-active-class="transform-gpu transition duration-3 ease-[cubic-bezier(1, 0.5, 0.8, 1)]"
-          leave-class="opacity-0"
-          leave-to-class="opacity-50"
+          enter-from-class="opacity-0"
+          enter-to-class="opactiy-100"
+          leave-to-class="scale-[0.85]"
+          enter-active-class="transition-all ease-in-out duration-400"
+          leave-active-class="transition-all ease-in-out duration-400"
+          leave-from-class="scale-1"
         >
           <component :is="Component" />
         </transition>

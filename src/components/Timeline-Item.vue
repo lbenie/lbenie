@@ -14,14 +14,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div
-    class="table relative pb-4 w-full table-fixed"
-    :class="
-      props.isRemote
-        ? `after:content-['Remote'] after:text-[color:var(--icon-color-active)] after:absolute after:right-0`
-        : ''
-    "
-  >
+  <div class="table relative pb-4 w-full table-fixed">
     <div class="table-cell pr-6 w-[30%] text-right align-top">
       <h5
         class="my-1 mx-0 text-base font-semibold leading-6 text-[color:var(--timeline-date)]"
@@ -30,12 +23,17 @@ const props = defineProps<{
       </h5>
       <p
         class="mb-1 ml-4 h-24 text-sm leading-6 text-[color:var(--timeline-text-company)]"
+        :class="
+          props.isRemote
+            ? `before:content-['Remote'] before:text-[color:var(--text-primary)] before:absolute before:-left-14 before:top-0 before:rounded-3xl before:p-2 before:bg-[color:var(--icon-color-active)] font-semibold before:text-sm`
+            : ''
+        "
       >
         {{ props.left.text }}
       </p>
     </div>
     <div
-      class="before:block after:block absolute before:absolute after:absolute inset-y-0 left-[30%] before:z-0 before:mt-1 after:mt-2 before:-ml-2 after:-ml-1 w-[1px] before:w-4 after:w-2 before:h-4 after:h-2 before:content-[''] bg-[color:var(--header-background)] before:bg-[color:var(--icon-color-active)] after:bg-[color:var(--main-background)] before:rounded-lg after:rounded after:border-2 after:border-[color:var(--icon-color-active)] after:border-solid before:opacity-25"
+      class="before:block absolute before:absolute after:absolute inset-y-0 left-[30%] before:z-0 before:mt-1 after:mt-2 before:-ml-2 after:-ml-1 w-[1px] before:w-4 after:w-2 before:h-4 after:h-2 before:content-[''] bg-[color:var(--header-background)] before:bg-[color:var(--icon-color-active)] after:bg-[color:var(--main-background)] before:rounded-lg after:rounded after:border-2 after:border-[color:var(--icon-color-active)] after:border-solid before:opacity-25"
     ></div>
     <div class="table-cell pr-4 pl-6 w-[70%] align-top">
       <router-link

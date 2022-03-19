@@ -21,7 +21,7 @@ const query = `
     }
   }
 `
-const { data } = useContentful<SocialCollection>(query)
+const { data, isLoading } = useContentful<SocialCollection>(query)
 
 const iconMap: Record<string, Component> = {
   email: IconMail,
@@ -32,6 +32,7 @@ const iconMap: Record<string, Component> = {
 
 <template>
   <div
+    v-if="!isLoading"
     class="flex flex-col justify-around items-center bg-[color:var(--header-background)]"
   >
     <img
