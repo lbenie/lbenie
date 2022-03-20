@@ -12,8 +12,12 @@ const messages = Object.fromEntries(
   ),
 )
 
-export const install: UserModule = ({ app }) => {
-  const html = document.querySelector('html')
+export const install: UserModule = ({ app, isClient }) => {
+  let html: HTMLHtmlElement | null = null
+
+  if (isClient) {
+    html = document.querySelector('html')
+  }
   const locale = html?.getAttribute('lang')
 
   const i18n = createI18n({

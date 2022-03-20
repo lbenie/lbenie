@@ -2,6 +2,16 @@ import { useContentful as useContentfulHook } from 'vue-contentful-hook'
 import { useI18n } from 'vue-i18n'
 
 export const useContentful = <T>(query: string, withLocale = false) => {
+  const isClient = typeof window !== 'undefined'
+
+  if (!isClient) {
+    return {
+      data: [],
+      isLoading: false,
+      errors: [],
+    }
+  }
+
   const { locale } = $(useI18n())
 
   const parenthesis = query.lastIndexOf(')')

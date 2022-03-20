@@ -107,9 +107,10 @@ export default defineConfig({
   ssgOptions: {
     script: 'async',
     formatting: 'minify',
+    format: 'cjs',
     onFinished() {
       generateSitemap({
-        hostname: '',
+        hostname: 'https://lbenie.me',
       })
     },
   },
