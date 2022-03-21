@@ -1,18 +1,7 @@
-import type { Ref } from 'vue'
 import { useContentful as useContentfulHook } from 'vue-contentful-hook'
 import { useI18n } from 'vue-i18n'
 
 export const useContentful = <T>(query: string, withLocale = false) => {
-  const isClient = typeof window !== 'undefined'
-
-  if (!isClient) {
-    return {
-      data: [] as unknown as Ref<Readonly<T>>,
-      isLoading: false as unknown as Ref<boolean>,
-      errors: [] as unknown as Ref<readonly string[]>,
-    }
-  }
-
   const { locale } = $(useI18n())
 
   const parenthesis = query.lastIndexOf(')')

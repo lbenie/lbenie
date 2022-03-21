@@ -2044,7 +2044,7 @@ axe-core@^3.5.1:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-3.5.6.tgz#e762a90d7f6dbd244ceacb4e72760ff8aad521b5"
   integrity sha512-LEUDjgmdJoA3LqklSTwKYqkjcZ4HKc4ddIYGSAiSkr46NTjzg2L9RNB+lekO9P7Dlpa87+hBtzc2Fzn/+GUWMQ==
 
-axios@^0.26.0:
+axios@^0.26.0, axios@^0.26.1:
   version "0.26.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.1.tgz#1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9"
   integrity sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==
@@ -6580,10 +6580,10 @@ vscode-vue-languageservice@0.32.1:
     vscode-pug-languageservice "0.32.1"
     vscode-typescript-languageservice "0.32.1"
 
-vue-contentful-hook@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/vue-contentful-hook/-/vue-contentful-hook-1.2.0.tgz#d217374558c475a0c0576f6c68d5f5638c490744"
-  integrity sha512-tGkfwX7YnlFGeq1p8ebQzvGQdzaNh0GAeURO+7yLIQRCg7dPut4Ro+wYKqbydGns1obne1gB/LJIozRste/Kmw==
+vue-contentful-hook@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/vue-contentful-hook/-/vue-contentful-hook-1.3.0.tgz#fa061ee603c9367d9b47b4df05af799915ff5321"
+  integrity sha512-82ls/aTWD5bsdObqOUxfMru9gvfcMjRGKL6ZR3hKXJPgr/MXYtk+IPUZDMluEdJGtcCe4i8od9Fma1/Kx1Izhg==
 
 vue-demi@*:
   version "0.12.1"
