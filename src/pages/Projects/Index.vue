@@ -31,7 +31,7 @@ const { data, isLoading } = useContentful<ProjectCollection>(query)
     <h1 class="text-white">Projects</h1>
     <ul class="list-none">
       <li
-        v-for="{ name, slug, tags } in data?.projectCollection.items"
+        v-for="{ name, slug, tags } in data?.projectCollection?.items"
         :key="slug"
       >
         <router-link class="text-white uppercase" :to="`/projects/${slug}`">

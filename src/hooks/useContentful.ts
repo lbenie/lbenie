@@ -8,8 +8,8 @@ export const useContentful = <T>(query: string, withLocale = false) => {
   if (!isClient) {
     return {
       data: [] as unknown as Ref<Readonly<T>>,
-      isLoading: false,
-      errors: [],
+      isLoading: false as unknown as Ref<boolean>,
+      errors: [] as unknown as Ref<readonly string[]>,
     }
   }
 
