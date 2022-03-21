@@ -11,5 +11,5 @@ useHead({
 </script>
 
 <template>
-  <h1>Work</h1>
+  <h1 class="text-white">Work</h1>
 </template>
