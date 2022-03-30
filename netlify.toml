@@ -11,3 +11,13 @@ package = "netlify-plugin-submit-sitemap"
     ]
 [[plugins]]
 package = "netlify-plugin-a11y"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+    [headers.values]
+    Access-Control-Allow-Origin = "*"
