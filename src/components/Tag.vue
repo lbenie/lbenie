@@ -1,18 +1,12 @@
+<script setup lang="ts">
+const props = defineProps<{
+  label: string
+}>()
+</script>
+
 <template>
-  <g-link
-    :to="`tag/${name}`"
-    class="bg-gray-200 rounded-full px-4 py-2 mr-4 text-sm font-semibold text-gray-700 hover:bg-green-300"
-    >{{ name }}</g-link
+  <span
+    class="inline-flex justify-center items-center px-3 mr-2 last:mr-0 h-8 text-xs text-white bg-blue-200 rounded-md"
+    >{{ props.label }}</span
   >
 </template>
-
-<script>
-export default {
-  props: {
-    name: {
-      type: String,
-      required: true,
-    },
-  },
-}
-</script>

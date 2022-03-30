@@ -1,43 +1,24 @@
+/**
+ * @type {import('tailwindcss').TailwindConfig}
+ */
 module.exports = {
+  content: ['./src/**/*.{vue,js,ts,jsx,tsx}', 'index.html'],
   theme: {
-    extend: {},
-    container: {
-      padding: '1rem',
+    extend: {
+      backgroundImage: {
+        'repeating-radial-gradient':
+          '-webkit-repeating-radial-gradient(center center,#04b4e0,#04b4e0 1px,transparent 0px,transparent 100%)',
+      },
     },
-    fontFamily: {
-      sans: [
-        'Roboto',
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        '"Helvetica Neue"',
-        'Arial',
-        '"Noto Sans"',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-        '"Noto Color Emoji"',
-      ],
-      serif: ['Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
-      mono: [
-        'Menlo',
-        'Monaco',
-        'Consolas',
-        '"Liberation Mono"',
-        '"Courier New"',
-        'monospace',
-      ],
+    gridTemplateAreas: {
+      layout: ['navbar header content'],
+    },
+    gridTemplateColumns: {
+      layout: '0.25fr 1fr 2fr',
     },
   },
-  variants: {},
-  plugins: [],
-  purge: {
-    // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css
-    enabled: process.env.NODE_ENV === 'production',
-    content: ['src/**/*.vue'],
-    options: {
-      whitelistPatternsChildren: [/^token/, /^pre/, /^code/],
-    },
+  plugins: [require('@savvywombat/tailwindcss-grid-areas')],
+  variants: {
+    gridTemplateAreas: ['responsive'],
   },
 }
