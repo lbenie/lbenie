@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { params } = useRoute()
 
-console.log(params)
+console.log('params', params)
 </script>
 
 <template>
