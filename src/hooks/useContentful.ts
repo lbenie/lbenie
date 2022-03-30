@@ -11,10 +11,8 @@ export const useContentful = <T>(query: string, withLocale = false) => {
     parenthesis,
   )},locale:"${locale}"${query.slice(parenthesis)}`
 
-  const data = useContentfulHook<T>(withLocale ? localeQuery : query, {
+  return useContentfulHook<T>(withLocale ? localeQuery : query, {
     spaceId: import.meta.env.VITE_CONTENTFUL_SPACE_ID,
     token: import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN,
   })
-
-  return data
 }
