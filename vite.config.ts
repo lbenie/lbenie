@@ -73,6 +73,10 @@ export default defineConfig({
     }),
     VitePWA({
       registerType: 'autoUpdate',
+      devOptions: {
+        enabled: true,
+      },
+      strategies: 'generateSW',
       includeAssets: ['favicon.svg', 'robots.txt', 'safari-pinned-tab.svg'],
       manifest: {
         name: 'Lucien Benie',
@@ -112,7 +116,7 @@ export default defineConfig({
   },
   ssgOptions: {
     script: 'async',
-    formatting: 'minify',
+    formatting: 'prettify',
     format: 'cjs',
     onFinished() {
       generateSitemap({
