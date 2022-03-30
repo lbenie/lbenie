@@ -108,6 +108,7 @@ export default defineConfig({
     fs: {
       strict: true,
     },
+    cors: true,
   },
   ssgOptions: {
     script: 'async',
