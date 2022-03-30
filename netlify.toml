@@ -21,3 +21,6 @@ package = "netlify-plugin-a11y"
   for = "/*"
     [headers.values]
     Access-Control-Allow-Origin = "*"
+
+[context.deploy-preview.processing]
+  skip_processing = true
