@@ -38,7 +38,7 @@
     "netlify-plugin-a11y": "0.0.12",
     "netlify-plugin-submit-sitemap": "0.2.3",
     "postcss": "8.4.20",
-    "postcss-cli": "9.0.1",
+    "postcss-cli": "9.1.0",
     "postcss-loader": "6.2.1",
     "prettier": "2.4.1",
     "prettier-eslint": "13.0.0",
