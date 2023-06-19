@@ -36,7 +36,7 @@
     "husky": "7.0.4",
     "lint-staged": "11.2.6",
     "netlify-plugin-a11y": "0.0.12",
-    "netlify-plugin-submit-sitemap": "0.2.3",
+    "netlify-plugin-submit-sitemap": "0.4.0",
     "postcss": "8.4.20",
     "postcss-cli": "9.0.1",
     "postcss-loader": "6.2.1",
