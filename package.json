@@ -42,7 +42,7 @@
     "postcss-loader": "6.2.1",
     "prettier": "2.8.1",
     "prettier-eslint": "13.0.0",
-    "snyk": "1.1064.0",
+    "snyk": "1.1293.1",
     "stylus": "0.55.0",
     "stylus-loader": "3.0.2",
     "tailwindcss": "2.2.19"
