@@ -1,6 +1,6 @@
 ### Hi 👋🏾
 
-#### My name is Lucien, and I'm a Senior Software Developer @Shopify
+#### My name is Lucien, and I'm a Staff Software Developer
 
 I am a guy who just loves coding and learning new stuff about the web
 
@@ -10,8 +10,7 @@ Frontend technologies I worked with
 - Vue
 - Web Components
 
-I am currently working on Shopify's admin portal.
-
+I am currently working on [GoTo](https://www.goto.com/)'s voice offering
 P.S. I love a11y too!
 
 <hr />
