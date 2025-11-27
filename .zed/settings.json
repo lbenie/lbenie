@@ -1,0 +1,9 @@
+{
+  "auto_install_extensions": {
+    "graphql": true,
+    "astro": true,
+    "toml": true,
+    "html": true,
+    "vue": true
+  }
+}
