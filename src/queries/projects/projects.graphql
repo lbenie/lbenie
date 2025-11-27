@@ -1,0 +1,18 @@
+query GetProjects {
+  projectCollection {
+    skip
+    limit
+    total
+    items {
+      slug
+      name
+      url
+      summary
+      tags
+      funFact
+      description {
+        json
+      }
+    }
+  }
+}

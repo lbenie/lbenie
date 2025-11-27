@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=false
+schema:
+  - https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE_ID}:
+      headers:
+        Authorization: Bearer ${CONTENTFUL_PREVIEW_TOKEN}
+documents: 'src/**/*.graphql'
+generates:
+  src/types/contentful-graphql.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+    config:
+      skipTypename: true
+      enumsAsTypes: true
+      immutableTypes: true
+      avoidOptionals: true

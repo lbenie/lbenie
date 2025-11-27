@@ -1,0 +1,27 @@
+---
+import type { GetStaticPaths } from "astro"
+import { client } from "@lib/graphql";
+import getProjectQuery from '@queries/projects.graphql';
+import type { GetProjectsQuery } from "../../types/contentful-graphql";
+import { hasRequiredFields } from "@utils/hasRequiredFields";
+
+export const getStaticPaths = (async () => {
+  const projects = await client.request<GetProjectsQuery>(getProjectQuery)
+
+  if (!projects.projectCollection) {
+    return []
+  }
+
+	return projects.projectCollection.items.filter(hasRequiredFields('slug')).map(project => ({
+		params: { slug: project.slug },
+		props: { project }
+	}));
+
+}) satisfies GetStaticPaths;
+
+const { project } = Astro.props;
+---
+<layout>
+  <h1>{project.name}</h1>
+  <p>{project.url}</p>
+</layout>

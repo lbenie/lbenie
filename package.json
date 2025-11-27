@@ -1,7 +1,29 @@
 {
   "name": "lucien",
   "private": true,
-  "scripts": {},
-  "dependencies": {},
-  "devDependencies": {}
+  "scripts": {
+    "dev": "concurrently \"npm run astro:dev\" \"npm run codegen:watch\"",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "astro:dev": "astro dev",
+    "codegen": "dotenv -- graphql-codegen",
+    "codegen:watch": "dotenv -- graphql-codegen --watch"
+  },
+  "dependencies": {
+    "@contentful/rich-text-html-renderer": "^17.1.6",
+    "astro": "5.16.0",
+    "graphql-request": "^7.3.5"
+  },
+  "devDependencies": {
+    "@contentful/mcp-server": "^1.7.2",
+    "@contentful/rich-text-types": "^17.2.5",
+    "@graphql-codegen/cli": "^6.1.0",
+    "@graphql-codegen/typescript": "^5.0.5",
+    "@graphql-codegen/typescript-operations": "^5.0.5",
+    "@lbenie/linting": "^1.8.207",
+    "@parcel/watcher": "^2.5.1",
+    "concurrently": "^9.2.1",
+    "dotenv-cli": "^11.0.0"
+  }
 }
