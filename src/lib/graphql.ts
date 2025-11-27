@@ -1,5 +1,4 @@
-import { GraphQLClient } from "graphql-request";
-
+import { GraphQLClient } from 'graphql-request'
 
 const URL = `https://graphql.contentful.com/content/v1/spaces/${import.meta.env.CONTENTFUL_SPACE_ID}`
 
@@ -11,4 +10,4 @@ export const client = new GraphQLClient(URL, {
   headers: {
     authorization: `Bearer ${token}`,
   },
-});
+})
