@@ -5,7 +5,10 @@ export type WithRequiredFields<T, K extends keyof T> = T & {
 export const hasRequiredFields =
   <T, K extends keyof T>(...requiredFields: readonly K[]) =>
   (value: T | null | undefined): value is WithRequiredFields<T, K> => {
-    if (!value) return false
+    if (!value) {
+      return false
+    }
+
     return requiredFields.every((field) => value[field] != null)
   }
 
