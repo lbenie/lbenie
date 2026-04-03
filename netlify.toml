@@ -1,6 +1,9 @@
 [build]
   publish = "dist"
   command = "pnpm run build"
+  [build.environment]
+    NODE_VERSION = "24"
+
 
 # Redirect default Netlify subdomain to primary domain
 [[redirects]]
