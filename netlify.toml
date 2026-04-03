@@ -12,9 +12,6 @@
   status = 301
   force = true
 
-[[plugins]]
-  package = "netlify-plugin-a11y"
-
 # Headers for security and performance
 [[headers]]
   for = "/*"
