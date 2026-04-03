@@ -176,13 +176,21 @@ const t = translations[locale as keyof typeof translations];
   </span>
 </button>
 
-<!-- Embed search data as JSON -->
-<script is:inline type="application/json" id="search-data" set:html={JSON.stringify({ searchIndex, t })}></script>
+<!-- Embed search data as global variable -->
+<script is:inline define:vars={{ searchIndex, t }}>
+  window.__SEARCH_DATA__ = { searchIndex, t };
+</script>
 
 <script>
-  // Get data from JSON script tag
-  const searchDataEl = document.getElementById('search-data');
-  const { searchIndex, t } = searchDataEl ? JSON.parse(searchDataEl.textContent || '{}') : { searchIndex: [], t: {} };
+  // Declare global type for search data
+  declare global {
+    interface Window {
+      __SEARCH_DATA__?: { searchIndex: any[]; t: any };
+    }
+  }
+
+  // Get data from global variable
+  const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
 
   (() => {
     const modal = document.getElementById('search-modal');
