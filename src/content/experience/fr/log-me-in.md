@@ -8,12 +8,12 @@ remote: true
 from: 2018-10-01T00:00:00.000Z
 to: 2021-06-25T00:00:00.000Z
 current: false
-description: "Piloté la stratégie technique frontend et pris en charge des fonctionnalités produit critiques chez LogMeIn (GoTo), architecturant des applications web de niveau entreprise pour des plateformes de collaboration à distance au service de compagnies Fortune 500. Dirigé des initiatives interfonctionnelles et mentoré des ingénieurs tout en livrant des solutions évolutives utilisant Angular, React et Web Components modernes."
-stack: ["Angular", "React.js", "HTML", "CSS", "TypeScript", "angular.js", "Web Component"]
+description: "Construit l'infrastructure fondamentale pour la transformation de plateforme microfrontend de GoTo chez LogMeIn, architecturant le goto-shell depuis sa création et établissant des standards d'ingénierie qui ont défini la direction technique de l'équipe. Dirigé le développement cross-plateforme couvrant la modernisation du monolithe legacy vers l'architecture microfrontend greenfield, tout en promouvant les outils de qualité de code et les pratiques de documentation qui ont élevé la vélocité de l'équipe. Contribué aux initiatives de recrutement en participant aux entretiens techniques pour les candidats en ingénierie."
+stack: ["Angular", "React.js", "HTML", "CSS", "TypeScript", "Angular.js", "Web Component"]
 highlights: [
-  "Architecturé une bibliothèque de Web Components inter-produits unifiant les patterns d'interface à travers 3 gammes de produits majeures, réduisant la duplication de code de 60% et accélérant la livraison de fonctionnalités pour plus de 50 ingénieurs",
-  "Pris en charge et exécuté la stratégie critique de migration d'AngularJS vers des frameworks modernes, améliorant les performances des applications de 3x tout en mentorant l'équipe à travers la transition sans aucun incident client",
-  "Promu les standards d'accessibilité en entreprise, implémentant la conformité WCAG 2.1 AA à travers tous les produits et établissant des outils et processus qui ont fait de l'accessibilité une pratique d'ingénierie fondamentale"
+  "Architecturé la plateforme microfrontend goto-shell depuis la base en tant que l'un des premiers ~20 PRs, construisant l'infrastructure centrale incluant la navigation, l'authentification, le routage, et le canal de notifications en temps réel qui est devenu la fondation de l'écosystème produit de GoTo",
+  "Pris en charge le système d'internationalisation de bout en bout, concevant et livrant l'intégration Crowdin avec i18next, établissant la documentation ADR, et construisant le pipeline d'automation GLS qui a permis un support multi-langues transparent à travers la plateforme",
+  "Promu l'excellence en ingénierie par des initiatives d'outillage complètes : introduit les plugins ESLint d'accessibilité pour les web components Lit, établi les standards de formatage Prettier, construit les pipelines de linting CI, et synchronisé régulièrement les changements à travers les dépôts goto-shell, jiveweb, et goto-app"
 ]
 locale: "fr"
 translationKey: "goto"

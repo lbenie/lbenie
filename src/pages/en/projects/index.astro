@@ -131,9 +131,11 @@ const meta: SEOMeta = {
                 )}
 
                 <div class="project-card__links">
-                  <a href={`/en/projects/${project.data.slug}/`} class="link">
-                    View details →
-                  </a>
+                  {project.body && project.body.trim() && (
+                    <a href={`/en/projects/${project.data.slug}/`} class="link">
+                      View details →
+                    </a>
+                  )}
                   {project.data.url && (
                     <a
                       href={project.data.url}
@@ -205,9 +207,11 @@ const meta: SEOMeta = {
                 )}
 
                 <div class="project-card__links">
-                  <a href={`/en/projects/${project.data.slug}/`} class="link">
-                    View details →
-                  </a>
+                  {project.body && project.body.trim() && (
+                    <a href={`/en/projects/${project.data.slug}/`} class="link">
+                      View details →
+                    </a>
+                  )}
                   {project.data.url && (
                     <a
                       href={project.data.url}
@@ -276,9 +280,11 @@ const meta: SEOMeta = {
                 )}
 
                 <div class="project-card__links">
-                  <a href={`/en/projects/${project.data.slug}/`} class="link">
-                    View details →
-                  </a>
+                  {project.body && project.body.trim() && (
+                    <a href={`/en/projects/${project.data.slug}/`} class="link">
+                      View details →
+                    </a>
+                  )}
                 </div>
               </article>
             ))}

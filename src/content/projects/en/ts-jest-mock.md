@@ -18,7 +18,6 @@ It is a library to help writing unit tests using **jest** and **TypeScript**. Wi
 
 For example, let's say `myAwesomeThing` is a function that returns a number.
 
----
 
 ```typescript
 import { myAwesomeThing } from 'my-awesome-module'

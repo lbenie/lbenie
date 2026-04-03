@@ -34,6 +34,7 @@
     "fuse.js": "7.1.0",
     "i18next": "23.16.8",
     "i18next-fs-backend": "2.6.3",
+    "lucide-astro": "0.556.0",
     "open-props": "1.7.23"
   },
   "devDependencies": {

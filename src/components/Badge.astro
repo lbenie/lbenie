@@ -1,0 +1,63 @@
+---
+/**
+ * Badge Component
+ * A reusable badge component with multiple variants and proper accessibility
+ *
+ * @prop {string} variant - Badge variant: 'current' | 'remote' | 'default'
+ * @prop {string} class - Additional CSS classes
+ */
+
+interface Props {
+  variant?: 'current' | 'remote' | 'default';
+  class?: string;
+}
+
+const { variant = 'default', class: className = '' } = Astro.props;
+---
+
+<span class={`badge badge--${variant} ${className}`}>
+  <slot />
+</span>
+
+<style>
+  .badge {
+    display: inline-block;
+    padding: var(--space-2xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    width: fit-content;
+    line-height: 1;
+  }
+
+  /* Current Position Badge - Darker green for WCAG AA compliance */
+  .badge--current {
+    background-color: hsl(142, 76%, 32%);
+    color: white;
+  }
+
+  /* Remote Badge - Purple gradient with glow */
+  .badge--remote {
+    background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+  }
+
+  /* Default Badge - Neutral styling */
+  .badge--default {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+  }
+
+  /* Ensure good contrast in all color modes */
+  @media (prefers-color-scheme: dark) {
+    .badge--current {
+      /* Keep the same darker green in dark mode for consistency */
+      background-color: hsl(142, 76%, 32%);
+    }
+  }
+</style>

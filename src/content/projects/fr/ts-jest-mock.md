@@ -18,24 +18,18 @@ It is a library to help writing unit tests using **jest** and **TypeScript**. Wi
 
 For example, let's say `myAwesomeThing` is a function that returns a number.
 
----
+```typescript
+import { myAwesomeThing } from 'my-awesome-module'
+import { createMock } from 'ts-jest-mock'
 
-`import { myAwesomeThing } from 'my-awesome-module'`
+jest.mock('my-awesome-module')
 
-`import { createMock } from 'ts-jest-mock'`
+const myAwesomeThingMock = createMock(myAwesomeThing)
 
-`jest.mock('my-awesome-module')`
-
-`const myAwesomeThingMock = createMock(myAwesomeThing)`
-
-`describe('some describe', () => {`
-
-`  it('test something', () => {`
-
-`    myAwesomeThingMock.mockReturnValue(4)`
-
-`    expect(myAwesomeThing()).toBe(4)`
-
-`  })`
-
-`})`
+describe('some describe', () => {
+  it('test something', () => {
+    myAwesomeThingMock.mockReturnValue(4)
+    expect(myAwesomeThing()).toBe(4)
+  })
+})
+```
