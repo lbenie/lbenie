@@ -1,24 +1,16 @@
-export { };
-
-declare global {
-  interface Window {
-    __SEARCH_DATA__?: { searchIndex: any[]; t: any };
-  }
-}
-
 const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
 
 (() => {
   const modal = document.getElementById('search-modal');
   const trigger = document.getElementById('search-trigger');
-  const input = document.getElementById('search-input') as HTMLInputElement | null;
+  const input = document.getElementById('search-input');
   const resultsList = document.getElementById('search-results-list');
   const emptyState = document.getElementById('search-empty');
   const closeButtons = document.querySelectorAll('[data-search-close]');
   const kbdHint = document.getElementById('search-kbd-hint');
 
   let selectedIndex = -1;
-  let fuse: any = null;
+  let fuse = null;
 
   const isMac = navigator.userAgent.toUpperCase().indexOf('MAC') >= 0;
   if (kbdHint) {
@@ -42,7 +34,7 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
     if (modal) {
       modal.hidden = false;
       document.body.style.overflow = 'hidden';
-      setTimeout(() => input?.focus(), 100);
+      setTimeout(() => input && input.focus(), 100);
       await initializeFuse();
     }
   };
@@ -58,7 +50,7 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
     }
   };
 
-  const performSearch = async (query: string) => {
+  const performSearch = async (query) => {
     if (!query || query.length < 2) {
       if (resultsList) resultsList.innerHTML = '';
       if (emptyState) emptyState.hidden = true;
@@ -76,18 +68,18 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
 
     if (emptyState) emptyState.hidden = true;
 
-    const grouped = results.reduce((acc: Record<string, any[]>, { item }: any) => {
+    const grouped = results.reduce((acc, { item }) => {
       if (!acc[item.type]) acc[item.type] = [];
-      acc[item.type]!.push(item);
+      acc[item.type].push(item);
       return acc;
     }, {});
 
     const html = Object.entries(grouped)
       .map(([type, items]) => {
         const categoryLabel = t.category[type] || type;
-        const itemsHtml = (items as any[])
+        const itemsHtml = items
           .map(
-            (item: any, idx: number) => `
+            (item, idx) => `
           <a
             href="${item.url}"
             class="search-result-item"
@@ -101,7 +93,7 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
               <p class="search-result-description">${item.description}</p>
               ${
                 item.tags.length > 0
-                  ? `<div class="search-result-tags">${item.tags.slice(0, 3).map((tag: string) => `<span class="tag">${tag}</span>`).join('')}</div>`
+                  ? `<div class="search-result-tags">${item.tags.slice(0, 3).map((tag) => `<span class="tag">${tag}</span>`).join('')}</div>`
                   : ''
               }
             </div>
@@ -131,7 +123,7 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
 
   const updateSelection = () => {
     if (!resultsList) return;
-    const items = resultsList.querySelectorAll<HTMLElement>('.search-result-item');
+    const items = resultsList.querySelectorAll('.search-result-item');
     items.forEach((item, idx) => {
       if (idx === selectedIndex) {
         item.setAttribute('aria-selected', 'true');
@@ -139,10 +131,10 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
         item.style.color = 'white';
         item.style.borderLeft = '4px solid #3b82f6';
 
-        const title = item.querySelector<HTMLElement>('.search-result-title');
-        const description = item.querySelector<HTMLElement>('.search-result-description');
-        const arrow = item.querySelector<HTMLElement>('.search-result-arrow');
-        const tags = item.querySelectorAll<HTMLElement>('.tag');
+        const title = item.querySelector('.search-result-title');
+        const description = item.querySelector('.search-result-description');
+        const arrow = item.querySelector('.search-result-arrow');
+        const tags = item.querySelectorAll('.tag');
 
         if (title) title.style.color = 'white';
         if (description) description.style.color = 'white';
@@ -160,10 +152,10 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
         item.style.color = '';
         item.style.borderLeft = '';
 
-        const title = item.querySelector<HTMLElement>('.search-result-title');
-        const description = item.querySelector<HTMLElement>('.search-result-description');
-        const arrow = item.querySelector<HTMLElement>('.search-result-arrow');
-        const tags = item.querySelectorAll<HTMLElement>('.tag');
+        const title = item.querySelector('.search-result-title');
+        const description = item.querySelector('.search-result-description');
+        const arrow = item.querySelector('.search-result-arrow');
+        const tags = item.querySelectorAll('.tag');
 
         if (title) title.style.color = '';
         if (description) description.style.color = '';
@@ -177,7 +169,7 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
     });
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = (e) => {
     if (!resultsList) return;
     const items = resultsList.querySelectorAll('.search-result-item');
 
@@ -191,7 +183,7 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
       updateSelection();
     } else if (e.key === 'Enter' && selectedIndex >= 0) {
       e.preventDefault();
-      const selectedItem = items[selectedIndex] as HTMLAnchorElement;
+      const selectedItem = items[selectedIndex];
       if (selectedItem) {
         const href = selectedItem.getAttribute('href');
         if (href) window.location.href = href;
@@ -207,8 +199,7 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
 
   if (input) {
     input.addEventListener('input', (e) => {
-      const target = e.target as HTMLInputElement;
-      if (target) performSearch(target.value);
+      if (e.target) performSearch(e.target.value);
     });
     input.addEventListener('keydown', handleKeyDown);
   }
