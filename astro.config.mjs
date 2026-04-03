@@ -32,6 +32,9 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ['astro-i18next'],
     },
+    esbuild: {
+      loader: 'ts',
+    },
     build: {
       cssCodeSplit: true,
       modulePreload: {
