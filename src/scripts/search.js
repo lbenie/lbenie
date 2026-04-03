@@ -1,3 +1,5 @@
+import Fuse from 'fuse.js';
+
 const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
 
 (() => {
@@ -17,9 +19,8 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
     kbdHint.textContent = isMac ? '⌘+K' : 'Ctrl+K';
   }
 
-  const initializeFuse = async () => {
+  const initializeFuse = () => {
     if (!fuse) {
-      const { default: Fuse } = await import('fuse.js');
       fuse = new Fuse(searchIndex, {
         keys: ['title', 'description', 'tags'],
         threshold: 0.3,
@@ -30,12 +31,12 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
     return fuse;
   };
 
-  const openModal = async () => {
+  const openModal = () => {
     if (modal) {
       modal.hidden = false;
       document.body.style.overflow = 'hidden';
       setTimeout(() => input && input.focus(), 100);
-      await initializeFuse();
+      initializeFuse();
     }
   };
 
@@ -50,14 +51,14 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
     }
   };
 
-  const performSearch = async (query) => {
+  const performSearch = (query) => {
     if (!query || query.length < 2) {
       if (resultsList) resultsList.innerHTML = '';
       if (emptyState) emptyState.hidden = true;
       return;
     }
 
-    const currentFuse = await initializeFuse();
+    const currentFuse = initializeFuse();
     const results = currentFuse.search(query);
 
     if (results.length === 0) {

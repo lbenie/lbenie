@@ -32,22 +32,15 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ['astro-i18next'],
     },
-    esbuild: {
-      loader: 'ts',
-    },
     build: {
       cssCodeSplit: true,
       modulePreload: {
         polyfill: false,
       },
-      minify: false,
       rollupOptions: {
         output: {
           manualChunks: (id) => {
             if (id.includes('node_modules')) {
-              if (id.includes('fuse.js')) {
-                return 'fuse';
-              }
               return 'vendor';
             }
           },
