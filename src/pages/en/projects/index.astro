@@ -104,7 +104,7 @@ const meta: SEOMeta = {
 
           <div class="projects-grid">
             {activeProjects.map((project) => (
-              <article class="project-card">
+              <article class="project-card project-card--active">
                 <div class="project-card__header">
                   <h3 class="project-card__title">
                     <a href={`/en/projects/${project.data.slug}/`}>
@@ -178,7 +178,7 @@ const meta: SEOMeta = {
 
           <div class="projects-grid">
             {completedProjects.map((project) => (
-              <article class="project-card">
+              <article class="project-card project-card--completed">
                 <div class="project-card__header">
                   <h3 class="project-card__title">
                     <a href={`/en/projects/${project.data.slug}/`}>
@@ -630,6 +630,14 @@ const meta: SEOMeta = {
 
   .contribution-card {
     border-left: 3px solid hsl(280, 70%, 60%);
+  }
+
+  .project-card--active {
+    border-left: 3px solid hsl(160, 70%, 50%); /* Green for active */
+  }
+
+  .project-card--completed {
+    border-left: 3px solid hsl(217, 70%, 60%); /* Blue for completed */
   }
 
   .project-card__header {

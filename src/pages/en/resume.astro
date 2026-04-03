@@ -1,0 +1,503 @@
+---
+/**
+ * English Print-Optimized Resume/CV Page
+ * Designed for printing to PDF - visit /en/resume and press Ctrl+P
+ */
+import { getExperience, formatDateShort, formatDuration } from '@utils/content';
+
+// Fetch all English experience entries (sorted by order and date)
+const experiences = await getExperience('en');
+
+// Calculate total years of experience (starting from 2014)
+const startYear = 2014;
+const currentYear = new Date().getFullYear();
+const yearsOfExperience = currentYear - startYear;
+
+// Extract unique technologies from all experiences
+const allTechnologies = new Set<string>();
+for (const exp of experiences) {
+  if (exp.data.stack) {
+    for (const tech of exp.data.stack) {
+      allTechnologies.add(tech);
+    }
+  }
+}
+
+// Core skills organized by category
+const skills = {
+  frontend: ['React', 'TypeScript', 'JavaScript', 'Angular', 'Vue.js', 'HTML/CSS'],
+  backend: ['Node.js', 'Ruby on Rails', 'GraphQL', 'REST APIs', 'Microservices'],
+  tools: ['Git', 'Docker', 'CI/CD', 'AWS', 'Agile/Scrum'],
+  ai: ['AI Integration', 'Cursor', 'GitHub Copilot', 'Claude']
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucien Bénié - Resume</title>
+  <meta name="description" content="Resume/CV of Lucien Bénié - Staff Fullstack Software Developer">
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-size: 9pt;
+      line-height: 1.2;
+      color: #1a1a1a;
+      background: #ffffff;
+      max-width: 8.5in;
+      margin: 0 auto;
+      padding: 0.4in;
+      position: relative;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #1a1a1a;
+    }
+
+    .header h1 {
+      font-size: 20pt;
+      font-weight: 700;
+      margin-bottom: 2px;
+      letter-spacing: -0.5px;
+    }
+
+    .header .title {
+      font-size: 11pt;
+      font-weight: 600;
+      color: #4a4a4a;
+      margin-bottom: 6px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      font-size: 8pt;
+      color: #4a4a4a;
+    }
+
+    .contact-info a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    /* Section headings */
+    .section {
+      margin-bottom: 10px;
+      page-break-inside: avoid;
+    }
+
+    .section-title {
+      font-size: 12pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+      padding-bottom: 2px;
+      border-bottom: 1.5px solid #1a1a1a;
+    }
+
+    /* Professional summary */
+    .summary {
+      font-size: 8.5pt;
+      line-height: 1.3;
+      text-align: justify;
+    }
+
+    /* Experience entries */
+    .experience-item {
+      margin-bottom: 8px;
+      page-break-inside: avoid;
+    }
+
+    .experience-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .experience-role {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .experience-date {
+      font-size: 8pt;
+      color: #4a4a4a;
+      white-space: nowrap;
+    }
+
+    .experience-company {
+      font-size: 9pt;
+      font-weight: 600;
+      color: #2563eb;
+      margin-bottom: 1px;
+    }
+
+    .experience-location {
+      font-size: 8pt;
+      color: #6a6a6a;
+      margin-bottom: 3px;
+    }
+
+    .experience-description {
+      display: none;
+    }
+
+    .experience-highlights {
+      margin-top: 3px;
+    }
+
+    .experience-highlights ul {
+      margin-left: 16px;
+      list-style-type: disc;
+    }
+
+    .experience-highlights li {
+      font-size: 8.5pt;
+      line-height: 1.3;
+      margin-bottom: 2px;
+      text-align: justify;
+    }
+
+    .experience-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .tech-tag {
+      display: inline-block;
+      padding: 1px 6px;
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 3px;
+      font-size: 7.5pt;
+      font-weight: 500;
+      color: #4a4a4a;
+    }
+
+    /* Skills section */
+    .skills-list {
+      font-size: 8.5pt;
+      line-height: 1.3;
+      color: #4a4a4a;
+    }
+
+    /* Education and Languages */
+    .one-liner {
+      font-size: 8.5pt;
+      line-height: 1.3;
+      color: #4a4a4a;
+    }
+
+    /* Copyright footer */
+    .copyright {
+      text-align: center;
+      font-size: 7pt;
+      color: #9ca3af;
+      margin-top: 16px;
+      padding-top: 8px;
+    }
+
+    /* Action buttons - ONLY visible on screen */
+    @media screen {
+      .print-actions {
+        position: fixed;
+        top: 20px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 8.5in;
+        margin: 0 auto;
+        padding: 0 0.5in;
+        z-index: 1000;
+        pointer-events: none;
+      }
+
+      .print-actions > * {
+        pointer-events: auto;
+      }
+
+      .print-actions-group {
+        display: flex;
+        gap: 8px;
+      }
+
+      .print-button, .lang-button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s;
+        text-decoration: none;
+      }
+
+      .print-button {
+        background: #2563eb;
+        color: white;
+      }
+
+      .print-button:hover {
+        background: #1d4ed8;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      .print-button:active {
+        transform: translateY(0);
+      }
+
+      .lang-button {
+        background: transparent;
+        color: #2563eb;
+        border: 2px solid #2563eb;
+      }
+
+      .lang-button:hover {
+        background: #eff6ff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      .lang-button:active {
+        transform: translateY(0);
+      }
+    }
+
+    /* Print styles - completely remove buttons from existence */
+    @media print {
+      @page {
+        size: letter;
+        margin: 0.4in;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        max-width: 100%;
+        font-size: 9pt;
+        height: auto !important;
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+
+      .print-actions {
+        display: none !important;
+        visibility: hidden !important;
+        position: absolute !important;
+        left: -9999px !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .section {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .experience-item {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      a {
+        color: #1a1a1a;
+        text-decoration: none;
+      }
+
+      .contact-info a::after {
+        content: "";
+      }
+
+      .copyright {
+        margin-top: 8px;
+        padding-top: 4px;
+        page-break-before: avoid;
+        page-break-after: avoid;
+        page-break-inside: avoid;
+        break-before: avoid;
+        break-after: avoid;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <h1>Lucien Bénié</h1>
+    <div class="title">Staff Fullstack Software Developer</div>
+    <div class="contact-info">
+      <span>📍 Sherbrooke, QC, Canada</span>
+      <span>🌐 <a href="https://lbenie.me">lbenie.me</a></span>
+      <span>💼 <a href="https://linkedin.com/in/lbenie">linkedin.com/in/lbenie</a></span>
+      <span>🐙 <a href="https://github.com/lbenie">github.com/lbenie</a></span>
+    </div>
+  </header>
+
+  <!-- Professional Summary -->
+  <section class="section">
+    <h2 class="section-title">Professional Summary</h2>
+    <p class="summary">
+      Staff Fullstack Software Developer with {yearsOfExperience}+ years building scalable applications using TypeScript, React, Node.js, and Ruby on Rails. Expertise in AI integration, system architecture, and leading technical initiatives for enterprise platforms.
+    </p>
+  </section>
+
+  <!-- Professional Experience -->
+  <section class="section">
+    <h2 class="section-title">Professional Experience</h2>
+    {experiences.slice(0, 3).map((exp) => (
+      <div class="experience-item">
+        <div class="experience-header">
+          <div class="experience-role">{exp.data.role}</div>
+          <div class="experience-date">
+            {formatDateShort(exp.data.from, 'en')} – {exp.data.to ? formatDateShort(exp.data.to, 'en') : 'Present'}
+            {' '}({formatDuration(exp.data.from, exp.data.to, 'en')})
+          </div>
+        </div>
+        <div class="experience-company">
+          {exp.data.company} {exp.data.remote ? '(Remote)' : ''}
+        </div>
+        {exp.data.location && (
+          <div class="experience-location">{exp.data.location}</div>
+        )}
+        {exp.data.highlights && exp.data.highlights.length > 0 && (
+          <div class="experience-highlights">
+            <ul>
+              {exp.data.highlights.slice(0, 3).map((highlight) => (
+                <li>{highlight}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {exp.data.stack && exp.data.stack.length > 0 && (
+          <div class="experience-stack">
+            {exp.data.stack.map((tech) => (
+              <span class="tech-tag">{tech}</span>
+            ))}
+          </div>
+        )}
+      </div>
+    ))}
+  </section>
+
+  <!-- Skills -->
+  <section class="section">
+    <h2 class="section-title">Skills & Expertise</h2>
+    <div class="skills-list">
+      {[...skills.frontend, ...skills.backend, ...skills.tools, ...skills.ai].join(' • ')}
+    </div>
+  </section>
+
+  <!-- Education and Languages -->
+  <section class="section">
+    <h2 class="section-title">Education</h2>
+    <div class="one-liner">
+      Bachelor of Computer Science<br>
+      Université de Sherbrooke<br>
+      2015
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Languages</h2>
+    <div class="one-liner">English (Professional Proficiency) • French (Native Speaker)</div>
+  </section>
+
+  <!-- Copyright footer -->
+  <footer class="copyright">
+    © {currentYear} Lucien Bénié
+  </footer>
+
+  <!-- Action buttons - placed at END of body, completely isolated from content -->
+  <div class="print-actions">
+    <a href="/en/" class="lang-button">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 19l-7-7 7-7m5 14l-7-7 7-7"/>
+      </svg>
+      Home
+    </a>
+    <div class="print-actions-group">
+      <a id="langBtn" href="/fr/resume/" class="lang-button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        FR
+      </a>
+      <button id="printBtn" class="print-button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+          <rect x="6" y="14" width="12" height="8"/>
+        </svg>
+        Print to PDF
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Print button functionality
+    document.getElementById("printBtn")?.addEventListener("click", () => {
+      window.print();
+    });
+
+    // Language switcher - preserve ?print=true parameter
+    const langBtn = document.getElementById("langBtn");
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("print") === "true" && langBtn) {
+      langBtn.setAttribute("href", "/fr/resume/?print=true");
+    }
+
+    // Set document title for PDF filename
+    document.title = "Lucien-Benie-CV-EN";
+  </script>
+
+  <script>
+    // Auto-print if ?print=true parameter is present
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("print") === "true") {
+      // Wait for page to fully load
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          window.print();
+        }, 500);
+      });
+
+      // Close window after printing or canceling
+      window.addEventListener("afterprint", () => {
+        window.close();
+      });
+    }
+  </script>
+</body>
+</html>
