@@ -4,7 +4,7 @@
  * Displays work experience in zigzag grid format
  */
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { getExperience, formatDateShort, formatDuration } from '@utils/content';
+import { formatDateShort, formatDuration, getExperience } from '@utils/content';
 import type { SEOMeta } from '@/types/index';
 
 // Fetch all French experience entries (already sorted by order and date)
@@ -12,7 +12,7 @@ const experiences = await getExperience('fr');
 
 // Group experiences into rows of 3
 const itemsPerRow = 3;
-const rows: typeof experiences[] = [];
+const rows: (typeof experiences)[] = [];
 for (let i = 0; i < experiences.length; i += itemsPerRow) {
   rows.push(experiences.slice(i, i + itemsPerRow));
 }

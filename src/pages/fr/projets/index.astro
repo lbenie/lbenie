@@ -4,8 +4,8 @@
  * Displays all projects in French
  */
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { formatDateShort, getContributions, getProjects } from '@utils/content';
 import type { SEOMeta } from '@/types/index';
-import { getProjects, getContributions, formatDateShort } from '@utils/content';
 
 // Fetch all French projects (already sorted by date)
 const projects = await getProjects('fr');
@@ -376,14 +376,15 @@ const meta: SEOMeta = {
   function activateTab(tabName: string) {
     // Update tabs
     tabs.forEach(t => {
-      const isActive = t.dataset.tab === tabName;
-      t.classList.toggle('tab--active', isActive);
-      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      const htmlTab = t as HTMLElement;
+      const isActive = htmlTab.dataset.tab === tabName;
+      htmlTab.classList.toggle('tab--active', isActive);
+      htmlTab.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
 
     // Update panels
     panels.forEach(panel => {
-      panel.hidden = true;
+      (panel as HTMLElement).hidden = true;
     });
     const activePanel = document.getElementById(`${tabName}-panel`);
     if (activePanel) {
@@ -402,7 +403,8 @@ const meta: SEOMeta = {
   // Tab click handlers
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      const targetPanel = tab.dataset.tab;
+      const htmlTab = tab as HTMLElement;
+      const targetPanel = htmlTab.dataset.tab;
       if (targetPanel) {
         window.location.hash = targetPanel;
         activateTab(targetPanel);

@@ -5,9 +5,9 @@
  */
 import { type CollectionEntry, render } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { formatDate, getBlogPosts } from '@utils/content';
 import { generateBlogPostSchema } from '@utils/seo';
 import type { SEOMeta } from '@/types/index';
-import { getBlogPosts, formatDate } from '@utils/content';
 
 export async function getStaticPaths() {
   const posts = await getBlogPosts('fr');
@@ -145,7 +145,7 @@ const blogPostSchema = generateBlogPostSchema(
   </article>
 
   <!-- Structured Data -->
-  <script type="application/ld+json" set:html={JSON.stringify(blogPostSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(blogPostSchema)} />
 </BaseLayout>
 
 <style>

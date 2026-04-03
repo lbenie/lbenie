@@ -6,7 +6,7 @@ const blogCollection = defineCollection({
   loader: glob({
     pattern: '**/*.md',
     base: './src/content/blog',
-    generateId: ({ data }) => `${data.locale}-${data.slug}`
+    generateId: ({ data }) => `${data.locale}-${data.slug}`,
   }),
   schema: z.object({
     title: z.string(),
@@ -28,15 +28,15 @@ const projectsCollection = defineCollection({
   loader: glob({
     pattern: '**/*.md',
     base: './src/content/projects',
-    generateId: ({ data }) => `${data.locale}-${data.slug}`
+    generateId: ({ data }) => `${data.locale}-${data.slug}`,
   }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
     summary: z.string(),
     date: z.coerce.date(),
-    url: z.string().url().optional(),
-    repository: z.string().url().optional(),
+    url: z.url().optional(),
+    repository: z.url().optional(),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     status: z.enum(['active', 'completed', 'archived']).default('completed'),
@@ -51,15 +51,15 @@ const contributionsCollection = defineCollection({
   loader: glob({
     pattern: '**/*.md',
     base: './src/content/contributions',
-    generateId: ({ data }) => `${data.locale}-${data.slug}`
+    generateId: ({ data }) => `${data.locale}-${data.slug}`,
   }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
     summary: z.string(),
     date: z.coerce.date(),
-    url: z.string().url(),
-    repository: z.string().url().optional(),
+    url: z.url(),
+    repository: z.url().optional(),
     tags: z.array(z.string()).default([]),
     type: z.enum(['pr', 'issue', 'feature', 'documentation', 'other']).default('pr'),
     locale: z.enum(['en', 'fr']),
@@ -71,7 +71,7 @@ const experienceCollection = defineCollection({
   loader: glob({
     pattern: '**/*.md',
     base: './src/content/experience',
-    generateId: ({ data }) => `${data.locale}-${data.slug}`
+    generateId: ({ data }) => `${data.locale}-${data.slug}`,
   }),
   schema: z.object({
     title: z.string(),
@@ -87,7 +87,7 @@ const experienceCollection = defineCollection({
     highlights: z.array(z.string()).default([]),
     locale: z.enum(['en', 'fr']),
     translationKey: z.string(),
-    companyUrl: z.string().url().optional(),
+    companyUrl: z.url().optional(),
     order: z.number().default(0),
   }),
 });

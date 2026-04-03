@@ -4,13 +4,18 @@
  * Main landing page with hero, featured projects, blog posts, and experience
  */
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { formatDate, getBlogPosts, getExperience, getFeaturedProjects } from '@utils/content';
 import type { SEOMeta } from '@/types/index';
-import { getFeaturedProjects, getBlogPosts, getExperience, formatDate } from '@utils/content';
+
+// Content display limits
+const FEATURED_PROJECTS_LIMIT = 3;
+const LATEST_POSTS_LIMIT = 3;
+const RECENT_EXPERIENCE_LIMIT = 2;
 
 // Fetch content using helper functions
-const featuredProjects = await getFeaturedProjects('fr', 3);
-const latestPosts = (await getBlogPosts('fr')).slice(0, 3);
-const recentExperience = (await getExperience('fr')).slice(0, 2);
+const featuredProjects = await getFeaturedProjects('fr', FEATURED_PROJECTS_LIMIT);
+const latestPosts = (await getBlogPosts('fr')).slice(0, LATEST_POSTS_LIMIT);
+const recentExperience = (await getExperience('fr')).slice(0, RECENT_EXPERIENCE_LIMIT);
 
 // SEO metadata
 const meta: SEOMeta = {

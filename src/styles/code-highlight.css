@@ -1,5 +1,16 @@
 /* Code Highlighting Styles */
 
+/* Inline code */
+:not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0.125em 0.375em;
+  background-color: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+}
+
 /* Base code block styles */
 .astro-code {
   padding: var(--space-md);
@@ -106,18 +117,7 @@ code[data-line-numbers] .line[data-highlighted-line]::before {
   padding: 0 2px;
 }
 
-/* Inline code */
-:not(pre)>code {
-  font-family: var(--font-mono);
-  font-size: 0.9em;
-  padding: 0.125em 0.375em;
-  background-color: var(--color-bg-tertiary);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  color: var(--color-text-primary);
-}
-
-[data-theme="dark"] :not(pre)>code {
+[data-theme="dark"] :not(pre) > code {
   background-color: hsl(220, 13%, 18%);
   border-color: hsl(220, 13%, 28%);
 }

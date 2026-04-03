@@ -5,8 +5,8 @@
  */
 import { type CollectionEntry, render } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { formatDate, getProjects } from '@utils/content';
 import type { SEOMeta } from '@/types/index';
-import { getProjects, formatDate } from '@utils/content';
 
 export async function getStaticPaths() {
   const projects = await getProjects('fr');

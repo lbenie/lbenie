@@ -4,8 +4,8 @@
  * Displays all published blog posts in French
  */
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { formatDate, getBlogPosts, getUniqueTags } from '@utils/content';
 import type { SEOMeta } from '@/types/index';
-import { getBlogPosts, formatDate, getUniqueTags } from '@utils/content';
 
 // Fetch all French blog posts (already sorted by date, newest first)
 const posts = await getBlogPosts('fr');

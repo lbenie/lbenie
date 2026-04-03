@@ -53,8 +53,8 @@ export default defineConfig({
           },
           pre(node) {
             node.properties['data-line-numbers'] = '';
-          }
-        }
+          },
+        },
       ],
     },
     syntaxHighlight: 'shiki',

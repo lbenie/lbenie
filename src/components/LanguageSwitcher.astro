@@ -2,20 +2,10 @@
 import { getAlternateLocale, switchLocale } from '@utils/i18n';
 import type { LanguageSwitcherProps } from '@/types/index';
 
-// Import translations
-import enCommon from '../../public/locales/en/common.json';
-import frCommon from '../../public/locales/fr/common.json';
-
 interface Props extends Partial<LanguageSwitcherProps> {}
 
 const { currentLocale = 'en', currentPath = Astro.url.pathname } = Astro.props;
 
-const translations = {
-  en: enCommon,
-  fr: frCommon,
-};
-
-const currentTranslations = translations[currentLocale as keyof typeof translations];
 const alternateLocale = getAlternateLocale(currentLocale);
 let switchPath = switchLocale(currentPath, alternateLocale);
 

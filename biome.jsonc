@@ -1,8 +1,6 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.4.10/schema.json",
-  "extends": [
-    "@lbenie/linting/biome"
-  ],
+  "extends": ["@lbenie/linting/biome"],
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -10,10 +8,7 @@
     "defaultBranch": "main"
   },
   "files": {
-    "includes": [
-      "src/**/*",
-      "*.config.{js,mjs,ts}"
-    ],
+    "includes": ["src/**/*", "*.config.{js,mjs,ts}"],
     "ignoreUnknown": true
   },
   "formatter": {
@@ -58,11 +53,7 @@
   },
   "overrides": [
     {
-      "includes": [
-        "**/*.astro",
-        "**/*.svelte",
-        "**/*.vue"
-      ],
+      "includes": ["**/*.astro", "**/*.svelte", "**/*.vue"],
       "linter": {
         "rules": {
           "style": {
@@ -82,12 +73,7 @@
       }
     },
     {
-      "includes": [
-        "src/pages/**/*.astro",
-        "src/layouts/**/*.astro",
-        "src/content/config.ts",
-        "*.config.{js,mjs,ts}"
-      ],
+      "includes": ["src/pages/**/*.astro", "src/layouts/**/*.astro", "src/content/config.ts", "*.config.{js,mjs,ts}"],
       "linter": {
         "rules": {
           "style": {
@@ -97,18 +83,13 @@
       }
     },
     {
-      "includes": [
-        "src/content/**/*.md",
-        "src/content/**/*.mdx"
-      ],
+      "includes": ["src/content/**/*.md", "src/content/**/*.mdx"],
       "formatter": {
         "enabled": false
       }
     },
     {
-      "includes": [
-        "src/styles/reset.css"
-      ],
+      "includes": ["src/styles/reset.css"],
       "linter": {
         "enabled": true
       }

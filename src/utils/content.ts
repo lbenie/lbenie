@@ -70,7 +70,7 @@ export const calculateReadingTime = (content: string): number => {
 /**
  * Get all blog posts for a specific locale
  */
-export const getBlogPosts = async (locale: Locale) => {
+export const getBlogPosts = async (locale: Locale): Promise<CollectionEntry<'blog'>[]> => {
   const posts = await getCollection('blog', (entry) => {
     return entry.data.locale === locale && !entry.data.draft;
   });
@@ -81,7 +81,7 @@ export const getBlogPosts = async (locale: Locale) => {
 /**
  * Get featured blog posts for a specific locale
  */
-export const getFeaturedBlogPosts = async (locale: Locale, limit = 3) => {
+export const getFeaturedBlogPosts = async (locale: Locale, limit = 3): Promise<CollectionEntry<'blog'>[]> => {
   const posts = await getBlogPosts(locale);
   return posts.filter((post) => post.data.featured).slice(0, limit);
 };
@@ -89,7 +89,7 @@ export const getFeaturedBlogPosts = async (locale: Locale, limit = 3) => {
 /**
  * Get all projects for a specific locale
  */
-export const getProjects = async (locale: Locale) => {
+export const getProjects = async (locale: Locale): Promise<CollectionEntry<'projects'>[]> => {
   const projects = await getCollection('projects', (entry) => {
     return entry.data.locale === locale;
   });
@@ -100,7 +100,7 @@ export const getProjects = async (locale: Locale) => {
 /**
  * Get featured projects for a specific locale
  */
-export const getFeaturedProjects = async (locale: Locale, limit = 3) => {
+export const getFeaturedProjects = async (locale: Locale, limit = 3): Promise<CollectionEntry<'projects'>[]> => {
   const projects = await getProjects(locale);
   return projects.filter((project) => project.data.featured).slice(0, limit);
 };
@@ -108,7 +108,7 @@ export const getFeaturedProjects = async (locale: Locale, limit = 3) => {
 /**
  * Get all experience entries for a specific locale
  */
-export const getExperience = async (locale: Locale) => {
+export const getExperience = async (locale: Locale): Promise<CollectionEntry<'experience'>[]> => {
   const experiences = await getCollection('experience', (entry) => {
     return entry.data.locale === locale;
   });
@@ -125,7 +125,7 @@ export const getExperience = async (locale: Locale) => {
 /**
  * Get current experience (where to is undefined or current is true)
  */
-export const getCurrentExperience = async (locale: Locale) => {
+export const getCurrentExperience = async (locale: Locale): Promise<CollectionEntry<'experience'>[]> => {
   const experiences = await getExperience(locale);
   return experiences.filter((exp) => exp.data.current || !exp.data.to);
 };
@@ -133,7 +133,7 @@ export const getCurrentExperience = async (locale: Locale) => {
 /**
  * Get all contributions for a specific locale
  */
-export const getContributions = async (locale: Locale) => {
+export const getContributions = async (locale: Locale): Promise<CollectionEntry<'contributions'>[]> => {
   const contributions = await getCollection('contributions', (entry) => {
     return entry.data.locale === locale;
   });

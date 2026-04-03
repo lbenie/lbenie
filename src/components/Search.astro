@@ -175,7 +175,6 @@ const t = translations[locale as keyof typeof translations];
   <span class="search-trigger__text">{t.search}</span>
   <span class="search-shortcut">
     <kbd class="search-kbd" id="search-kbd-hint"></kbd>
-    <kbd class="search-kbd">K</kbd>
   </span>
 </button>
 
@@ -197,10 +196,9 @@ const t = translations[locale as keyof typeof translations];
     const kbdHint = document.getElementById('search-kbd-hint');
 
     let selectedIndex = -1;
-    let searchResults = [];
 
     // Set keyboard hint based on OS
-    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+    const isMac = navigator.userAgent.toUpperCase().indexOf('MAC') >= 0;
     if (kbdHint) {
       kbdHint.textContent = isMac ? '⌘K' : 'Ctrl+K';
     }
@@ -225,15 +223,14 @@ const t = translations[locale as keyof typeof translations];
       if (modal) {
         modal.hidden = true;
         document.body.style.overflow = '';
-        if (input) input.value = '';
+        if (input) (input as HTMLInputElement).value = '';
         if (resultsList) resultsList.innerHTML = '';
         if (emptyState) emptyState.hidden = true;
         selectedIndex = -1;
-        searchResults = [];
       }
     };
 
-    const performSearch = (query) => {
+    const performSearch = (query: string) => {
       if (!query || query.length < 2) {
         if (resultsList) resultsList.innerHTML = '';
         if (emptyState) emptyState.hidden = true;
@@ -241,7 +238,6 @@ const t = translations[locale as keyof typeof translations];
       }
 
       const results = fuse.search(query);
-      searchResults = results;
 
       if (results.length === 0) {
         if (resultsList) resultsList.innerHTML = '';
@@ -252,18 +248,18 @@ const t = translations[locale as keyof typeof translations];
       if (emptyState) emptyState.hidden = true;
 
       // Group results by type
-      const grouped = results.reduce((acc, { item }) => {
+      const grouped = results.reduce((acc: Record<string, any[]>, { item }: any) => {
         if (!acc[item.type]) acc[item.type] = [];
-        acc[item.type].push(item);
+        acc[item.type]!.push(item);
         return acc;
-      }, {});
+      }, {} as Record<string, any[]>);
 
       const html = Object.entries(grouped)
-        .map(([type, items]) => {
+        .map(([type, items]: [string, any[]]) => {
           const categoryLabel = t.category[type] || type;
           const itemsHtml = items
             .map(
-              (item, idx) => `
+              (item: any, idx: number) => `
             <a
               href="${item.url}"
               class="search-result-item"
@@ -277,7 +273,7 @@ const t = translations[locale as keyof typeof translations];
                 <p class="search-result-description">${item.description}</p>
                 ${
                   item.tags.length > 0
-                    ? `<div class="search-result-tags">${item.tags.slice(0, 3).map((tag) => `<span class="tag">${tag}</span>`).join('')}</div>`
+                    ? `<div class="search-result-tags">${item.tags.slice(0, 3).map((tag: string) => `<span class="tag">${tag}</span>`).join('')}</div>`
                     : ''
                 }
               </div>
@@ -309,17 +305,18 @@ const t = translations[locale as keyof typeof translations];
       if (!resultsList) return;
       const items = resultsList.querySelectorAll('.search-result-item');
       items.forEach((item, idx) => {
+        const htmlItem = item as HTMLElement;
         if (idx === selectedIndex) {
-          item.setAttribute('aria-selected', 'true');
-          item.style.backgroundColor = '#3b82f6';
-          item.style.color = 'white';
-          item.style.borderLeft = '4px solid #3b82f6';
+          htmlItem.setAttribute('aria-selected', 'true');
+          htmlItem.style.backgroundColor = '#3b82f6';
+          htmlItem.style.color = 'white';
+          htmlItem.style.borderLeft = '4px solid #3b82f6';
 
           // Force child elements to have accessible contrast
-          const title = item.querySelector('.search-result-title');
-          const description = item.querySelector('.search-result-description');
-          const arrow = item.querySelector('.search-result-arrow');
-          const tags = item.querySelectorAll('.tag');
+          const title = htmlItem.querySelector('.search-result-title') as HTMLElement;
+          const description = htmlItem.querySelector('.search-result-description') as HTMLElement;
+          const arrow = htmlItem.querySelector('.search-result-arrow') as HTMLElement;
+          const tags = htmlItem.querySelectorAll('.tag');
 
           if (title) title.style.color = 'white';
           if (description) description.style.color = 'white';
@@ -328,23 +325,23 @@ const t = translations[locale as keyof typeof translations];
             arrow.style.color = 'white';
           }
           tags.forEach(tag => {
-            tag.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-            tag.style.color = 'white';
-            tag.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+            (tag as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+            (tag as HTMLElement).style.color = 'white';
+            (tag as HTMLElement).style.borderColor = 'rgba(255, 255, 255, 0.3)';
           });
 
-          item.scrollIntoView({ block: 'nearest' });
+          htmlItem.scrollIntoView({ block: 'nearest' });
         } else {
-          item.setAttribute('aria-selected', 'false');
-          item.style.backgroundColor = '';
-          item.style.color = '';
-          item.style.borderLeft = '';
+          htmlItem.setAttribute('aria-selected', 'false');
+          htmlItem.style.backgroundColor = '';
+          htmlItem.style.color = '';
+          htmlItem.style.borderLeft = '';
 
           // Reset child elements
-          const title = item.querySelector('.search-result-title');
-          const description = item.querySelector('.search-result-description');
-          const arrow = item.querySelector('.search-result-arrow');
-          const tags = item.querySelectorAll('.tag');
+          const title = htmlItem.querySelector('.search-result-title') as HTMLElement;
+          const description = htmlItem.querySelector('.search-result-description') as HTMLElement;
+          const arrow = htmlItem.querySelector('.search-result-arrow') as HTMLElement;
+          const tags = htmlItem.querySelectorAll('.tag');
 
           if (title) title.style.color = '';
           if (description) description.style.color = '';
@@ -353,15 +350,15 @@ const t = translations[locale as keyof typeof translations];
             arrow.style.color = '';
           }
           tags.forEach(tag => {
-            tag.style.backgroundColor = '';
-            tag.style.color = '';
-            tag.style.borderColor = '';
+            (tag as HTMLElement).style.backgroundColor = '';
+            (tag as HTMLElement).style.color = '';
+            (tag as HTMLElement).style.borderColor = '';
           });
         }
       });
     };
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (!resultsList) return;
       const items = resultsList.querySelectorAll('.search-result-item');
 
@@ -375,9 +372,10 @@ const t = translations[locale as keyof typeof translations];
         updateSelection();
       } else if (e.key === 'Enter' && selectedIndex >= 0) {
         e.preventDefault();
-        const selectedItem = items[selectedIndex];
+        const selectedItem = items[selectedIndex] as HTMLAnchorElement;
         if (selectedItem) {
-          window.location.href = selectedItem.getAttribute('href');
+          const href = selectedItem.getAttribute('href');
+          if (href) window.location.href = href;
         }
       } else if (e.key === 'Escape') {
         closeModal();
@@ -395,7 +393,8 @@ const t = translations[locale as keyof typeof translations];
 
     if (input) {
       input.addEventListener('input', (e) => {
-        performSearch(e.target.value);
+        const target = e.target as HTMLInputElement;
+        if (target) performSearch(target.value);
       });
       input.addEventListener('keydown', handleKeyDown);
     }
@@ -690,7 +689,13 @@ const t = translations[locale as keyof typeof translations];
     font-weight: var(--font-weight-medium);
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    min-width: 12rem;
+    min-width: 13rem;
+  }
+
+  .search-trigger svg {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
   }
 
   .search-trigger:hover {
