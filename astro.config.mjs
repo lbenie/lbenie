@@ -37,7 +37,7 @@ export default defineConfig({
       modulePreload: {
         polyfill: false,
       },
-      minify: 'esbuild',
+      minify: false,
       rollupOptions: {
         output: {
           manualChunks: (id) => {
