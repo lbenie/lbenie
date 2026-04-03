@@ -182,15 +182,8 @@ const t = translations[locale as keyof typeof translations];
 </script>
 
 <script>
-  // Declare global type for search data
-  declare global {
-    interface Window {
-      __SEARCH_DATA__?: { searchIndex: any[]; t: any };
-    }
-  }
-
   // Get data from global variable
-  const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
+  const { searchIndex, t } = (window as any).__SEARCH_DATA__ || { searchIndex: [], t: {} };
 
   (() => {
     const modal = document.getElementById('search-modal');
