@@ -62,12 +62,20 @@ const t = translations[locale as keyof typeof translations];
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     };
 
+    const updateFavicon = (theme) => {
+      const favicon = document.getElementById('favicon');
+      if (favicon) {
+        favicon.href = theme === 'dark' ? '/favicon-dark.svg' : '/favicon.svg';
+      }
+    };
+
     const theme = getThemePreference();
     const button = document.getElementById('theme-toggle');
     if (button && theme === 'dark') {
       button.classList.add('theme-toggle--dark');
       button.setAttribute('aria-checked', 'true');
     }
+    updateFavicon(theme);
     // Remove no-transition class after a frame to enable animations for user interactions
     requestAnimationFrame(() => {
       if (button) button.classList.remove('theme-toggle--no-transition');
@@ -86,10 +94,18 @@ const t = translations[locale as keyof typeof translations];
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   };
 
+  const updateFavicon = (theme: Theme) => {
+    const favicon = document.getElementById('favicon') as HTMLLinkElement;
+    if (favicon) {
+      favicon.href = theme === 'dark' ? '/favicon-dark.svg' : '/favicon.svg';
+    }
+  };
+
   const applyTheme = (theme: Theme) => {
     const root = document.documentElement;
     root.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
+    updateFavicon(theme);
   };
 
   const updateButton = (theme: Theme, skipAnimation = false) => {

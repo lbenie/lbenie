@@ -79,6 +79,7 @@ const experienceCollection = defineCollection({
     company: z.string(),
     role: z.string(),
     location: z.string(),
+    remote: z.boolean().default(false),
     from: z.coerce.date(),
     to: z.coerce.date().optional(),
     current: z.boolean().default(false),

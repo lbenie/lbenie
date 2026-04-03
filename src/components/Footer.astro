@@ -24,9 +24,9 @@ const socialLinks = [
     url: `mailto:${SITE_CONFIG.socialLinks?.email}`,
     label: 'Send email',
   },
-].filter((link) => link.url);
+].filter((link): link is { name: string; url: string; label: string } => !!link.url);
 
-const footerLinks = [
+const footerLinks: Array<{ label: string; href: string }> = [
   { label: 'Home', href: `/${locale}/` },
   {
     label: locale === 'fr' ? 'Blogue' : 'Blog',

@@ -1,9 +1,10 @@
 ---
-title: "Senior Software Developer"
+title: "Senior Frontend Developer"
 slug: "shopify"
 company: "Shopify"
-role: "Senior Software Developer"
-location: "151 O’Connor St Ground floor, Ottawa, ON K2P 2L8 (remote)"
+role: "Senior Frontend Developer"
+location: "151 O'Connor St Ground floor, Ottawa, ON K2P 2L8"
+remote: true
 from: 2021-06-28T00:00:00.000Z
 to: 2025-03-27T00:00:00.000Z
 description: "Developing and maintaining critical e-commerce platform features at Shopify, working with modern full-stack technologies to deliver scalable solutions for millions of merchants worldwide. Contributing to the evolution of Shopify's merchant admin experience using React, Ruby on Rails, and GraphQL."

@@ -1,9 +1,10 @@
 ---
-title: "Full Stack Developer"
+title: "Fullstack Developer"
 slug: "ciao"
 company: "Ciao Technologies"
-role: "Full Stack Developer"
+role: "Fullstack Developer"
 location: "3150 Boulevard Hochelaga, Québec, QC G1W 2R2"
+remote: false
 from: 2017-01-27T00:00:00.000Z
 to: 2018-10-12T00:00:00.000Z
 current: false

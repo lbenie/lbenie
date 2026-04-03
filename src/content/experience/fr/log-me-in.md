@@ -3,8 +3,9 @@ title: "Développeur Frontend Senior"
 slug: "log-me-in"
 company: "Log Me In (GoTo)"
 role: "Développeur Frontend Senior"
-location: "250-410 boul. Charest Est, G1K 8G3 (remote)"
-from: 2018-10-29T00:00:00.000Z
+location: "250-410 boul. Charest Est, G1K 8G3"
+remote: true
+from: 2018-10-01T00:00:00.000Z
 to: 2021-06-25T00:00:00.000Z
 current: false
 description: "Direction des initiatives de développement frontend chez GoTo, création d'applications web réactives et accessibles pour les outils de travail à distance et de collaboration. Travail avec des frameworks JavaScript modernes incluant Angular et React pour offrir des expériences utilisateur de haute qualité aux clients d'entreprise."

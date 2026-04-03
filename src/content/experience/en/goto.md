@@ -3,7 +3,8 @@ title: "Staff Frontend Developer"
 slug: "goto"
 company: "GoTo"
 role: "Staff Frontend Developer"
-location: "250-410 boul. Charest Est, G1K 8G3 (remote)"
+location: "250-410 boul. Charest Est, G1K 8G3"
+remote: true
 from: 2025-04-14T00:00:00.000Z
 current: true
 description: "Led frontend development initiatives at GoTo, building responsive and accessible web applications for remote work and collaboration tools. Worked with modern JavaScript frameworks including Angular and React to deliver high-quality user experiences for enterprise customers."

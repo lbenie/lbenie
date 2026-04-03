@@ -8,7 +8,7 @@ interface Props extends Partial<HeaderProps> {}
 
 const { locale = 'en', currentPath = Astro.url.pathname } = Astro.props;
 
-const navItems = [
+const navItems: Array<{ label: string; href: string }> = [
   { label: 'Home', href: `/${locale}/` },
   {
     label: locale === 'fr' ? 'Blogue' : 'Blog',

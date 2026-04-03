@@ -14,6 +14,7 @@ import {
 } from '@utils/seo';
 import type { BaseLayoutProps } from '@/types/index';
 
+import '@styles/critical.css';
 import '@styles/reset.css';
 import '@styles/global.css';
 import '@styles/utilities.css';
@@ -37,30 +38,16 @@ const skipLinkLabel = locale === 'fr' ? 'Aller au contenu principal' : 'Skip to 
 <!doctype html>
 <html lang={htmlLang} dir="ltr">
     <head>
-        <!-- Theme initialization script - prevents FOUC -->
+        <!-- Critical theme script - minified for mobile performance -->
         <script is:inline>
-          (() => {
-            const getThemePreference = () => {
-              const stored = localStorage.getItem('theme');
-              if (stored && ['light', 'dark', 'system'].includes(stored)) {
-                return stored;
-              }
-              return 'system';
-            };
-
-            const getSystemTheme = () => {
-              return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            };
-
-            const theme = getThemePreference();
-            const effectiveTheme = theme === 'system' ? getSystemTheme() : theme;
-            document.documentElement.setAttribute('data-theme', effectiveTheme);
-          })();
+          (()=>{const t=localStorage.getItem('theme');const e=(t&&['light','dark','system'].includes(t))?t:'system';const s=e==='system'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):e;document.documentElement.setAttribute('data-theme',s);})();
         </script>
 
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content={Astro.generator} />
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
 
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link

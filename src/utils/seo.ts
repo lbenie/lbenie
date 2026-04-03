@@ -197,7 +197,7 @@ export const getDefaultMeta = (locale: Locale): SEOMeta => {
 
   const descriptions = {
     en: 'Staff Frontend Developer specializing in modern web technologies, accessibility, and creating exceptional user experiences',
-    fr: "Développeur Frontend Senior spécialisé dans les technologies web modernes, l'accessibilité et la création d'expériences utilisateur exceptionnelles",
+    fr: "Développeur Frontend Staff spécialisé dans les technologies web modernes, l'accessibilité et la création d'expériences utilisateur exceptionnelles",
   };
 
   return {

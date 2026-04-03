@@ -1,9 +1,10 @@
 ---
-title: "Développeur Logiciel"
+title: "Développeur frontend"
 slug: "coveo"
 company: "Coveo"
-role: "Développeur Logiciel"
+role: "Développeur frontend"
 location: "3175 Chemin des Quatre-Bourgeois #200, Québec, QC G1W 2K7"
+remote: false
 from: 2016-05-01T00:00:00.000Z
 to: 2017-01-09T00:00:00.000Z
 current: false

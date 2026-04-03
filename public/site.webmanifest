@@ -1,0 +1,28 @@
+{
+  "name": "Lucien Bénié - Portfolio",
+  "short_name": "LB Portfolio",
+  "description": "Full-stack software developer specializing in modern web technologies, TypeScript, and scalable applications.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#0C66E4",
+  "background_color": "#ffffff",
+  "lang": "en",
+  "dir": "ltr",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["portfolio", "development", "technology"],
+  "prefer_related_applications": false
+}

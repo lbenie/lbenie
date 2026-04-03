@@ -1,47 +1,70 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "target": "ES2023",
+    "target": "ES2022",
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
-    "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "allowJs": true,
     "checkJs": false,
     "jsx": "react-jsx",
     "jsxImportSource": "astro",
-    // Strict type checking
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@content/*": [
+        "src/content/*"
+      ],
+      "@types/*": [
+        "src/types/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ]
+    },
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true,
-    // Module resolution
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    // Output
-    "outDir": "./dist",
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    // Path aliases
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@layouts/*": ["src/layouts/*"],
-      "@utils/*": ["src/utils/*"],
-      "@content/*": ["src/content/*"],
-      "@types/*": ["src/types/*"],
-      "@styles/*": ["src/styles/*"]
-    },
-    // Types
-    "types": ["astro/client", "node", "@types/node"]
+    "types": [
+      "astro/client",
+      "@types/node"
+    ]
   },
-  "include": ["src/**/*", ".astro/**/*"],
-  "exclude": ["node_modules", "dist", ".astro"]
+  "include": [
+    "src/**/*",
+    "src/**/*.astro",
+    ".astro/**/*",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.astro"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".netlify"
+  ]
 }

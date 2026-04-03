@@ -1,6 +1,10 @@
-/* Import Open Props for design tokens */
-@import "open-props/style";
+/* Import Open Props for design tokens - only what we need */
 @import "open-props/normalize";
+@import "open-props/colors";
+@import "open-props/fonts";
+@import "open-props/sizes";
+@import "open-props/shadows";
+@import "open-props/borders";
 
 /* Import theme styles */
 @import "./theme.css";

@@ -32,11 +32,48 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ['astro-i18next'],
     },
+    build: {
+      cssCodeSplit: true,
+      modulePreload: {
+        polyfill: false,
+      },
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+          pure_funcs: ['console.log'],
+        },
+        format: {
+          comments: false,
+        },
+      },
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            if (id.includes('node_modules')) {
+              if (id.includes('fuse.js')) {
+                return 'fuse';
+              }
+              return 'vendor';
+            }
+          },
+        },
+      },
+    },
   },
+
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'hover',
+  },
+
+  compressHTML: true,
 
   build: {
     format: 'directory',
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'always',
+    assets: '_astro',
   },
 
   markdown: {

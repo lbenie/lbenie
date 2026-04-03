@@ -57,61 +57,51 @@ const meta: SEOMeta = {
                           class={`grid-item ${exp.data.current ? 'grid-item--current' : ''}`}
                           id={exp.data.slug}
                         >
-                          <div class="experience-card">
-                            <div class="card-header">
+                          <a href={`/fr/experience/${exp.data.slug}/`} class="experience-card">
+                            <div class="badge-group">
                               {exp.data.current && (
                                 <span class="badge badge--current">Actuel</span>
                               )}
+                              {exp.data.remote && (
+                                <span class="badge badge--remote">À distance</span>
+                              )}
+                            </div>
+
+                            <div class="card-top">
                               <h3 class="card-title">{exp.data.role}</h3>
-                              <p class="card-company">
-                                {exp.data.companyUrl ? (
-                                  <a href={exp.data.companyUrl} target="_blank" rel="noopener noreferrer" class="company-link">
-                                    {exp.data.company}
-                                  </a>
-                                ) : (
-                                  exp.data.company
-                                )}
-                              </p>
-                              <div class="card-meta">
+                              <div class="card-date">
                                 <time datetime={exp.data.from.toISOString()}>
                                   {formatDateShort(exp.data.from, 'fr')}
                                 </time>
                                 {' – '}
                                 {exp.data.current ? (
-                                  <span>Aujourd'hui</span>
+                                  <span>Présent</span>
                                 ) : (
                                   <time datetime={exp.data.to?.toISOString()}>
                                     {formatDateShort(exp.data.to!, 'fr')}
                                   </time>
                                 )}
-                                <span class="card-duration">
-                                  · {formatDuration(exp.data.from, exp.data.to, 'fr')}
-                                </span>
                               </div>
                             </div>
 
-                            {exp.data.highlights && exp.data.highlights.length > 0 && (
-                              <div class="card-highlights">
-                                <h4 class="highlights-title">Faits marquants</h4>
-                                <ul class="highlights-list">
-                                  {exp.data.highlights.map((highlight) => (
-                                    <li>{highlight}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
+                            <p class="card-company">
+                              {exp.data.companyUrl ? (
+                                <a href={exp.data.companyUrl} target="_blank" rel="noopener noreferrer" class="company-link">
+                                  {exp.data.company}
+                                </a>
+                              ) : (
+                                exp.data.company
+                              )}
+                            </p>
 
                             {exp.data.stack && exp.data.stack.length > 0 && (
-                              <div class="card-stack">
-                                <h4 class="stack-title">Technologies</h4>
-                                <ul class="tag-list">
-                                  {exp.data.stack.map((tech) => (
-                                    <li class="tag">{tech}</li>
-                                  ))}
-                                </ul>
-                              </div>
+                              <ul class="tag-list">
+                                {exp.data.stack.map((tech) => (
+                                  <li class="tag">{tech}</li>
+                                ))}
+                              </ul>
                             )}
-                          </div>
+                          </a>
                         </article>
 
                         {/* Add horizontal arrow if not last in row */}
@@ -289,6 +279,8 @@ const meta: SEOMeta = {
     display: flex;
     flex-direction: column;
     width: 100%;
+    text-decoration: none !important;
+    color: inherit;
   }
 
   .experience-card:hover {
@@ -297,72 +289,88 @@ const meta: SEOMeta = {
     transform: translateY(-2px);
   }
 
+  .experience-card:focus {
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: 2px;
+  }
+
+  .experience-card * {
+    text-decoration: none !important;
+  }
+
   .grid-item--current .experience-card {
     border-color: var(--color-accent-primary);
     background-color: var(--color-bg-primary);
     box-shadow: 0 0 0 3px var(--color-accent-light);
   }
 
-  /* Card Header */
-  .card-header {
-    margin-bottom: var(--space-md);
+  /* Card Layout */
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
   }
 
   .card-title {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-bold);
     color: var(--color-text-primary);
-    margin: 0 0 var(--space-xs) 0;
+    margin: 0;
     line-height: var(--line-height-tight);
+    flex: 1;
+  }
+
+  .card-date {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .card-company {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
     color: var(--color-text-secondary);
-    margin: 0 0 var(--space-sm) 0;
+    margin: 0 0 var(--space-md) 0;
   }
 
   .company-link {
-    color: var(--color-accent-primary);
+    color: var(--color-text-secondary);
     text-decoration: none;
     transition: color 0.2s ease;
-  }
-
-  .company-link:hover {
-    color: var(--color-accent-hover);
-    text-decoration: underline;
-  }
-
-  .card-meta {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-tertiary);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-2xs);
-  }
-
-  .card-duration {
-    font-weight: var(--font-weight-medium);
+    pointer-events: none;
   }
 
   /* Badge */
+  .badge-group {
+    display: flex;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xs);
+  }
+
   .badge {
     display: inline-block;
-    padding: var(--space-3xs) var(--space-xs);
+    padding: var(--space-2xs) var(--space-sm);
     border-radius: var(--radius-sm);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-bold);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     white-space: nowrap;
-    margin-bottom: var(--space-sm);
+    width: fit-content;
   }
 
   .badge--current {
     background-color: var(--color-success);
     color: white;
+  }
+
+  .badge--remote {
+    background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
   }
 
   /* Highlights */
@@ -407,21 +415,6 @@ const meta: SEOMeta = {
     font-weight: var(--font-weight-bold);
   }
 
-  /* Stack/Technologies */
-  .card-stack {
-    margin-top: var(--space-md);
-    padding-top: var(--space-md);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .stack-title {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin: 0 0 var(--space-sm) 0;
-  }
 
   /* Tags */
   .tag-list {
@@ -513,16 +506,22 @@ const meta: SEOMeta = {
       padding: var(--space-md);
     }
 
+    .card-top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+
     .card-title {
       font-size: var(--font-size-lg);
     }
 
-    .card-company {
-      font-size: var(--font-size-base);
+    .card-date {
+      font-size: var(--font-size-xs);
     }
 
-    .card-meta {
-      font-size: var(--font-size-xs);
+    .card-company {
+      font-size: var(--font-size-sm);
     }
 
     .highlights-list li {
@@ -534,4 +533,6 @@ const meta: SEOMeta = {
       row-gap: var(--space-2xs);
     }
   }
+
+
 </style>

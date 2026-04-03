@@ -30,27 +30,64 @@ const meta: SEOMeta = {
 
 <BaseLayout meta={meta} locale="fr">
   <div class="home">
-    <!-- Hero Section -->
+    <!-- Hero / About Me Section -->
     <section class="hero" aria-labelledby="hero-heading">
       <div class="container">
-        <div class="hero__content">
-          <p class="hero__greeting">Bonjour, je suis</p>
-          <h1 id="hero-heading" class="hero__name">Lucien Bénié</h1>
-          <p class="hero__tagline">
-            Développeur logiciel full-stack créant des expériences web innovantes
-          </p>
-          <p class="hero__description">
-            Je me spécialise dans la création d'applications évolutives et performantes
-            utilisant des technologies modernes comme TypeScript, React et Node.js.
-            Passionné par le code propre, l'expérience utilisateur et l'apprentissage continu.
-          </p>
-          <div class="hero__actions">
-            <a href="/fr/projets/" class="button button--primary">
-              Voir mes projets
-            </a>
-            <a href="/fr/experience/" class="button button--secondary">
-              Mon expérience
-            </a>
+        <p class="hero__label">Apprenez à me connaître</p>
+        <h2 class="hero__section-title">À propos de moi</h2>
+
+        <div class="hero__layout">
+          <!-- Photo Side -->
+          <div class="hero__photo-wrapper">
+            <img
+              src="/images/profile.webp"
+              alt="Lucien Bénié - Développeur logiciel full-stack"
+              width="400"
+              height="400"
+              class="hero__photo"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </div>
+
+          <!-- Content Side -->
+          <div class="hero__content">
+            <div class="hero__badge">
+              <span class="hero__badge-dot"></span>
+              Heureux de coder chez GoTo
+            </div>
+
+            <h1 id="hero-heading" class="hero__greeting">
+              Bonjour! 👋
+            </h1>
+
+            <p class="hero__description">
+              Je m'appelle <strong>Lucien Bénié</strong>, et je suis un développeur logiciel Staff full-stack hautement expérimenté
+              basé à Sherbrooke, Québec, Canada. Je me spécialise dans la création d'applications évolutives et performantes
+              utilisant des technologies modernes comme TypeScript, React et Node.js.
+            </p>
+
+            <p class="hero__description">
+              Je travaille dans le développement web depuis 2014, créant des solutions innovantes et dirigeant des équipes de développement.
+              Passionné par le code propre, l'expérience utilisateur et l'apprentissage continu.
+            </p>
+
+
+
+            <div class="hero__actions">
+              <a href="/cv/Lucien-Benie-CV-EN.pdf" download class="button button--primary button--cv">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 10L4 6h2.5V1h3v5H12L8 10zM14 13v1H2v-1H0v3h16v-3h-2z" fill="currentColor"/>
+                </svg>
+                Download CV (EN)
+              </a>
+              <a href="/cv/Lucien-Benie-CV-FR.pdf" download class="button button--secondary button--cv">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 10L4 6h2.5V1h3v5H12L8 10zM14 13v1H2v-1H0v3h16v-3h-2z" fill="currentColor"/>
+                </svg>
+                Télécharger CV (FR)
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -263,43 +300,116 @@ const meta: SEOMeta = {
     );
   }
 
+
+
+  .hero__label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-xs);
+    text-align: center;
+  }
+
+  .hero__section-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2xl);
+    text-align: center;
+  }
+
+  .hero__layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .hero__photo-wrapper {
+    position: relative;
+  }
+
+  .hero__photo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: var(--radius-lg);
+    object-fit: cover;
+    box-shadow: var(--shadow-xl);
+  }
+
   .hero__content {
-    max-width: 50rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    background-color: rgba(37, 99, 235, 0.1);
+    color: rgb(37, 99, 235);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    width: fit-content;
+  }
+
+  .hero__badge-dot {
+    width: 8px;
+    height: 8px;
+    background-color: rgb(37, 99, 235);
+    border-radius: 50%;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
   }
 
   .hero__greeting {
-    font-size: var(--font-size-lg);
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-xs);
-  }
-
-  .hero__name {
-    font-size: var(--font-size-5xl);
+    font-size: var(--font-size-3xl);
     font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-tight);
     color: var(--color-text-primary);
-    margin-bottom: var(--space-md);
-  }
-
-  .hero__tagline {
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-accent-primary);
-    line-height: var(--line-height-normal);
-    margin-bottom: var(--space-md);
+    margin: 0;
   }
 
   .hero__description {
-    font-size: var(--font-size-lg);
-    line-height: var(--line-height-relaxed);
+    font-size: var(--font-size-base);
     color: var(--color-text-secondary);
-    margin-bottom: var(--space-lg);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+  }
+
+  .hero__description strong {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-semibold);
   }
 
   .hero__actions {
     display: flex;
-    flex-wrap: wrap;
     gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-top: var(--space-md);
+  }
+
+  .button--cv {
+    gap: 0.375rem;
+  }
+
+  .button--cv svg {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
   }
 
   /* Section Styles */
@@ -423,6 +533,7 @@ const meta: SEOMeta = {
   /* Blog Grid */
   .blog-grid {
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-lg);
   }
 
@@ -640,7 +751,9 @@ const meta: SEOMeta = {
 
   /* Buttons */
   .button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: var(--space-sm) var(--space-md);
     border-radius: var(--radius-md);
     font-size: var(--font-size-base);
@@ -706,15 +819,31 @@ const meta: SEOMeta = {
   /* Responsive */
   @media (max-width: 768px) {
     .hero {
-      padding: var(--space-xl) 0 var(--space-lg);
+      padding: var(--space-2xl) 0 var(--space-xl);
     }
 
-    .hero__name {
-      font-size: var(--font-size-4xl);
+    .hero__layout {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
     }
 
-    .hero__tagline {
-      font-size: var(--font-size-xl);
+    .hero__photo-wrapper {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .hero__greeting {
+      font-size: var(--font-size-2xl);
+    }
+
+    .hero__actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .hero__actions .button {
+      width: 100%;
+      justify-content: center;
     }
 
     .section {
@@ -725,15 +854,22 @@ const meta: SEOMeta = {
       grid-template-columns: 1fr;
     }
 
-    .hero__actions,
-    .cta__actions {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__actions, .cta__actions {
       flex-direction: column;
-      width: 100%;
+      gap: var(--space-sm);
     }
 
     .button {
       width: 100%;
-      text-align: center;
+      justify-content: center;
     }
   }
 </style>

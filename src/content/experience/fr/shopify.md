@@ -1,9 +1,10 @@
 ---
-title: "Développeur logiciel sénior"
+title: "Développeur frontend sénior"
 slug: "shopify"
 company: "Shopify"
-role: "Développeur logiciel sénior"
-location: "151 O'Connor St Ground floor, Ottawa, ON K2P 2L8 (remote)"
+role: "Développeur frontend sénior"
+location: "151 O'Connor St Ground floor, Ottawa, ON K2P 2L8"
+remote: true
 from: 2021-06-28T00:00:00.000Z
 to: 2025-03-27T00:00:00.000Z
 current: false

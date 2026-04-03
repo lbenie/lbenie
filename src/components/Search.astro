@@ -179,8 +179,6 @@ const t = translations[locale as keyof typeof translations];
 </button>
 
 <script>
-  import Fuse from 'fuse.js';
-
   // Get data from data attributes
   const searchData = document.getElementById('search-modal');
   const searchIndex = JSON.parse(searchData?.dataset.searchIndex || '[]');
@@ -196,6 +194,7 @@ const t = translations[locale as keyof typeof translations];
     const kbdHint = document.getElementById('search-kbd-hint');
 
     let selectedIndex = -1;
+    let fuse: any = null; // Lazy load Fuse.js only when needed
 
     // Set keyboard hint based on OS
     const isMac = navigator.userAgent.toUpperCase().indexOf('MAC') >= 0;
@@ -203,19 +202,27 @@ const t = translations[locale as keyof typeof translations];
       kbdHint.textContent = isMac ? '⌘K' : 'Ctrl+K';
     }
 
-    // Initialize Fuse.js
-    const fuse = new Fuse(searchIndex, {
-      keys: ['title', 'description', 'tags'],
-      threshold: 0.3,
-      includeScore: true,
-      minMatchCharLength: 2,
-    });
+    // Lazy initialize Fuse.js
+    const initializeFuse = async () => {
+      if (!fuse) {
+        const { default: Fuse } = await import('fuse.js');
+        fuse = new Fuse(searchIndex, {
+          keys: ['title', 'description', 'tags'],
+          threshold: 0.3,
+          includeScore: true,
+          minMatchCharLength: 2,
+        });
+      }
+      return fuse;
+    };
 
-    const openModal = () => {
+    const openModal = async () => {
       if (modal) {
         modal.hidden = false;
         document.body.style.overflow = 'hidden';
         setTimeout(() => input?.focus(), 100);
+        // Preload Fuse.js when modal opens
+        await initializeFuse();
       }
     };
 
@@ -230,14 +237,15 @@ const t = translations[locale as keyof typeof translations];
       }
     };
 
-    const performSearch = (query: string) => {
+    const performSearch = async (query: string) => {
       if (!query || query.length < 2) {
         if (resultsList) resultsList.innerHTML = '';
         if (emptyState) emptyState.hidden = true;
         return;
       }
 
-      const results = fuse.search(query);
+      const currentFuse = await initializeFuse();
+      const results = currentFuse.search(query);
 
       if (results.length === 0) {
         if (resultsList) resultsList.innerHTML = '';
@@ -255,9 +263,10 @@ const t = translations[locale as keyof typeof translations];
       }, {} as Record<string, any[]>);
 
       const html = Object.entries(grouped)
-        .map(([type, items]: [string, any[]]) => {
+        .map(([type, items]) => {
+          const typedItems = items as any[];
           const categoryLabel = t.category[type] || type;
-          const itemsHtml = items
+          const itemsHtml = typedItems
             .map(
               (item: any, idx: number) => `
             <a
