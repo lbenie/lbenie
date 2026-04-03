@@ -1,0 +1,182 @@
+---
+
+import Footer from '@components/Footer.astro';
+import Header from '@components/Header.astro';
+import SkipLink from '@components/SkipLink.astro';
+import { getAlternateLinks } from '@utils/i18n';
+import {
+  buildCanonicalURL,
+  buildPageTitle,
+  generateOpenGraphMeta,
+  generateTwitterCardMeta,
+  generateWebsiteSchema,
+  SITE_CONFIG,
+} from '@utils/seo';
+import type { BaseLayoutProps } from '@/types/index';
+
+import '@styles/reset.css';
+import '@styles/global.css';
+import '@styles/utilities.css';
+
+interface Props extends BaseLayoutProps {}
+
+const { meta, locale = 'en', class: className } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const pageTitle = buildPageTitle(meta.title);
+const canonicalURL = meta.canonicalURL || buildCanonicalURL(currentPath);
+const ogMeta = generateOpenGraphMeta(meta, SITE_CONFIG.url);
+const twitterMeta = generateTwitterCardMeta(meta);
+const websiteSchema = generateWebsiteSchema(locale);
+const alternateLinks = getAlternateLinks(currentPath, SITE_CONFIG.url);
+
+const htmlLang = locale === 'fr' ? 'fr-CA' : 'en-US';
+const skipLinkLabel = locale === 'fr' ? 'Aller au contenu principal' : 'Skip to main content';
+---
+
+<!doctype html>
+<html lang={htmlLang} dir="ltr">
+    <head>
+        <!-- Theme initialization script - prevents FOUC -->
+        <script is:inline>
+          (() => {
+            const getThemePreference = () => {
+              const stored = localStorage.getItem('theme');
+              if (stored && ['light', 'dark', 'system'].includes(stored)) {
+                return stored;
+              }
+              return 'system';
+            };
+
+            const getSystemTheme = () => {
+              return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            };
+
+            const theme = getThemePreference();
+            const effectiveTheme = theme === 'system' ? getSystemTheme() : theme;
+            document.documentElement.setAttribute('data-theme', effectiveTheme);
+          })();
+        </script>
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content={Astro.generator} />
+
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+        />
+
+        <title>{pageTitle}</title>
+        <meta name="title" content={pageTitle} />
+        <meta name="description" content={meta.description} />
+        {
+            meta.keywords && (
+                <meta name="keywords" content={meta.keywords.join(', ')} />
+            )
+        }
+        {meta.author && <meta name="author" content={meta.author} />}
+
+        <link rel="canonical" href={canonicalURL} />
+
+        {
+            alternateLinks.map(({ hreflang, href }) => (
+                <link rel="alternate" hreflang={hreflang} href={href} />
+            ))
+        }
+
+        <meta property="og:type" content={ogMeta.type} />
+        <meta property="og:url" content={ogMeta.url} />
+        <meta property="og:title" content={ogMeta.title} />
+        <meta property="og:description" content={ogMeta.description} />
+        <meta property="og:locale" content={ogMeta.locale} />
+        <meta property="og:site_name" content={ogMeta.siteName} />
+        {
+            ogMeta.image && (
+                <>
+                    <meta property="og:image" content={ogMeta.image} />
+                    <meta property="og:image:alt" content={ogMeta.imageAlt} />
+                </>
+            )
+        }
+
+        <meta name="twitter:card" content={twitterMeta.card} />
+        <meta name="twitter:title" content={twitterMeta.title} />
+        <meta name="twitter:description" content={twitterMeta.description} />
+        {
+            twitterMeta.creator && (
+                <meta name="twitter:creator" content={twitterMeta.creator} />
+            )
+        }
+        {
+            twitterMeta.image && (
+                <>
+                    <meta name="twitter:image" content={twitterMeta.image} />
+                    <meta
+                        name="twitter:image:alt"
+                        content={twitterMeta.imageAlt}
+                    />
+                </>
+            )
+        }
+
+        <script
+            type="application/ld+json"
+            set:html={JSON.stringify(websiteSchema)}
+        />
+
+
+    </head>
+
+    <body class={className}>
+        <SkipLink targetId="main-content" label={skipLinkLabel} />
+
+        <div class="layout">
+            <Header locale={locale} currentPath={currentPath} />
+
+            <main id="main-content" class="main" tabindex="-1">
+                <slot />
+            </main>
+
+            <Footer locale={locale} />
+        </div>
+
+    </body>
+</html>
+
+<style is:global>
+    html {
+        font-family: var(--font-sans);
+        color: var(--color-text-primary);
+        background-color: var(--color-bg-primary);
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .layout {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .main {
+        flex: 1;
+        width: 100%;
+        outline: none;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .main:focus {
+        outline: none;
+    }
+</style>

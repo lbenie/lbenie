@@ -1,13 +1,37 @@
 [build]
   publish = "dist"
-  command = "gridsome build"
+  command = "pnpm run build"
+
+# Redirect default Netlify subdomain to primary domain
+[[redirects]]
+  from = "https://lbenie.netlify.app/*"
+  to = "https://lbenie.me/:splat"
+  status = 301
+  force = true
 
 [[plugins]]
-package = "netlify-plugin-submit-sitemap"
+  package = "netlify-plugin-submit-sitemap"
   [plugins.inputs]
     providers = [
       "google",
       "bing"
     ]
+
 [[plugins]]
-package = "netlify-plugin-a11y"
+  package = "netlify-plugin-a11y"
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Cache static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

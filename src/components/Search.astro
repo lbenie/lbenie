@@ -1,0 +1,747 @@
+---
+/**
+ * Search Component
+ * Accessible search modal with cmd+k / ctrl+k support
+ * Searches through blog posts, projects, experience, and contributions
+ */
+
+import { getCollection } from 'astro:content';
+import type { Locale } from '@/types/index';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+// Fetch all content
+const allPosts = await getCollection('blog', ({ data }) => data.locale === locale && !data.draft);
+const allProjects = await getCollection('projects', ({ data }) => data.locale === locale);
+const allExperience = await getCollection('experience', ({ data }) => data.locale === locale);
+const allContributions = await getCollection('contributions', ({ data }) => data.locale === locale);
+
+// Build search index
+const searchIndex = [
+  ...allPosts.map((post) => ({
+    id: post.id,
+    type: 'blog',
+    title: post.data.title,
+    description: post.data.description,
+    tags: post.data.tags || [],
+    url: `/${locale}/${locale === 'fr' ? 'blogue' : 'blog'}/${post.data.slug}/`,
+  })),
+  ...allProjects.map((project) => ({
+    id: project.id,
+    type: 'projects',
+    title: project.data.title,
+    description: project.data.summary,
+    tags: project.data.tags || [],
+    url: `/${locale}/${locale === 'fr' ? 'projets' : 'projects'}/${project.data.slug}/`,
+  })),
+  ...allExperience.map((exp) => ({
+    id: exp.id,
+    type: 'experience',
+    title: `${exp.data.role} at ${exp.data.company}`,
+    description: exp.data.description,
+    tags: exp.data.stack || [],
+    url: `/${locale}/experience/${exp.data.slug}/`,
+  })),
+  ...allContributions.map((contrib) => ({
+    id: contrib.id,
+    type: 'contributions',
+    title: contrib.data.title,
+    description: contrib.data.summary,
+    tags: contrib.data.tags || [],
+    url: contrib.data.url,
+  })),
+];
+
+const translations = {
+  en: {
+    search: 'Search',
+    searchPlaceholder: 'Search posts, projects, contributions...',
+    noResults: 'No results found',
+    tryDifferent: 'Try different keywords',
+    results: 'results',
+    close: 'Close',
+    navigate: 'to navigate',
+    select: 'to select',
+    closeEsc: 'to close',
+    category: {
+      blog: 'Blog',
+      projects: 'Projects',
+      experience: 'Experience',
+      contributions: 'Contributions',
+    },
+  },
+  fr: {
+    search: 'Rechercher',
+    searchPlaceholder: 'Rechercher articles, projets, contributions...',
+    noResults: 'Aucun résultat trouvé',
+    tryDifferent: 'Essayez avec différents mots-clés',
+    results: 'résultats',
+    close: 'Fermer',
+    navigate: 'pour naviguer',
+    select: 'pour sélectionner',
+    closeEsc: 'pour fermer',
+    category: {
+      blog: 'Blogue',
+      projects: 'Projets',
+      experience: 'Expérience',
+      contributions: 'Contributions',
+    },
+  },
+};
+
+const t = translations[locale as keyof typeof translations];
+---
+
+<div
+  id="search-modal"
+  class="search-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="search-title"
+  data-search-index={JSON.stringify(searchIndex)}
+  data-translations={JSON.stringify(t)}
+  hidden
+>
+  <div class="search-backdrop" data-search-close></div>
+
+  <div class="search-container">
+    <div class="search-header">
+      <div class="search-input-wrapper">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <input
+          type="search"
+          id="search-input"
+          class="search-input"
+          placeholder={t.searchPlaceholder}
+          aria-label={t.search}
+          aria-controls="search-results"
+          aria-autocomplete="list"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button
+          type="button"
+          class="search-close-btn"
+          data-search-close
+          aria-label={t.close}
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="search-results" id="search-results" role="listbox">
+      <div class="search-empty" id="search-empty" hidden>
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+          <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <p class="search-empty-title">{t.noResults}</p>
+        <p class="search-empty-subtitle">{t.tryDifferent}</p>
+      </div>
+
+      <div id="search-results-list"></div>
+    </div>
+
+    <div class="search-footer">
+      <kbd class="search-kbd">↑↓</kbd>
+      <span>{t.navigate}</span>
+      <kbd class="search-kbd">↵</kbd>
+      <span>{t.select}</span>
+      <kbd class="search-kbd">ESC</kbd>
+      <span>{t.closeEsc}</span>
+    </div>
+  </div>
+</div>
+
+<button
+  type="button"
+  id="search-trigger"
+  class="search-trigger"
+  aria-label={t.search}
+  aria-keyshortcuts="Control+K"
+>
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <span class="search-trigger__text">{t.search}</span>
+  <span class="search-shortcut">
+    <kbd class="search-kbd" id="search-kbd-hint"></kbd>
+    <kbd class="search-kbd">K</kbd>
+  </span>
+</button>
+
+<script>
+  import Fuse from 'fuse.js';
+
+  // Get data from data attributes
+  const searchData = document.getElementById('search-modal');
+  const searchIndex = JSON.parse(searchData?.dataset.searchIndex || '[]');
+  const t = JSON.parse(searchData?.dataset.translations || '{}');
+
+  (() => {
+    const modal = document.getElementById('search-modal');
+    const trigger = document.getElementById('search-trigger');
+    const input = document.getElementById('search-input');
+    const resultsList = document.getElementById('search-results-list');
+    const emptyState = document.getElementById('search-empty');
+    const closeButtons = document.querySelectorAll('[data-search-close]');
+    const kbdHint = document.getElementById('search-kbd-hint');
+
+    let selectedIndex = -1;
+    let searchResults = [];
+
+    // Set keyboard hint based on OS
+    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+    if (kbdHint) {
+      kbdHint.textContent = isMac ? '⌘K' : 'Ctrl+K';
+    }
+
+    // Initialize Fuse.js
+    const fuse = new Fuse(searchIndex, {
+      keys: ['title', 'description', 'tags'],
+      threshold: 0.3,
+      includeScore: true,
+      minMatchCharLength: 2,
+    });
+
+    const openModal = () => {
+      if (modal) {
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => input?.focus(), 100);
+      }
+    };
+
+    const closeModal = () => {
+      if (modal) {
+        modal.hidden = true;
+        document.body.style.overflow = '';
+        if (input) input.value = '';
+        if (resultsList) resultsList.innerHTML = '';
+        if (emptyState) emptyState.hidden = true;
+        selectedIndex = -1;
+        searchResults = [];
+      }
+    };
+
+    const performSearch = (query) => {
+      if (!query || query.length < 2) {
+        if (resultsList) resultsList.innerHTML = '';
+        if (emptyState) emptyState.hidden = true;
+        return;
+      }
+
+      const results = fuse.search(query);
+      searchResults = results;
+
+      if (results.length === 0) {
+        if (resultsList) resultsList.innerHTML = '';
+        if (emptyState) emptyState.hidden = false;
+        return;
+      }
+
+      if (emptyState) emptyState.hidden = true;
+
+      // Group results by type
+      const grouped = results.reduce((acc, { item }) => {
+        if (!acc[item.type]) acc[item.type] = [];
+        acc[item.type].push(item);
+        return acc;
+      }, {});
+
+      const html = Object.entries(grouped)
+        .map(([type, items]) => {
+          const categoryLabel = t.category[type] || type;
+          const itemsHtml = items
+            .map(
+              (item, idx) => `
+            <a
+              href="${item.url}"
+              class="search-result-item"
+              role="option"
+              data-index="${idx}"
+              aria-selected="false"
+              ${item.type === 'contributions' ? 'target="_blank" rel="noopener noreferrer"' : ''}
+            >
+              <div class="search-result-content">
+                <h3 class="search-result-title">${item.title}</h3>
+                <p class="search-result-description">${item.description}</p>
+                ${
+                  item.tags.length > 0
+                    ? `<div class="search-result-tags">${item.tags.slice(0, 3).map((tag) => `<span class="tag">${tag}</span>`).join('')}</div>`
+                    : ''
+                }
+              </div>
+              <svg class="search-result-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          `,
+            )
+            .join('');
+
+          return `
+          <div class="search-result-group">
+            <h2 class="search-result-category">${categoryLabel}</h2>
+            <div class="search-result-list">
+              ${itemsHtml}
+            </div>
+          </div>
+        `;
+        })
+        .join('');
+
+      if (resultsList) resultsList.innerHTML = html;
+      selectedIndex = -1;
+      updateSelection();
+    };
+
+    const updateSelection = () => {
+      if (!resultsList) return;
+      const items = resultsList.querySelectorAll('.search-result-item');
+      items.forEach((item, idx) => {
+        if (idx === selectedIndex) {
+          item.setAttribute('aria-selected', 'true');
+          item.style.backgroundColor = '#3b82f6';
+          item.style.color = 'white';
+          item.style.borderLeft = '4px solid #3b82f6';
+
+          // Force child elements to have accessible contrast
+          const title = item.querySelector('.search-result-title');
+          const description = item.querySelector('.search-result-description');
+          const arrow = item.querySelector('.search-result-arrow');
+          const tags = item.querySelectorAll('.tag');
+
+          if (title) title.style.color = 'white';
+          if (description) description.style.color = 'white';
+          if (arrow) {
+            arrow.style.opacity = '1';
+            arrow.style.color = 'white';
+          }
+          tags.forEach(tag => {
+            tag.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+            tag.style.color = 'white';
+            tag.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+          });
+
+          item.scrollIntoView({ block: 'nearest' });
+        } else {
+          item.setAttribute('aria-selected', 'false');
+          item.style.backgroundColor = '';
+          item.style.color = '';
+          item.style.borderLeft = '';
+
+          // Reset child elements
+          const title = item.querySelector('.search-result-title');
+          const description = item.querySelector('.search-result-description');
+          const arrow = item.querySelector('.search-result-arrow');
+          const tags = item.querySelectorAll('.tag');
+
+          if (title) title.style.color = '';
+          if (description) description.style.color = '';
+          if (arrow) {
+            arrow.style.opacity = '';
+            arrow.style.color = '';
+          }
+          tags.forEach(tag => {
+            tag.style.backgroundColor = '';
+            tag.style.color = '';
+            tag.style.borderColor = '';
+          });
+        }
+      });
+    };
+
+    const handleKeyDown = (e) => {
+      if (!resultsList) return;
+      const items = resultsList.querySelectorAll('.search-result-item');
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+        updateSelection();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectedIndex = Math.max(selectedIndex - 1, -1);
+        updateSelection();
+      } else if (e.key === 'Enter' && selectedIndex >= 0) {
+        e.preventDefault();
+        const selectedItem = items[selectedIndex];
+        if (selectedItem) {
+          window.location.href = selectedItem.getAttribute('href');
+        }
+      } else if (e.key === 'Escape') {
+        closeModal();
+      }
+    };
+
+    // Event listeners
+    if (trigger) {
+      trigger.addEventListener('click', openModal);
+    }
+
+    closeButtons.forEach((btn) => {
+      btn.addEventListener('click', closeModal);
+    });
+
+    if (input) {
+      input.addEventListener('input', (e) => {
+        performSearch(e.target.value);
+      });
+      input.addEventListener('keydown', handleKeyDown);
+    }
+
+    // Global keyboard shortcut
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        openModal();
+      }
+    });
+
+    // Handle astro page transitions
+    document.addEventListener('astro:after-swap', () => {
+      closeModal();
+    });
+  })();
+</script>
+
+<style>
+  .search-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: var(--space-2xl) var(--space-md);
+    overflow-y: auto;
+  }
+
+  .search-modal[hidden] {
+    display: none;
+  }
+
+  .search-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+  }
+
+  .search-container {
+    position: relative;
+    width: 100%;
+    max-width: 40rem;
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-2xl);
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 8rem);
+  }
+
+  .search-header {
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .search-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .search-icon {
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+  }
+
+  .search-input {
+    flex: 1;
+    padding: var(--space-xs) 0;
+    border: none;
+    background: transparent;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
+    outline: none;
+  }
+
+  .search-input::placeholder {
+    color: var(--color-text-secondary);
+  }
+
+  .search-close-btn {
+    padding: var(--space-xs);
+    border: none;
+    background: transparent;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .search-close-btn:hover {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+  }
+
+  .search-results {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-sm);
+  }
+
+  .search-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3xl) var(--space-md);
+    text-align: center;
+    color: var(--color-text-secondary);
+  }
+
+  .search-empty[hidden] {
+    display: none;
+  }
+
+  .search-empty svg {
+    margin-bottom: var(--space-md);
+    opacity: 0.5;
+  }
+
+  .search-empty-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-xs);
+    color: var(--color-text-primary);
+  }
+
+  .search-empty-subtitle {
+    font-size: var(--font-size-sm);
+  }
+
+  :global(.search-result-group) {
+    margin-bottom: var(--space-md);
+  }
+
+  :global(.search-result-category) {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+    padding: var(--space-xs) var(--space-sm);
+    margin-bottom: var(--space-xs);
+  }
+
+  :global(.search-result-list) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  :global(.search-result-item) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    color: var(--color-text-primary);
+    flex-wrap: nowrap;
+  }
+
+  :global(.search-result-item:hover),
+  :global(.search-result-item[aria-selected="true"]) {
+    background-color: var(--color-accent-primary);
+    box-shadow: inset 0 0 0 1px var(--color-accent-primary);
+  }
+
+  :global(.search-result-content) {
+    flex: 1 1 0%;
+    min-width: 0;
+    max-width: calc(100% - 32px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  :global(.search-result-title) {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-3xs);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  :global(.search-result-description) {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-2xs);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  :global(.search-result-tags) {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: var(--space-2xs);
+    overflow: hidden;
+  }
+
+  :global(.search-result-tags .tag) {
+    display: inline-block !important;
+    font-size: var(--font-size-xs);
+    padding: var(--space-3xs) var(--space-2xs);
+    background-color: var(--color-accent-light);
+    color: var(--color-accent-primary);
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  :global(.search-result-arrow) {
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  :global(.search-result-item:hover .search-result-arrow),
+  :global(.search-result-item[aria-selected="true"] .search-result-arrow) {
+    opacity: 1;
+    color: white;
+  }
+
+  :global(.search-result-item:hover .search-result-title),
+  :global(.search-result-item[aria-selected="true"] .search-result-title) {
+    color: white;
+  }
+
+  :global(.search-result-item:hover .search-result-description),
+  :global(.search-result-item[aria-selected="true"] .search-result-description) {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  :global(.search-result-item:hover .tag),
+  :global(.search-result-item[aria-selected="true"] .tag) {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .search-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+  }
+
+  .search-kbd {
+    padding: var(--space-3xs) var(--space-2xs);
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+  }
+
+  .search-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding: var(--space-2xs) var(--space-sm);
+    height: 2.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    min-width: 12rem;
+  }
+
+  .search-trigger:hover {
+    background-color: var(--color-accent-light);
+    border-color: var(--color-accent-primary);
+    color: var(--color-accent-primary);
+  }
+
+  .search-trigger:focus {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
+
+  .search-trigger__text {
+    flex: 1;
+    text-align: left;
+  }
+
+  .search-shortcut {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3xs);
+  }
+
+  .search-trigger .search-kbd {
+    padding: var(--space-3xs) var(--space-2xs);
+    min-width: 1.5rem;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .search-shortcut {
+      display: none;
+    }
+
+    .search-trigger {
+      height: 2.25rem;
+      padding: var(--space-2xs) var(--space-sm);
+    }
+
+    .search-modal {
+      padding: 0;
+      align-items: stretch;
+    }
+
+    .search-container {
+      max-width: none;
+      max-height: 100vh;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+    }
+  }
+</style>

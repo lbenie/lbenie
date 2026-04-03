@@ -1,0 +1,98 @@
+{
+  "title": "Blog",
+  "description": "Thoughts and articles about web development, technology, and software development",
+  "subtitle": "Articles and insights",
+  "allPosts": "All posts",
+  "latestPosts": "Latest posts",
+  "featuredPosts": "Featured posts",
+  "recentPosts": "Recent posts",
+  "relatedPosts": "Related posts",
+  "popularPosts": "Popular posts",
+  "readingList": "Reading list",
+  "actions": {
+    "readMore": "Read more",
+    "readArticle": "Read article",
+    "backToBlog": "Back to blog",
+    "share": "Share article",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied!",
+    "viewAllPosts": "View all posts"
+  },
+  "meta": {
+    "author": "By",
+    "publishedOn": "Published on",
+    "updatedOn": "Updated on",
+    "readingTime": "{{minutes}} min read",
+    "tags": "Tags",
+    "category": "Category",
+    "inCategory": "in {{category}}",
+    "writtenBy": "Written by {{author}}"
+  },
+  "navigation": {
+    "previousPost": "Previous post",
+    "nextPost": "Next post",
+    "newerPosts": "Newer posts",
+    "olderPosts": "Older posts",
+    "backToTop": "Back to top"
+  },
+  "filter": {
+    "filterBy": "Filter by",
+    "allTags": "All tags",
+    "sortBy": "Sort by",
+    "newest": "Newest first",
+    "oldest": "Oldest first",
+    "mostRecent": "Most recent",
+    "search": "Search articles",
+    "searchPlaceholder": "Search for articles...",
+    "noResults": "No articles found",
+    "showingResults": "Showing {{count}} article",
+    "showingResults_plural": "Showing {{count}} articles",
+    "clearFilters": "Clear filters"
+  },
+  "tags": {
+    "title": "Tags",
+    "viewAll": "View all tags",
+    "postsTagged": "Posts tagged with",
+    "relatedTags": "Related tags",
+    "noPostsWithTag": "No posts found with this tag"
+  },
+  "empty": {
+    "noPosts": "No blog posts yet",
+    "noPostsDescription": "Check back soon for new content!",
+    "noResults": "No articles match your search",
+    "tryDifferentKeywords": "Try different keywords or clear filters"
+  },
+  "series": {
+    "title": "Series",
+    "partOf": "Part {{current}} of {{total}}",
+    "viewSeries": "View series",
+    "allParts": "All parts"
+  },
+  "engagement": {
+    "views": "{{count}} view",
+    "views_plural": "{{count}} views",
+    "likes": "{{count}} like",
+    "likes_plural": "{{count}} likes",
+    "comments": "{{count}} comment",
+    "comments_plural": "{{count}} comments",
+    "reactions": "Reactions",
+    "share": "Share"
+  },
+  "tableOfContents": {
+    "title": "Table of contents",
+    "onThisPage": "On this page"
+  },
+  "newsletter": {
+    "title": "Subscribe to newsletter",
+    "description": "Get notified when I publish new articles",
+    "emailPlaceholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "subscribing": "Subscribing...",
+    "subscribed": "Subscribed!",
+    "error": "Failed to subscribe. Please try again."
+  },
+  "rss": {
+    "title": "RSS Feed",
+    "description": "Subscribe via RSS to stay updated"
+  }
+}

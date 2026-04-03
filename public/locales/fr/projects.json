@@ -1,0 +1,70 @@
+{
+  "title": "Projets",
+  "subtitle": "Mes projets et réalisations",
+  "description": "Une collection de projets sur lesquels j'ai travaillé",
+  "featured": "Projets en vedette",
+  "all": "Tous les projets",
+  "recent": "Projets récents",
+  "archived": "Projets archivés",
+  "active": "Projets actifs",
+  "completed": "Projets terminés",
+  "inProgress": "En cours",
+  "seeMore": "Voir plus de projets",
+  "viewProject": "Voir le projet",
+  "viewRepository": "Voir le dépôt",
+  "viewLiveDemo": "Voir la démo",
+  "sourceCode": "Code source",
+  "liveDemo": "Démo en direct",
+  "caseStudy": "Étude de cas",
+  "empty": {
+    "title": "Aucun projet trouvé",
+    "description": "Je n'ai pas encore ajouté de projets ici. Revenez bientôt!"
+  },
+  "filters": {
+    "all": "Tous",
+    "status": "Statut",
+    "technology": "Technologie",
+    "sort": "Trier par",
+    "sortByDate": "Date",
+    "sortByName": "Nom",
+    "filterBy": "Filtrer par",
+    "clearFilters": "Effacer les filtres"
+  },
+  "labels": {
+    "technologies": "Technologies utilisées",
+    "stack": "Stack technique",
+    "role": "Mon rôle",
+    "duration": "Durée",
+    "status": "Statut",
+    "year": "Année",
+    "category": "Catégorie",
+    "client": "Client",
+    "team": "Équipe",
+    "contributions": "Contributions"
+  },
+  "metadata": {
+    "startedOn": "Démarré le",
+    "completedOn": "Terminé le",
+    "lastUpdated": "Dernière mise à jour"
+  },
+  "sections": {
+    "overview": "Aperçu",
+    "features": "Fonctionnalités",
+    "challenges": "Défis",
+    "solutions": "Solutions",
+    "results": "Résultats",
+    "techStack": "Stack technique",
+    "myRole": "Mon rôle",
+    "links": "Liens"
+  },
+  "cta": {
+    "exploreProject": "Explorer ce projet",
+    "viewMore": "Voir plus de détails",
+    "visitWebsite": "Visiter le site web",
+    "checkItOut": "Découvrir"
+  },
+  "related": {
+    "title": "Projets similaires",
+    "seeAlso": "Voir également"
+  }
+}

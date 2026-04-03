@@ -1,0 +1,46 @@
+---
+import type { SkipLinkProps } from '@/types/index';
+
+interface Props extends SkipLinkProps {}
+
+const { targetId = 'main-content', label = 'Skip to main content' } = Astro.props;
+---
+
+<a href={`#${targetId}`} class="skip-link">
+    {label}
+</a>
+
+<style>
+    .skip-link {
+        position: absolute;
+        top: var(--space-sm);
+        left: var(--space-sm);
+        z-index: 9999;
+        padding: var(--space-xs) var(--space-md);
+        background-color: var(--color-accent-primary);
+        color: var(--color-text-inverse);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-semibold);
+        text-decoration: none;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-lg);
+
+        /* Visually hidden until focused */
+        transform: translateY(-200%);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .skip-link:focus {
+        transform: translateY(0);
+        outline: 3px solid var(--color-border-focus);
+        outline-offset: 2px;
+    }
+
+    .skip-link:hover {
+        background-color: var(--color-accent-hover);
+    }
+
+    .skip-link:active {
+        transform: translateY(0) scale(0.98);
+    }
+</style>

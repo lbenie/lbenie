@@ -1,0 +1,78 @@
+{
+  "hero": {
+    "greeting": "Salut 👋🏾",
+    "title": "Je suis Lucien Bénié",
+    "subtitle": "Développeur Logiciel Senior",
+    "description": "Passionné par le développement web et les technologies modernes. Je construis des expériences numériques accessibles et performantes.",
+    "tagline": "Créateur d'expériences web accessibles et performantes",
+    "currentRole": "Je travaille actuellement chez",
+    "currentCompany": "GoTo",
+    "openToWork": "Disponible pour de nouvelles opportunités",
+    "cta": {
+      "primary": "Voir mes projets",
+      "secondary": "Me contacter",
+      "viewWork": "Découvrir mon travail",
+      "downloadCV": "Télécharger mon CV"
+    }
+  },
+  "about": {
+    "title": "À propos",
+    "subtitle": "Développeur passionné par l'apprentissage",
+    "intro": "Je suis un développeur qui adore coder et apprendre de nouvelles choses sur le web.",
+    "experience": "{{years}} ans d'expérience en développement web",
+    "specialization": "Spécialisé dans les technologies frontend modernes",
+    "passion": "Passionné par l'accessibilité web (a11y)",
+    "description": "Développeur full-stack avec une expertise approfondie en technologies frontend. Je crée des applications web modernes, accessibles et performantes."
+  },
+  "technologies": {
+    "title": "Technologies",
+    "subtitle": "Outils et frameworks que j'utilise",
+    "workedWith": "Technologies avec lesquelles j'ai travaillé",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "tools": "Outils",
+    "frameworks": "Frameworks",
+    "languages": "Langages"
+  },
+  "featured": {
+    "blog": {
+      "title": "Articles récents",
+      "subtitle": "Mes dernières réflexions et tutoriels",
+      "viewAll": "Voir tous les articles",
+      "noPosts": "Aucun article pour le moment"
+    },
+    "projects": {
+      "title": "Projets en vedette",
+      "subtitle": "Une sélection de mes travaux récents",
+      "viewAll": "Voir tous les projets",
+      "noProjects": "Aucun projet pour le moment"
+    },
+    "experience": {
+      "title": "Expérience professionnelle",
+      "subtitle": "Mon parcours professionnel",
+      "viewAll": "Voir mon parcours complet",
+      "yearsOfExperience": "{{years}}+ années d'expérience"
+    }
+  },
+  "cta": {
+    "title": "Travaillons ensemble",
+    "subtitle": "Vous avez un projet en tête ?",
+    "description": "Je suis toujours intéressé par de nouveaux défis et opportunités.",
+    "button": "Contactez-moi",
+    "email": "Envoyez-moi un email"
+  },
+  "stats": {
+    "experience": "Années d'expérience",
+    "projects": "Projets réalisés",
+    "contributions": "Contributions open source",
+    "articles": "Articles écrits"
+  },
+  "social": {
+    "title": "Retrouvez-moi",
+    "subtitle": "Connectons-nous sur les réseaux",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "twitter": "Twitter",
+    "email": "Email"
+  }
+}

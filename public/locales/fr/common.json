@@ -1,0 +1,105 @@
+{
+  "site": {
+    "title": "Lucien Bénié",
+    "description": "Développeur logiciel senior spécialisé dans les technologies web modernes",
+    "author": "Lucien Bénié"
+  },
+  "actions": {
+    "readMore": "Lire la suite",
+    "viewAll": "Voir tout",
+    "viewProject": "Voir le projet",
+    "contact": "Me contacter",
+    "download": "Télécharger",
+    "downloadCV": "Télécharger le CV",
+    "backToHome": "Retour à l'accueil",
+    "backTo": "Retour à {{page}}",
+    "close": "Fermer",
+    "open": "Ouvrir",
+    "toggle": "Basculer",
+    "submit": "Envoyer",
+    "search": "Rechercher"
+  },
+  "status": {
+    "current": "Actuel",
+    "active": "Actif",
+    "completed": "Terminé",
+    "archived": "Archivé",
+    "draft": "Brouillon",
+    "published": "Publié",
+    "openToWork": "Disponible pour travailler"
+  },
+  "time": {
+    "present": "Présent",
+    "year": "an",
+    "years": "ans",
+    "month": "mois",
+    "months": "mois",
+    "duration": "Durée",
+    "publishedOn": "Publié le",
+    "updatedOn": "Mis à jour le",
+    "postedOn": "Posté le"
+  },
+  "labels": {
+    "tags": "Étiquettes",
+    "category": "Catégorie",
+    "categories": "Catégories",
+    "stack": "Stack technique",
+    "technologies": "Technologies",
+    "role": "Rôle",
+    "company": "Entreprise",
+    "location": "Localisation",
+    "website": "Site web",
+    "repository": "Dépôt",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "Email",
+    "highlights": "Points forts"
+  },
+  "pagination": {
+    "previous": "Précédent",
+    "next": "Suivant",
+    "page": "Page",
+    "of": "sur",
+    "showing": "Affichage de",
+    "to": "à",
+    "results": "résultats"
+  },
+  "empty": {
+    "noResults": "Aucun résultat trouvé",
+    "noPosts": "Aucun article disponible",
+    "noProjects": "Aucun projet disponible",
+    "noExperience": "Aucune expérience disponible",
+    "comingSoon": "Bientôt disponible"
+  },
+  "footer": {
+    "copyright": "Tous droits réservés",
+    "builtWith": "Construit avec",
+    "and": "et",
+    "madeWithLove": "Fait avec ❤️",
+    "sourceCode": "Code source"
+  },
+  "accessibility": {
+    "skipToContent": "Aller au contenu principal",
+    "skipToNavigation": "Aller à la navigation",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "toggleTheme": "Basculer le thème",
+    "changeLanguage": "Changer de langue",
+    "externalLink": "Lien externe",
+    "openInNewTab": "Ouvre dans un nouvel onglet"
+  },
+  "errors": {
+    "404": "Page non trouvée",
+    "404Description": "Désolé, la page que vous recherchez n'existe pas.",
+    "500": "Erreur du serveur",
+    "500Description": "Quelque chose s'est mal passé. Veuillez réessayer plus tard.",
+    "goHome": "Retour à l'accueil"
+  },
+  "language": {
+    "en": "English",
+    "fr": "Français",
+    "current": "Langue actuelle",
+    "switchTo": "Passer à",
+    "label": "Changer de langue"
+  }
+}

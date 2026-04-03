@@ -1,0 +1,58 @@
+{
+  "title": "Expérience professionnelle",
+  "subtitle": "Mon parcours professionnel",
+  "heading": "Expérience",
+  "yearsOfExperience": "ans d'expérience",
+  "veteran": "Je suis un vétéran de {{years}} ans dans le développement web",
+  "currentPosition": "Poste actuel",
+  "present": "Présent",
+  "duration": "Durée",
+  "company": "Entreprise",
+  "role": "Rôle",
+  "position": "Poste",
+  "location": "Localisation",
+  "period": "Période",
+  "from": "De",
+  "to": "À",
+  "responsibilities": "Responsabilités",
+  "achievements": "Réalisations",
+  "highlights": "Points forts",
+  "technologies": "Technologies utilisées",
+  "stack": "Stack technique",
+  "techStack": "Stack technologique",
+  "skills": "Compétences",
+  "description": "Description",
+  "summary": "Résumé",
+  "details": "Détails",
+  "readMore": "Lire plus",
+  "viewDetails": "Voir les détails",
+  "learnMore": "En savoir plus",
+  "downloadCV": "Télécharger mon CV",
+  "viewCV": "Voir mon CV",
+  "contactMe": "Me contacter",
+  "availability": {
+    "title": "Disponibilité",
+    "available": "Disponible pour de nouvelles opportunités",
+    "notAvailable": "Non disponible actuellement",
+    "openToWork": "Ouvert aux opportunités"
+  },
+  "jobTypes": {
+    "fullTime": "Temps plein",
+    "partTime": "Temps partiel",
+    "contract": "Contrat",
+    "freelance": "Freelance",
+    "internship": "Stage",
+    "remote": "Télétravail",
+    "hybrid": "Hybride",
+    "onSite": "Sur site"
+  },
+  "empty": {
+    "noExperience": "Aucune expérience à afficher",
+    "comingSoon": "Expériences à venir"
+  },
+  "meta": {
+    "pageTitle": "Expérience professionnelle - Lucien Bénié",
+    "pageDescription": "Découvrez mon parcours professionnel et mes expériences en développement logiciel",
+    "timeline": "Chronologie"
+  }
+}

@@ -1,0 +1,235 @@
+---
+import { SITE_CONFIG } from '@utils/seo';
+import type { FooterProps } from '@/types/index';
+
+interface Props extends Partial<FooterProps> {}
+
+const { locale = 'en' } = Astro.props;
+
+const currentYear = new Date().getFullYear();
+
+const socialLinks = [
+  {
+    name: 'GitHub',
+    url: SITE_CONFIG.socialLinks?.github,
+    label: 'GitHub profile',
+  },
+  {
+    name: 'LinkedIn',
+    url: SITE_CONFIG.socialLinks?.linkedin,
+    label: 'LinkedIn profile',
+  },
+  {
+    name: 'Email',
+    url: `mailto:${SITE_CONFIG.socialLinks?.email}`,
+    label: 'Send email',
+  },
+].filter((link) => link.url);
+
+const footerLinks = [
+  { label: 'Home', href: `/${locale}/` },
+  {
+    label: locale === 'fr' ? 'Blogue' : 'Blog',
+    href: `/${locale}/${locale === 'fr' ? 'blogue' : 'blog'}/`,
+  },
+  {
+    label: locale === 'fr' ? 'Projets' : 'Projects',
+    href: `/${locale}/${locale === 'fr' ? 'projets' : 'projects'}/`,
+  },
+  { label: 'Experience', href: `/${locale}/experience/` },
+  { label: 'Contact', href: `/${locale}/contact/` },
+];
+
+const copyrightText =
+  locale === 'fr'
+    ? `© ${currentYear} ${SITE_CONFIG.author}. Tous droits réservés.`
+    : `© ${currentYear} ${SITE_CONFIG.author}. All rights reserved.`;
+---
+
+<footer class="footer" role="contentinfo">
+    <div class="footer__container">
+        <div class="footer__content">
+            <!-- Footer Navigation -->
+            <nav class="footer__nav" aria-label="Footer navigation">
+                <ul class="footer__nav-list">
+                    {
+                        footerLinks.map((link) => (
+                            <li class="footer__nav-item">
+                                <a href={link.href} class="footer__nav-link">
+                                    {link.label}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </nav>
+
+            <!-- Social Links -->
+            <div class="footer__social">
+                <p class="footer__social-title">
+                    {locale === 'fr' ? 'Connexion' : 'Connect'}
+                </p>
+                <ul class="footer__social-list">
+                    {
+                        socialLinks.map((social) => (
+                            <li class="footer__social-item">
+                                <a
+                                    href={social.url}
+                                    class="footer__social-link"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={social.label}
+                                >
+                                    {social.name}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer__copyright">
+            <p>{copyrightText}</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .footer {
+        background-color: var(--color-bg-secondary);
+        border-top: 1px solid var(--color-border);
+        padding: var(--space-md) 0 var(--space-sm);
+        margin-top: auto;
+    }
+
+    .footer__container {
+        max-width: var(--container-max);
+        margin: 0 auto;
+        padding: 0 var(--space-md);
+    }
+
+    .footer__content {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+        margin-bottom: var(--space-md);
+    }
+
+    @media (min-width: 768px) {
+        .footer__content {
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-lg);
+        }
+    }
+
+    /* Navigation */
+    .footer__nav-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-xs) var(--space-md);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .footer__nav-item {
+        margin: 0;
+    }
+
+    .footer__nav-link {
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        transition: color 0.2s ease-in-out;
+    }
+
+    .footer__nav-link:hover {
+        color: var(--color-accent-primary);
+    }
+
+    .footer__nav-link:focus {
+        outline: 2px solid var(--color-border-focus);
+        outline-offset: 2px;
+        border-radius: var(--radius-sm);
+        color: var(--color-accent-primary);
+    }
+
+    /* Social Links */
+    .footer__social-title {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-text-primary);
+        margin: 0 0 var(--space-xs);
+    }
+
+    .footer__social-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-xs) var(--space-sm);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .footer__social-item {
+        margin: 0;
+    }
+
+    .footer__social-link {
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        transition: color 0.2s ease-in-out;
+    }
+
+    .footer__social-link:hover {
+        color: var(--color-accent-primary);
+    }
+
+    .footer__social-link:focus {
+        outline: 2px solid var(--color-border-focus);
+        outline-offset: 2px;
+        border-radius: var(--radius-sm);
+        color: var(--color-accent-primary);
+    }
+
+    /* Copyright */
+    .footer__copyright {
+        padding-top: var(--space-sm);
+        border-top: 1px solid var(--color-border);
+    }
+
+    .footer__copyright p {
+        color: var(--color-text-secondary);
+        font-size: var(--font-size-xs);
+        text-align: center;
+        margin: 0;
+    }
+
+    @media (max-width: 768px) {
+        .footer {
+            padding: var(--space-xs) 0 var(--space-2xs);
+        }
+
+        .footer__content {
+            gap: var(--space-xs);
+            margin-bottom: var(--space-xs);
+        }
+
+        .footer__nav-list {
+            gap: var(--space-2xs) var(--space-sm);
+        }
+
+        .footer__copyright {
+            padding-top: var(--space-xs);
+        }
+
+        .footer__social-title {
+            margin: 0 0 var(--space-2xs);
+        }
+    }
+</style>

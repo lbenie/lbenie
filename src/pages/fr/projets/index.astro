@@ -1,0 +1,814 @@
+---
+/**
+ * French Projects Listing Page
+ * Displays all projects in French
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import type { SEOMeta } from '@/types/index';
+import { getProjects, getContributions, formatDateShort } from '@utils/content';
+
+// Fetch all French projects (already sorted by date)
+const projects = await getProjects('fr');
+const contributions = await getContributions('fr');
+
+const activeProjects = projects.filter((p) => p.data.status === 'active');
+const completedProjects = projects.filter((p) => p.data.status === 'completed');
+const archivedProjects = projects.filter((p) => p.data.status === 'archived');
+
+// SEO metadata
+const meta: SEOMeta = {
+  title: 'Projets',
+  description:
+    'Une vitrine de mes projets de développement logiciel, contributions open-source et projets personnels. Construits avec des technologies modernes et les meilleures pratiques.',
+  keywords: ['Projets', 'Portfolio', 'Open Source', 'Développement Web', 'Ingénierie Logicielle'],
+  locale: 'fr',
+  type: 'website',
+};
+---
+
+<BaseLayout meta={meta} locale="fr">
+  <div class="projects-page">
+    <div class="container">
+      <!-- Page Header -->
+      <header class="page-header">
+        <h1 class="page-title">Projets</h1>
+        <p class="page-description">
+          Une collection de choses que j'ai construites, auxquelles j'ai contribué et sur lesquelles je travaille actuellement.
+          Des expériences personnelles aux applications de production.
+        </p>
+
+        <!-- Tab Navigation (only show if multiple categories) -->
+        {(activeProjects.length > 0 ? 1 : 0) + (completedProjects.length > 0 ? 1 : 0) + (archivedProjects.length > 0 ? 1 : 0) + (contributions.length > 0 ? 1 : 0) > 1 && (
+          <nav class="tabs" role="tablist" aria-label="Catégories de projets">
+            <button
+              role="tab"
+              aria-selected="true"
+              aria-controls="completed-panel"
+              id="completed-tab"
+              class="tab tab--active"
+              data-tab="completed"
+            >
+              Terminés <span class="tab-count">({completedProjects.length})</span>
+            </button>
+            {activeProjects.length > 0 && (
+              <button
+                role="tab"
+                aria-selected="false"
+                aria-controls="active-panel"
+                id="active-tab"
+                class="tab"
+                data-tab="active"
+              >
+                Actifs <span class="tab-count">({activeProjects.length})</span>
+              </button>
+            )}
+            {archivedProjects.length > 0 && (
+              <button
+                role="tab"
+                aria-selected="false"
+                aria-controls="archived-panel"
+                id="archived-tab"
+                class="tab"
+                data-tab="archived"
+              >
+                Archivés <span class="tab-count">({archivedProjects.length})</span>
+              </button>
+            )}
+            {contributions.length > 0 && (
+              <button
+                role="tab"
+                aria-selected="false"
+                aria-controls="contributions-panel"
+                id="contributions-tab"
+                class="tab"
+                data-tab="contributions"
+              >
+                Contributions <span class="tab-count">({contributions.length})</span>
+              </button>
+            )}
+          </nav>
+        )}
+      </header>
+
+      <!-- Active Projects Panel -->
+      <div id="active-panel" class="tab-panel" role="tabpanel" aria-labelledby="active-tab" hidden>
+      {activeProjects.length > 0 && (
+        <section class="project-section" aria-labelledby="active-heading">
+          <header class="section-header">
+            <h2 id="active-heading" class="section-title">
+              <span class="status-indicator status-indicator--active"></span>
+              Projets actifs
+            </h2>
+            <p class="section-description">Actuellement en cours de développement</p>
+          </header>
+
+          <div class="projects-grid">
+            {activeProjects.map((project) => (
+              <article class="project-card">
+                <div class="project-card__header">
+                  <h3 class="project-card__title">
+                    <a href={`/fr/projets/${project.data.slug}/`}>
+                      {project.data.title}
+                    </a>
+                  </h3>
+                  <span class="badge badge--active">Actif</span>
+                </div>
+
+                <p class="project-card__summary">{project.data.summary}</p>
+
+                <div class="project-card__meta">
+                  <time datetime={project.data.date.toISOString()}>
+                    Démarré en {formatDateShort(project.data.date, 'fr')}
+                  </time>
+                </div>
+
+                {project.data.tags.length > 0 && (
+                  <ul class="tag-list" aria-label="Technologies">
+                    {project.data.tags.map((tag) => (
+                      <li class="tag">{tag}</li>
+                    ))}
+                  </ul>
+                )}
+
+                <div class="project-card__links">
+                  <a href={`/fr/projets/${project.data.slug}/`} class="link">
+                    Voir les détails →
+                  </a>
+                  {project.data.url && (
+                    <a
+                      href={project.data.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="link"
+                    >
+                      Site web ↗
+                    </a>
+                  )}
+                  {project.data.repository && (
+                    <a
+                      href={project.data.repository}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="link"
+                    >
+                      Code ↗
+                    </a>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+      </div>
+
+      <!-- Completed Projects Panel -->
+      <div id="completed-panel" class="tab-panel" role="tabpanel" aria-labelledby="completed-tab">
+      {completedProjects.length > 0 && (
+        <section class="project-section" aria-labelledby="completed-heading">
+          <header class="section-header">
+            <h2 id="completed-heading" class="section-title">
+              <span class="status-indicator status-indicator--completed"></span>
+              Projets terminés
+            </h2>
+            <p class="section-description">Lancés et livrés avec succès</p>
+          </header>
+
+          <div class="projects-grid">
+            {completedProjects.map((project) => (
+              <article class="project-card">
+                <div class="project-card__header">
+                  <h3 class="project-card__title">
+                    <a href={`/fr/projets/${project.data.slug}/`}>
+                      {project.data.title}
+                    </a>
+                  </h3>
+                  {project.data.featured && (
+                    <span class="badge badge--featured">En vedette</span>
+                  )}
+                </div>
+
+                <p class="project-card__summary">{project.data.summary}</p>
+
+                <div class="project-card__meta">
+                  <time datetime={project.data.date.toISOString()}>
+                    {formatDateShort(project.data.date, 'fr')}
+                  </time>
+                </div>
+
+                {project.data.tags.length > 0 && (
+                  <ul class="tag-list" aria-label="Technologies">
+                    {project.data.tags.map((tag) => (
+                      <li class="tag">{tag}</li>
+                    ))}
+                  </ul>
+                )}
+
+                <div class="project-card__links">
+                  <a href={`/fr/projets/${project.data.slug}/`} class="link">
+                    Voir les détails →
+                  </a>
+                  {project.data.url && (
+                    <a
+                      href={project.data.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="link"
+                    >
+                      Site web ↗
+                    </a>
+                  )}
+                  {project.data.repository && (
+                    <a
+                      href={project.data.repository}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="link"
+                    >
+                      Code ↗
+                    </a>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+      </div>
+
+      <!-- Archived Projects Panel -->
+      <div id="archived-panel" class="tab-panel" role="tabpanel" aria-labelledby="archived-tab" hidden>
+      {archivedProjects.length > 0 && (
+        <section class="project-section" aria-labelledby="archived-heading">
+          <header class="section-header">
+            <h2 id="archived-heading" class="section-title">
+              <span class="status-indicator status-indicator--archived"></span>
+              Projets archivés
+            </h2>
+            <p class="section-description">Expériences passées et projets d'apprentissage</p>
+          </header>
+
+          <div class="projects-grid">
+            {archivedProjects.map((project) => (
+              <article class="project-card project-card--archived">
+                <div class="project-card__header">
+                  <h3 class="project-card__title">
+                    <a href={`/fr/projets/${project.data.slug}/`}>
+                      {project.data.title}
+                    </a>
+                  </h3>
+                </div>
+
+                <p class="project-card__summary">{project.data.summary}</p>
+
+                <div class="project-card__meta">
+                  <time datetime={project.data.date.toISOString()}>
+                    {formatDateShort(project.data.date, 'fr')}
+                  </time>
+                </div>
+
+                {project.data.tags.length > 0 && (
+                  <ul class="tag-list" aria-label="Technologies">
+                    {project.data.tags.slice(0, 5).map((tag) => (
+                      <li class="tag tag--small">{tag}</li>
+                    ))}
+                  </ul>
+                )}
+
+                <div class="project-card__links">
+                  <a href={`/fr/projets/${project.data.slug}/`} class="link">
+                    Voir les détails →
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+      </div>
+
+      <!-- Contributions Panel -->
+      <div id="contributions-panel" class="tab-panel" role="tabpanel" aria-labelledby="contributions-tab" hidden>
+      {contributions.length > 0 && (
+        <section class="project-section" aria-labelledby="contributions-heading">
+          <header class="section-header">
+            <h2 id="contributions-heading" class="section-title">
+              <span class="status-indicator status-indicator--contribution"></span>
+              Contributions Open Source
+            </h2>
+            <p class="section-description">Contributions aux projets open source</p>
+          </header>
+
+          <div class="projects-grid">
+            {contributions.map((contribution) => (
+              <article class="project-card contribution-card">
+                <div class="project-card__header">
+                  <h3 class="project-card__title">
+                    <a href={contribution.data.url} target="_blank" rel="noopener noreferrer" class="external-link">
+                      {contribution.data.title}
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="external-icon">
+                        <path d="M12 8.66667V12.6667C12 13.0203 11.8595 13.3594 11.6095 13.6095C11.3594 13.8595 11.0203 14 10.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39052 13.6095C2.14048 13.3594 2 13.0203 2 12.6667V5.33333C2 4.97971 2.14048 4.64057 2.39052 4.39052C2.64057 4.14048 2.97971 4 3.33333 4H7.33333M10 2H14M14 2V6M14 2L6.66667 9.33333" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </a>
+                  </h3>
+                  <span class="badge badge--contribution">{contribution.data.type.toUpperCase()}</span>
+                </div>
+
+                <p class="project-card__summary">{contribution.data.summary}</p>
+
+                <div class="project-card__meta">
+                  <time datetime={contribution.data.date.toISOString()}>
+                    {formatDateShort(contribution.data.date, 'fr')}
+                  </time>
+                </div>
+
+                {contribution.data.tags.length > 0 && (
+                  <ul class="tag-list" aria-label="Technologies">
+                    {contribution.data.tags.map((tag) => (
+                      <li class="tag">{tag}</li>
+                    ))}
+                  </ul>
+                )}
+
+                <div class="project-card__links">
+                  <a href={contribution.data.url} target="_blank" rel="noopener noreferrer" class="link">
+                    Voir sur GitHub ↗
+                  </a>
+                  {contribution.data.repository && (
+                    <a
+                      href={contribution.data.repository}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="link"
+                    >
+                      Dépôt ↗
+                    </a>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+      </div>
+
+      {projects.length === 0 && contributions.length === 0 && (
+        <div class="empty-state">
+          <p>Aucun projet pour le moment. Revenez bientôt!</p>
+        </div>
+      )}
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="back-to-top" aria-label="Retour en haut" hidden>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 15V5M10 5L5 10M10 5l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</BaseLayout>
+
+<script>
+  // Tab navigation with hash support
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.tab-panel');
+
+  function activateTab(tabName: string) {
+    // Update tabs
+    tabs.forEach(t => {
+      const isActive = t.dataset.tab === tabName;
+      t.classList.toggle('tab--active', isActive);
+      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    // Update panels
+    panels.forEach(panel => {
+      panel.hidden = true;
+    });
+    const activePanel = document.getElementById(`${tabName}-panel`);
+    if (activePanel) {
+      activePanel.hidden = false;
+    }
+  }
+
+  // Check for hash on page load
+  function initTabs() {
+    const hash = window.location.hash.slice(1); // Remove #
+    if (hash && document.getElementById(`${hash}-panel`)) {
+      activateTab(hash);
+    }
+  }
+
+  // Tab click handlers
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetPanel = tab.dataset.tab;
+      if (targetPanel) {
+        window.location.hash = targetPanel;
+        activateTab(targetPanel);
+      }
+    });
+  });
+
+  // Handle browser back/forward
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.slice(1);
+    if (hash && document.getElementById(`${hash}-panel`)) {
+      activateTab(hash);
+    }
+  });
+
+  // Initialize on page load
+  initTabs();
+
+  // Back to top button
+  const backToTop = document.getElementById('back-to-top');
+  const mainContent = document.querySelector('.main');
+
+  if (mainContent && backToTop) {
+    mainContent.addEventListener('scroll', () => {
+      if (mainContent.scrollTop > 300) {
+        backToTop.hidden = false;
+      } else {
+        backToTop.hidden = true;
+      }
+    });
+
+    backToTop.addEventListener('click', () => {
+      mainContent.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+</script>
+
+<style>
+  .projects-page {
+    width: 100%;
+    padding: var(--space-2xl) 0;
+    min-height: 60vh;
+  }
+
+  .container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+  }
+
+  /* Page Header */
+  .page-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+    max-width: 45rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .page-title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .page-description {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  /* Project Section */
+  .project-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .project-section:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .section-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .section-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .section-description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-xl);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    background: transparent;
+    border: none;
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  .tab:hover {
+    color: var(--color-text-primary);
+  }
+
+  .tab--active {
+    color: var(--color-accent-primary);
+  }
+
+  .tab--active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--color-accent-primary);
+  }
+
+  .tab-count {
+    opacity: 0.6;
+  }
+
+  .tab-panel {
+    display: block;
+  }
+
+  .tab-panel[hidden] {
+    display: none;
+  }
+
+  /* Status Indicator */
+  .status-indicator {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+  }
+
+  .status-indicator--active {
+    background-color: var(--color-success);
+    box-shadow: 0 0 0 3px hsl(142, 71%, 95%);
+  }
+
+  .status-indicator--completed {
+    background-color: var(--color-accent-primary);
+    box-shadow: 0 0 0 3px var(--color-accent-light);
+  }
+
+  .status-indicator--archived {
+    background-color: var(--color-text-secondary);
+    box-shadow: 0 0 0 3px var(--color-bg-tertiary);
+  }
+
+  .status-indicator--contribution {
+    background-color: hsl(280, 70%, 60%);
+    box-shadow: 0 0 0 3px hsl(280, 70%, 95%);
+  }
+
+  /* Projects Grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+    gap: var(--space-lg);
+  }
+
+  /* Project Card */
+  .project-card {
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .project-card--archived {
+    opacity: 0.8;
+  }
+
+  .contribution-card {
+    border-left: 3px solid hsl(280, 70%, 60%);
+  }
+
+  .project-card__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-sm);
+  }
+
+  .project-card__title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin: 0;
+    flex: 1;
+  }
+
+  .project-card__title a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  .project-card__title a:hover {
+    color: var(--color-accent-primary);
+  }
+
+  .external-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .external-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.25rem;
+  }
+
+  .project-card__summary {
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    flex: 1;
+  }
+
+  .project-card__meta {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .project-card__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* Tags */
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: var(--space-2xs) var(--space-xs);
+    background-color: var(--color-accent-light);
+    color: var(--color-accent-primary);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .tag--small {
+    font-size: var(--font-size-xs);
+    padding: var(--space-3xs) var(--space-2xs);
+  }
+
+  /* Badge */
+  .badge {
+    display: inline-block;
+    padding: var(--space-3xs) var(--space-xs);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .badge--active {
+    background-color: hsl(142, 71%, 95%);
+    color: var(--color-success);
+  }
+
+  .badge--featured {
+    background-color: hsl(38, 92%, 95%);
+    color: var(--color-warning);
+  }
+
+  .badge--contribution {
+    background-color: hsl(280, 70%, 95%);
+    color: hsl(280, 70%, 40%);
+  }
+
+  /* Links */
+  .link {
+    color: var(--color-accent-primary);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-sm);
+  }
+
+  .link:hover {
+    text-decoration: underline;
+  }
+
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: var(--space-3xl) var(--space-md);
+    color: var(--color-text-secondary);
+  }
+
+  .empty-state p {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Back to Top Button */
+  .back-to-top {
+    position: fixed;
+    bottom: var(--space-xl);
+    right: var(--space-xl);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--color-accent-primary);
+    color: var(--color-bg-primary);
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+
+  .back-to-top:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .back-to-top:active {
+    transform: translateY(0);
+  }
+
+  .back-to-top[hidden] {
+    display: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .projects-page {
+      padding: var(--space-xl) 0;
+    }
+
+    .page-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-title {
+      font-size: var(--font-size-xl);
+    }
+
+    .back-to-top {
+      bottom: var(--space-md);
+      right: var(--space-md);
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    .tabs {
+      gap: var(--space-xs);
+    }
+
+    .tab {
+      font-size: var(--font-size-sm);
+      padding: var(--space-xs) var(--space-sm);
+    }
+  }
+</style>

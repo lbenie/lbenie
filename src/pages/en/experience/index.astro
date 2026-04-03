@@ -1,0 +1,539 @@
+---
+/**
+ * English Experience Page
+ * Displays work experience in zigzag grid format
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getExperience, formatDateShort, formatDuration } from '@utils/content';
+import type { SEOMeta } from '@/types/index';
+
+// Fetch all English experience entries (already sorted by order and date)
+const experiences = await getExperience('en');
+
+// Group experiences into rows of 3
+const itemsPerRow = 3;
+const rows: typeof experiences[] = [];
+for (let i = 0; i < experiences.length; i += itemsPerRow) {
+  rows.push(experiences.slice(i, i + itemsPerRow));
+}
+
+// SEO metadata
+const meta: SEOMeta = {
+  title: 'Experience',
+  description:
+    "My professional experience as a software developer, including roles, responsibilities, and technologies I've worked with throughout my career.",
+  keywords: ['Experience', 'Work History', 'Career', 'Software Developer', 'Professional Background'],
+  locale: 'en',
+  type: 'website',
+};
+---
+
+<BaseLayout meta={meta} locale="en">
+  <div class="experience-page">
+    <div class="container">
+      <!-- Page Header -->
+      <header class="page-header">
+        <h1 class="page-title">Experience</h1>
+        <p class="page-description">
+          A chronological overview of my professional journey as a software developer.
+          The roles, companies, and technologies that have shaped my career.
+        </p>
+      </header>
+
+      <!-- Experience Grid -->
+      {experiences.length > 0 ? (
+        <div class="experience-container">
+          {rows.map((row, rowIndex) => {
+            const isReverseRow = rowIndex % 2 === 1;
+
+            return (
+              <div class="experience-row">
+                <div class={`row-content ${isReverseRow ? 'row-content--reverse' : ''}`}>
+                  {row.map((exp, colIndex) => {
+                    const isLastInRow = colIndex === row.length - 1;
+
+                    return (
+                      <>
+                        <article
+                          class={`grid-item ${exp.data.current ? 'grid-item--current' : ''}`}
+                          id={exp.data.slug}
+                        >
+                          <div class="experience-card">
+                            <div class="card-header">
+                              {exp.data.current && (
+                                <span class="badge badge--current">Current</span>
+                              )}
+                              <h3 class="card-title">{exp.data.role}</h3>
+                              <p class="card-company">
+                                {exp.data.companyUrl ? (
+                                  <a href={exp.data.companyUrl} target="_blank" rel="noopener noreferrer" class="company-link">
+                                    {exp.data.company}
+                                  </a>
+                                ) : (
+                                  exp.data.company
+                                )}
+                              </p>
+                              <div class="card-meta">
+                                <time datetime={exp.data.from.toISOString()}>
+                                  {formatDateShort(exp.data.from, 'en')}
+                                </time>
+                                {' – '}
+                                {exp.data.current ? (
+                                  <span>Present</span>
+                                ) : (
+                                  <time datetime={exp.data.to?.toISOString()}>
+                                    {formatDateShort(exp.data.to!, 'en')}
+                                  </time>
+                                )}
+                                <span class="card-duration">
+                                  · {formatDuration(exp.data.from, exp.data.to, 'en')}
+                                </span>
+                              </div>
+                            </div>
+
+                            {exp.data.highlights && exp.data.highlights.length > 0 && (
+                              <div class="card-highlights">
+                                <h4 class="highlights-title">Highlights</h4>
+                                <ul class="highlights-list">
+                                  {exp.data.highlights.map((highlight) => (
+                                    <li>{highlight}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+
+                            {exp.data.stack && exp.data.stack.length > 0 && (
+                              <div class="card-stack">
+                                <h4 class="stack-title">Technologies</h4>
+                                <ul class="tag-list">
+                                  {exp.data.stack.map((tech) => (
+                                    <li class="tag">{tech}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </div>
+                        </article>
+
+                        {/* Add horizontal arrow if not last in row */}
+                        {!isLastInRow && (
+                          <div
+                            class={`arrow arrow-horizontal arrow-${colIndex + 1} ${isReverseRow ? 'arrow-right' : 'arrow-left'}`}
+                            style={row.length === 2 && isReverseRow ? 'left: calc(2 * (100% - 2 * var(--space-2xl)) / 3 + var(--space-2xl) * 1.5) !important;' : ''}
+                          >
+                            <svg width="40" height="24" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              {isReverseRow ? (
+                                <path d="M0 12H36M36 12L28 4M36 12L28 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              ) : (
+                                <path d="M40 12H4M4 12L12 4M4 12L12 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              )}
+                            </svg>
+                          </div>
+                        )}
+                      </>
+                    );
+                  })}
+
+                  {/* Add up arrow between rows */}
+                  {rowIndex < rows.length - 1 && (
+                    <div class="arrow arrow-down">
+                      <svg width="24" height="40" viewBox="0 0 24 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 40V4M12 4L4 12M12 4L20 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <p>No experience entries yet. Check back soon!</p>
+        </div>
+      )}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .experience-page {
+    width: 100%;
+    padding: var(--space-2xl) 0;
+    min-height: 60vh;
+  }
+
+  .container {
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+  }
+
+  /* Page Header */
+  .page-header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .page-title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .page-description {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+
+  /* Experience Container */
+  .experience-container {
+    max-width: 90rem;
+    margin: 0 auto;
+  }
+
+  /* Experience Row */
+  .experience-row {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .experience-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .row-content {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2xl);
+    width: 100%;
+    max-width: 90rem;
+    margin: 0 auto;
+  }
+
+  .row-content--reverse {
+    direction: rtl;
+  }
+
+  .row-content--reverse .grid-item,
+  .row-content--reverse .arrow {
+    direction: ltr;
+  }
+
+  /* Grid Items */
+  .grid-item {
+    min-width: 0;
+    display: flex;
+  }
+
+  /* Arrow Elements */
+  .arrow {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent-primary);
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .arrow:hover {
+    opacity: 1;
+  }
+
+  .arrow-horizontal {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .arrow-horizontal.arrow-right.arrow-1 {
+    left: calc((100% - 2 * var(--space-2xl)) / 3 + var(--space-2xl) / 2);
+    transform: translate(-50%, -50%);
+  }
+
+  .arrow-horizontal.arrow-right.arrow-2 {
+    left: calc(2 * (100% - 2 * var(--space-2xl)) / 3 + var(--space-2xl) * 1.5);
+    transform: translate(-50%, -50%);
+  }
+
+  .arrow-horizontal.arrow-left.arrow-1 {
+    left: calc(2 * (100% - 2 * var(--space-2xl)) / 3 + var(--space-2xl) * 1.5);
+    transform: translate(-50%, -50%);
+  }
+
+  .arrow-horizontal.arrow-left.arrow-2 {
+    left: calc((100% - 2 * var(--space-2xl)) / 3 + var(--space-2xl) / 2);
+    transform: translate(-50%, -50%);
+  }
+
+  .arrow-down {
+    bottom: calc(-1 * var(--space-3xl) / 2);
+    left: calc(100% / 6 * 5);
+    transform: translate(-50%, 50%);
+  }
+
+  /* Experience Card */
+  .experience-card {
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .experience-card:hover {
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .grid-item--current .experience-card {
+    border-color: var(--color-accent-primary);
+    background-color: var(--color-bg-primary);
+    box-shadow: 0 0 0 3px var(--color-accent-light);
+  }
+
+  /* Card Header */
+  .card-header {
+    margin-bottom: var(--space-md);
+  }
+
+  .card-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-xs) 0;
+    line-height: var(--line-height-tight);
+  }
+
+  .card-company {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--space-sm) 0;
+  }
+
+  .company-link {
+    color: var(--color-accent-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .company-link:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+  }
+
+  .card-meta {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .card-duration {
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Badge */
+  .badge {
+    display: inline-block;
+    padding: var(--space-3xs) var(--space-xs);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    margin-bottom: var(--space-sm);
+  }
+
+  .badge--current {
+    background-color: var(--color-success);
+    color: white;
+  }
+
+  /* Highlights */
+  .card-highlights {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+    flex: 1;
+  }
+
+  .highlights-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 var(--space-sm) 0;
+  }
+
+  .highlights-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .highlights-list li {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    padding-left: var(--space-md);
+    position: relative;
+  }
+
+  .highlights-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent-primary);
+    font-weight: var(--font-weight-bold);
+  }
+
+  /* Stack/Technologies */
+  .card-stack {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .stack-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 var(--space-sm) 0;
+  }
+
+  /* Tags */
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: var(--space-2xs) var(--space-xs);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    transition: all 0.2s ease;
+  }
+
+  .tag:hover {
+    background-color: var(--color-accent-light);
+    border-color: var(--color-accent-primary);
+    color: var(--color-accent-primary);
+  }
+
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: var(--space-3xl) var(--space-md);
+    color: var(--color-text-secondary);
+  }
+
+  .empty-state p {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Responsive - 2 columns on tablets */
+  @media (max-width: 1024px) {
+    .row-content {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-xl);
+    }
+
+    .arrow-horizontal.arrow-right.arrow-1,
+    .arrow-horizontal.arrow-left.arrow-1 {
+      left: calc((100% - var(--space-xl)) / 2 + var(--space-xl) / 2);
+    }
+
+    .arrow-horizontal.arrow-right.arrow-2,
+    .arrow-horizontal.arrow-left.arrow-2 {
+      display: none;
+    }
+
+    .arrow-down {
+      left: calc(100% / 4 * 3);
+    }
+  }
+
+  /* Responsive - 1 column on mobile */
+  @media (max-width: 768px) {
+    .experience-page {
+      padding: var(--space-xl) 0;
+    }
+
+    .page-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .page-description {
+      font-size: var(--font-size-base);
+    }
+
+    .row-content {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .arrow-horizontal,
+    .arrow-down {
+      display: none;
+    }
+
+    .experience-card {
+      padding: var(--space-md);
+    }
+
+    .card-title {
+      font-size: var(--font-size-lg);
+    }
+
+    .card-company {
+      font-size: var(--font-size-base);
+    }
+
+    .card-meta {
+      font-size: var(--font-size-xs);
+    }
+
+    .highlights-list li {
+      font-size: var(--font-size-sm);
+    }
+
+    .tag-list {
+      gap: var(--space-2xs);
+      row-gap: var(--space-2xs);
+    }
+  }
+</style>
