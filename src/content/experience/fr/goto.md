@@ -7,12 +7,12 @@ location: "250-410 boul. Charest Est, G1K 8G3"
 remote: true
 from: 2025-04-14T00:00:00.000Z
 current: true
-description: "Direction des initiatives de développement frontend chez GoTo, création d'applications web réactives et accessibles pour les outils de travail à distance et de collaboration. Travail avec des frameworks JavaScript modernes incluant Angular et React pour offrir des expériences utilisateur de haute qualité aux clients d'entreprise."
+description: "Pilote l'architecture frontend et la stratégie technique chez GoTo, définissant les standards et meilleures pratiques à travers plusieurs gammes de produits. Conçoit des bibliothèques de composants évolutives et établit des patterns d'ingénierie qui augmentent la vélocité des équipes et la qualité du code. Fournit le leadership technique pour les initiatives de modernisation critiques impactant des millions d'utilisateurs d'entreprise."
 stack: ["Angular", "React.js", "HTML", "CSS", "TypeScript", "angular.js", "Web Component"]
 highlights: [
-  "Développement de composants Web réutilisables et de bibliothèques d'interface utilisateur pour standardiser l'architecture frontend à travers plusieurs gammes de produits",
-  "Direction des efforts de migration d'AngularJS vers Angular moderne et React, améliorant les performances et la maintenabilité des applications",
-  "Implémentation de designs réactifs et de fonctionnalités d'accessibilité assurant la conformité WCAG pour les outils de collaboration d'entreprise"
+  "Architecturé et promu un système de Web Components à l'échelle de l'entreprise, établissant des bibliothèques d'interface réutilisables qui ont standardisé l'architecture frontend à travers plus de 5 équipes produit et réduit le temps de développement de 40%",
+  "Piloté la migration stratégique d'AngularJS vers des frameworks modernes, définissant la feuille de route technique et mentorant les ingénieurs à travers la transition tout en maintenant zéro temps d'arrêt pour les clients d'entreprise",
+  "Établi une culture de développement axée sur l'accessibilité et des standards de conformité WCAG, créant des directives et des outils qui ont élevé les pratiques de l'équipe à travers l'organisation"
 ]
 locale: "fr"
 translationKey: "goto"

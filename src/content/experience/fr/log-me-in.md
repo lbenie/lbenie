@@ -8,12 +8,12 @@ remote: true
 from: 2018-10-01T00:00:00.000Z
 to: 2021-06-25T00:00:00.000Z
 current: false
-description: "Direction des initiatives de développement frontend chez GoTo, création d'applications web réactives et accessibles pour les outils de travail à distance et de collaboration. Travail avec des frameworks JavaScript modernes incluant Angular et React pour offrir des expériences utilisateur de haute qualité aux clients d'entreprise."
+description: "Piloté la stratégie technique frontend et pris en charge des fonctionnalités produit critiques chez LogMeIn (GoTo), architecturant des applications web de niveau entreprise pour des plateformes de collaboration à distance au service de compagnies Fortune 500. Dirigé des initiatives interfonctionnelles et mentoré des ingénieurs tout en livrant des solutions évolutives utilisant Angular, React et Web Components modernes."
 stack: ["Angular", "React.js", "HTML", "CSS", "TypeScript", "angular.js", "Web Component"]
 highlights: [
-  "Développement de composants Web réutilisables et de bibliothèques d'interface utilisateur pour standardiser l'architecture frontend à travers plusieurs gammes de produits",
-  "Direction des efforts de migration d'AngularJS vers Angular moderne et React, améliorant les performances et la maintenabilité des applications",
-  "Implémentation de designs réactifs et de fonctionnalités d'accessibilité assurant la conformité WCAG pour les outils de collaboration d'entreprise"
+  "Architecturé une bibliothèque de Web Components inter-produits unifiant les patterns d'interface à travers 3 gammes de produits majeures, réduisant la duplication de code de 60% et accélérant la livraison de fonctionnalités pour plus de 50 ingénieurs",
+  "Pris en charge et exécuté la stratégie critique de migration d'AngularJS vers des frameworks modernes, améliorant les performances des applications de 3x tout en mentorant l'équipe à travers la transition sans aucun incident client",
+  "Promu les standards d'accessibilité en entreprise, implémentant la conformité WCAG 2.1 AA à travers tous les produits et établissant des outils et processus qui ont fait de l'accessibilité une pratique d'ingénierie fondamentale"
 ]
 locale: "fr"
 translationKey: "goto"

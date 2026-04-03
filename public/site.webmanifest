@@ -1,7 +1,7 @@
 {
   "name": "Lucien Bénié - Portfolio",
   "short_name": "LB Portfolio",
-  "description": "Full-stack software developer specializing in modern web technologies, TypeScript, and scalable applications.",
+  "description": "Fullstack software developer specializing in modern web technologies, TypeScript, and scalable applications.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
