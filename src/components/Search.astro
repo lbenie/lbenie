@@ -102,8 +102,6 @@ const t = translations[locale as keyof typeof translations];
   role="dialog"
   aria-modal="true"
   aria-labelledby="search-title"
-  data-search-index={JSON.stringify(searchIndex)}
-  data-translations={JSON.stringify(t)}
   hidden
 >
   <div class="search-backdrop" data-search-close></div>
@@ -178,11 +176,13 @@ const t = translations[locale as keyof typeof translations];
   </span>
 </button>
 
+<!-- Embed search data as JSON -->
+<script is:inline type="application/json" id="search-data" set:html={JSON.stringify({ searchIndex, t })}></script>
+
 <script>
-  // Get data from data attributes
-  const searchData = document.getElementById('search-modal');
-  const searchIndex = JSON.parse(searchData?.dataset.searchIndex || '[]');
-  const t = JSON.parse(searchData?.dataset.translations || '{}');
+  // Get data from JSON script tag
+  const searchDataEl = document.getElementById('search-data');
+  const { searchIndex, t } = searchDataEl ? JSON.parse(searchDataEl.textContent || '{}') : { searchIndex: [], t: {} };
 
   (() => {
     const modal = document.getElementById('search-modal');
