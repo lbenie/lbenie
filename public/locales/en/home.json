@@ -1,0 +1,97 @@
+{
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Lucien Bénié",
+    "title": "Staff Software Developer",
+    "tagline": "Building exceptional digital experiences with modern web technologies",
+    "description": "I'm a passionate developer with a strong focus on web accessibility and creating inclusive digital experiences. Currently working on voice technology at GoTo.",
+    "cta": {
+      "primary": "Get in touch",
+      "secondary": "View my work",
+      "downloadCV": "Download CV"
+    },
+    "status": {
+      "available": "Available for opportunities",
+      "openToWork": "Open to work"
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "heading": "Hello! 👋",
+    "intro": "I'm a Staff Software Developer with years of experience building modern web applications. I specialize in frontend technologies and have a deep passion for web accessibility.",
+    "technologies": "Frontend technologies I work with",
+    "currentRole": "I am currently working on",
+    "currentCompany": "GoTo",
+    "currentProject": "voice offering",
+    "passion": "I love coding, learning new technologies, and creating accessible web experiences for everyone.",
+    "a11yNote": "P.S. I love a11y too!",
+    "expertise": "Areas of expertise",
+    "yearsOfExperience": "Years of experience"
+  },
+  "work": {
+    "title": "Where I've worked",
+    "heading": "Experience",
+    "viewAll": "View full resume",
+    "current": "Current",
+    "past": "Past positions",
+    "duration": "Duration",
+    "technologies": "Technologies used"
+  },
+  "projects": {
+    "title": "What I've built",
+    "heading": "Featured Projects",
+    "viewAll": "View all projects",
+    "featured": "Featured projects",
+    "recent": "Recent work",
+    "seeMore": "See more projects"
+  },
+  "blog": {
+    "title": "Latest from the blog",
+    "heading": "Recent Posts",
+    "viewAll": "View all posts",
+    "readMore": "Read article",
+    "noPosts": "No posts yet, coming soon!",
+    "featured": "Featured posts"
+  },
+  "contributions": {
+    "title": "Open Source Contributions",
+    "heading": "Contributing to the community",
+    "viewAll": "View all contributions",
+    "recent": "Recent contributions"
+  },
+  "skills": {
+    "title": "My toolkit",
+    "heading": "Skills & Technologies",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "tools": "Tools & Others",
+      "languages": "Languages"
+    },
+    "proficiency": "Proficiency"
+  },
+  "contact": {
+    "title": "Let's connect",
+    "heading": "Get in touch",
+    "description": "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.",
+    "email": "Email me",
+    "linkedin": "Connect on LinkedIn",
+    "github": "View my GitHub",
+    "social": "Find me online",
+    "cta": "Send a message"
+  },
+  "stats": {
+    "experience": "Years Experience",
+    "projects": "Projects Completed",
+    "contributions": "Open Source Contributions",
+    "technologies": "Technologies"
+  },
+  "sections": {
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "skills": "Skills",
+    "blog": "Blog",
+    "contact": "Contact"
+  }
+}

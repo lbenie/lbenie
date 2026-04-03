@@ -1,0 +1,19 @@
+{
+  "home": "Home",
+  "about": "About",
+  "blog": "Blog",
+  "projects": "Projects",
+  "experience": "Experience",
+  "contact": "Contact",
+  "menu": "Menu",
+  "closeMenu": "Close menu",
+  "skipToContent": "Skip to main content",
+  "languageSwitcher": "Switch language",
+  "switchToFrench": "Français",
+  "switchToEnglish": "English",
+  "currentLanguage": "Current language: English",
+  "backToHome": "Back to home",
+  "viewAllPosts": "View all posts",
+  "viewAllProjects": "View all projects",
+  "viewExperience": "View experience"
+}

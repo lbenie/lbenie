@@ -1,0 +1,503 @@
+---
+/**
+ * English Experience Detail Page
+ * Dynamic route for individual experience entries
+ */
+import { type CollectionEntry, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { formatDateShort, formatDuration, getExperience } from '@utils/content';
+import type { SEOMeta } from '@/types/index';
+
+export async function getStaticPaths() {
+  const experiences = await getExperience('fr');
+
+  return experiences.map((expEntry) => ({
+    params: { slug: expEntry.data.slug },
+    props: { experience: expEntry },
+  }));
+}
+
+interface Props {
+  experience: CollectionEntry<'experience'>;
+}
+
+const { experience } = Astro.props;
+const { Content } = await render(experience);
+
+// Get all experiences for navigation (already sorted by order and date)
+const sortedExperiences = await getExperience('en');
+const currentIndex = sortedExperiences.findIndex((e) => e.data.slug === experience.data.slug);
+const previousExperience = currentIndex > 0 ? sortedExperiences[currentIndex - 1] : null;
+const nextExperience = currentIndex < sortedExperiences.length - 1 ? sortedExperiences[currentIndex + 1] : null;
+
+// SEO metadata
+const meta: SEOMeta = {
+  title: `${experience.data.role} at ${experience.data.company}`,
+  description: experience.data.description,
+  keywords: ['Experience', experience.data.company, experience.data.role, ...experience.data.stack],
+  locale: 'fr',
+  type: 'article',
+};
+---
+
+<BaseLayout meta={meta} locale="fr">
+  <article class="experience-detail">
+    <div class="container">
+      <!-- Article Header -->
+      <header class="experience-header">
+        <div class="badge-group">
+          {experience.data.current && (
+            <span class="badge badge--current">Poste actuel</span>
+          )}
+          {experience.data.remote && (
+            <span class="badge badge--remote">À distance</span>
+          )}
+        </div>
+
+        <h1 class="experience-title">{experience.data.role}</h1>
+
+        <div class="experience-company">
+          {experience.data.companyUrl ? (
+            <a href={experience.data.companyUrl} target="_blank" rel="noopener noreferrer" class="company-link">
+              {experience.data.company}
+            </a>
+          ) : (
+            <span>{experience.data.company}</span>
+          )}
+        </div>
+
+        <div class="experience-meta">
+          <div class="meta-item">
+            <svg class="meta-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V13C15 13.5304 14.7893 14.0391 14.4142 14.4142C14.0391 14.7893 13.5304 15 13 15H3C2.46957 15 1.96086 14.7893 1.58579 14.4142C1.21071 14.0391 1 13.5304 1 13V4C1 3.46957 1.21071 2.96086 1.58579 2.58579C1.96086 2.21071 2.46957 2 3 2H4M5 1V3M11 1V3M1 6H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <time datetime={experience.data.from.toISOString()}>
+              {formatDateShort(experience.data.from, 'fr')}
+            </time>
+            <span>–</span>
+            {experience.data.current ? (
+              <span>Présent</span>
+            ) : (
+              <time datetime={experience.data.to?.toISOString()}>
+                {formatDateShort(experience.data.to!, 'fr')}
+              </time>
+            )}
+            <span class="duration">
+              · {formatDuration(experience.data.from, experience.data.to, 'fr')}
+            </span>
+          </div>
+
+          {experience.data.location && (
+            <div class="meta-item">
+              <svg class="meta-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 14C8 14 13 10 13 6C13 3.23858 10.7614 1 8 1C5.23858 1 3 3.23858 3 6C3 10 8 14 8 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="8" cy="6" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+              <span>{experience.data.location}</span>
+            </div>
+          )}
+        </div>
+
+        <p class="experience-description">{experience.data.description}</p>
+
+        {experience.data.stack.length > 0 && (
+          <div class="tech-section">
+            <h2 class="section-heading">Technologies</h2>
+            <ul class="tag-list" aria-label="Technologies used">
+              {experience.data.stack.map((tech) => (
+                <li class="tag">{tech}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </header>
+
+      <!-- Highlights Section -->
+      {experience.data.highlights && experience.data.highlights.length > 0 && (
+        <section class="highlights-section">
+          <h2 class="section-heading">Faits marquants</h2>
+          <ul class="highlights-list">
+            {experience.data.highlights.map((highlight) => (
+              <li class="highlight-item">{highlight}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <!-- Experience Content -->
+      <div class="experience-content">
+        <Content />
+      </div>
+
+      <!-- Experience Navigation -->
+      {(previousExperience || nextExperience) && (
+        <nav class="experience-navigation" aria-label="Experience navigation">
+          <h2 class="visually-hidden">Navigate to other experiences</h2>
+          <div class="experience-navigation__grid">
+            {previousExperience ? (
+              <a href={`/fr/experience/${previousExperience.data.slug}/`} class="exp-nav-card exp-nav-card--prev">
+                <span class="exp-nav-card__label">← Précédent</span>
+                <span class="exp-nav-card__role">{previousExperience.data.role}</span>
+                <span class="exp-nav-card__company">{previousExperience.data.company}</span>
+              </a>
+            ) : (
+              <div></div>
+            )}
+
+            {nextExperience && (
+              <a href={`/fr/experience/${nextExperience.data.slug}/`} class="exp-nav-card exp-nav-card--next">
+                <span class="exp-nav-card__label">Suivant →</span>
+                <span class="exp-nav-card__role">{nextExperience.data.role}</span>
+                <span class="exp-nav-card__company">{nextExperience.data.company}</span>
+              </a>
+            )}
+          </div>
+        </nav>
+      )}
+
+      <!-- Back to Experience -->
+      <div class="back-link">
+        <a href="/fr/experience/" class="button button--outline">
+          ← Retour à l'expérience
+        </a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .experience-detail {
+    width: 100%;
+    padding: var(--space-2xl) 0;
+  }
+
+  .container {
+    max-width: var(--container-narrow);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+  }
+
+  /* Experience Header */
+  .experience-header {
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .badge-group {
+    display: flex;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: var(--space-2xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge--current {
+    background-color: hsl(142, 76%, 32%);
+    color: white;
+  }
+
+  .badge--remote {
+    background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+  }
+
+  .experience-title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .experience-company {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-md);
+  }
+
+  .company-link {
+    color: var(--color-accent-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .company-link:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+  }
+
+  .experience-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .meta-icon {
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .duration {
+    font-weight: var(--font-weight-medium);
+  }
+
+  .experience-description {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Section Heading */
+  .section-heading {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  /* Tech Section */
+  .tech-section {
+    margin-top: var(--space-lg);
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--color-accent-light);
+    color: var(--color-accent-primary);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Highlights Section */
+  .highlights-section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .highlights-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .highlight-item {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    padding-left: var(--space-lg);
+    position: relative;
+  }
+
+  .highlight-item::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent-primary);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-lg);
+  }
+
+  /* Experience Content */
+  .experience-content {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .experience-content :global(h2) {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+    line-height: var(--line-height-tight);
+  }
+
+  .experience-content :global(h3) {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+    line-height: var(--line-height-tight);
+  }
+
+  .experience-content :global(p) {
+    margin-bottom: var(--space-md);
+  }
+
+  .experience-content :global(ul),
+  .experience-content :global(ol) {
+    margin-bottom: var(--space-md);
+    padding-left: var(--space-lg);
+  }
+
+  .experience-content :global(li) {
+    margin-bottom: var(--space-xs);
+  }
+
+  .experience-content :global(a) {
+    color: var(--color-accent-primary);
+    text-decoration: underline;
+  }
+
+  .experience-content :global(a:hover) {
+    color: var(--color-accent-hover);
+  }
+
+  /* Experience Navigation */
+  .experience-navigation {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .experience-navigation__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+
+  .exp-nav-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    padding: var(--space-md);
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .exp-nav-card:hover {
+    background-color: var(--color-bg-tertiary);
+    border-color: var(--color-accent-primary);
+    transform: translateY(-2px);
+  }
+
+  .exp-nav-card--next {
+    text-align: right;
+  }
+
+  .exp-nav-card__label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .exp-nav-card__role {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+  }
+
+  .exp-nav-card__company {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+  }
+
+  /* Back Link */
+  .back-link {
+    margin-top: var(--space-xl);
+    text-align: center;
+  }
+
+  /* Button */
+  .button {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+
+  .button--outline {
+    background-color: transparent;
+    color: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+  }
+
+  .button--outline:hover {
+    background-color: var(--color-accent-light);
+  }
+
+  /* Visually Hidden */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .experience-detail {
+      padding: var(--space-xl) 0;
+    }
+
+    .experience-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .experience-company {
+      font-size: var(--font-size-xl);
+    }
+
+    .experience-description {
+      font-size: var(--font-size-base);
+    }
+
+    .experience-navigation__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .exp-nav-card--next {
+      text-align: left;
+    }
+  }
+</style>

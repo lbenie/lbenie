@@ -1,0 +1,605 @@
+---
+/**
+ * English Contact Page
+ * Contact form with spam protection and client-side validation
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import type { SEOMeta } from '@/types/index';
+
+// SEO metadata
+const meta: SEOMeta = {
+  title: 'Contact',
+  description: "Get in touch with me. I'm always open to discussing new projects, creative ideas, or opportunities.",
+  keywords: ['Contact', 'Get in Touch', 'Email', 'Collaboration', 'Opportunities'],
+  locale: 'en',
+  type: 'website',
+};
+---
+
+<BaseLayout meta={meta} locale="en">
+  <div class="contact-page">
+    <div class="container">
+      <!-- Page Header -->
+      <header class="page-header">
+        <h1 class="page-title">Contact</h1>
+        <p class="page-description">
+          Get in touch with me. I'm always open to discussing new projects, creative ideas, or opportunities.
+        </p>
+      </header>
+
+      <!-- Contact Form -->
+      <div class="contact-form-wrapper">
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          class="contact-form"
+          id="contact-form"
+        >
+          <!-- Honeypot field for spam protection -->
+          <div class="honeypot" aria-hidden="true">
+            <label for="bot-field">Don't fill this out if you're human:</label>
+            <input type="text" name="bot-field" id="bot-field" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <!-- Hidden field for Netlify Forms -->
+          <input type="hidden" name="form-name" value="contact" />
+
+          <!-- Name Field -->
+          <div class="form-group">
+            <label for="name" class="form-label">
+              Name <span class="required" aria-label="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-input"
+              required
+              aria-required="true"
+              placeholder="Your name"
+              minlength="2"
+              maxlength="100"
+            />
+            <span class="form-error" id="name-error" role="alert"></span>
+          </div>
+
+          <!-- Email Field -->
+          <div class="form-group">
+            <label for="email" class="form-label">
+              Email <span class="required" aria-label="required">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-input"
+              required
+              aria-required="true"
+              placeholder="your.email@example.com"
+              maxlength="100"
+            />
+            <span class="form-error" id="email-error" role="alert"></span>
+          </div>
+
+          <!-- Subject Field -->
+          <div class="form-group">
+            <label for="subject" class="form-label">
+              Subject <span class="required" aria-label="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              class="form-input"
+              required
+              aria-required="true"
+              placeholder="What's this about?"
+              minlength="3"
+              maxlength="200"
+            />
+            <span class="form-error" id="subject-error" role="alert"></span>
+          </div>
+
+          <!-- Message Field -->
+          <div class="form-group">
+            <label for="message" class="form-label">
+              Message <span class="required" aria-label="required">*</span>
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              class="form-textarea"
+              required
+              aria-required="true"
+              placeholder="Your message..."
+              rows="6"
+              minlength="10"
+              maxlength="2000"
+            ></textarea>
+            <span class="form-error" id="message-error" role="alert"></span>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-actions">
+            <button type="submit" class="submit-button" id="submit-button">
+              <span class="button-text">Send Message</span>
+              <span class="button-text-sending" style="display: none;">Sending...</span>
+            </button>
+          </div>
+
+          <!-- Success Message -->
+          <div class="form-message form-message--success" id="success-message" role="alert" style="display: none;">
+            <svg class="message-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z" fill="currentColor"/>
+            </svg>
+            <span>Thanks! I'll get back to you soon.</span>
+          </div>
+
+          <!-- Error Message -->
+          <div class="form-message form-message--error" id="error-message" role="alert" style="display: none;">
+            <svg class="message-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V13H11V15ZM11 11H9V5H11V11Z" fill="currentColor"/>
+            </svg>
+            <span>Oops! Something went wrong. Please try again.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Container */
+  .contact-page {
+    width: 100%;
+    padding: var(--space-2xl) 0;
+    min-height: 60vh;
+  }
+
+  .container {
+    max-width: var(--container-narrow);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+  }
+
+  /* Page Header */
+  .page-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .page-title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .page-description {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+
+  /* Contact Form Wrapper */
+  .contact-form-wrapper {
+    max-width: 42rem;
+    margin: 0 auto;
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Honeypot - Hidden spam protection field */
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Form */
+  .contact-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  /* Form Groups */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .form-label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3xs);
+  }
+
+  .required {
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Form Inputs */
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    padding: var(--space-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
+    font-family: var(--font-sans);
+    line-height: var(--line-height-normal);
+    transition: all 0.2s ease-in-out;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 0 0 3px var(--color-accent-light);
+  }
+
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.7;
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+
+  /* Input Error State */
+  .form-input.is-invalid,
+  .form-textarea.is-invalid {
+    border-color: var(--color-error);
+  }
+
+  .form-input.is-invalid:focus,
+  .form-textarea.is-invalid:focus {
+    box-shadow: 0 0 0 3px hsl(0, 84%, 95%);
+  }
+
+  /* Form Error Messages */
+  .form-error {
+    font-size: var(--font-size-sm);
+    color: var(--color-error);
+    display: none;
+    margin-top: var(--space-3xs);
+  }
+
+  .form-error.visible {
+    display: block;
+  }
+
+  /* Form Actions */
+  .form-actions {
+    margin-top: var(--space-md);
+  }
+
+  /* Submit Button */
+  .submit-button {
+    width: 100%;
+    padding: var(--space-sm) var(--space-lg);
+    border: none;
+    border-radius: var(--radius-md);
+    background-color: var(--color-accent-primary);
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+  }
+
+  .submit-button:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+
+  .submit-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-accent-light);
+  }
+
+  .submit-button:active {
+    transform: translateY(0);
+  }
+
+  .submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .submit-button:disabled:hover {
+    background-color: var(--color-accent-primary);
+    transform: none;
+  }
+
+  /* Form Messages */
+  .form-message {
+    display: none;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    margin-top: var(--space-md);
+  }
+
+  .form-message.visible {
+    display: flex;
+  }
+
+  .form-message--success {
+    background-color: hsl(142, 71%, 95%);
+    color: var(--color-success);
+    border: 1px solid hsl(142, 71%, 85%);
+  }
+
+  .form-message--error {
+    background-color: hsl(0, 84%, 95%);
+    color: var(--color-error);
+    border: 1px solid hsl(0, 84%, 85%);
+  }
+
+  .message-icon {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .contact-page {
+      padding: var(--space-xl) 0;
+    }
+
+    .page-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .page-description {
+      font-size: var(--font-size-base);
+    }
+
+    .contact-form-wrapper {
+      padding: var(--space-lg);
+    }
+
+    .form-input,
+    .form-textarea {
+      padding: var(--space-sm);
+      font-size: var(--font-size-base);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .contact-form-wrapper {
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+    }
+
+    .submit-button {
+      padding: var(--space-sm);
+    }
+  }
+</style>
+
+<script>
+  // Client-side form validation
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
+    const successMessage = document.getElementById('success-message') as HTMLElement;
+    const errorMessage = document.getElementById('error-message') as HTMLElement;
+    const buttonText = submitButton.querySelector('.button-text') as HTMLElement;
+    const buttonTextSending = submitButton.querySelector('.button-text-sending') as HTMLElement;
+
+    // Form fields
+    const nameInput = document.getElementById('name') as HTMLInputElement;
+    const emailInput = document.getElementById('email') as HTMLInputElement;
+    const subjectInput = document.getElementById('subject') as HTMLInputElement;
+    const messageInput = document.getElementById('message') as HTMLTextAreaElement;
+
+    // Error elements
+    const nameError = document.getElementById('name-error') as HTMLElement;
+    const emailError = document.getElementById('email-error') as HTMLElement;
+    const subjectError = document.getElementById('subject-error') as HTMLElement;
+    const messageError = document.getElementById('message-error') as HTMLElement;
+
+    // Validation functions
+    const validateName = (): boolean => {
+      const value = nameInput.value.trim();
+      if (value.length === 0) {
+        showError(nameInput, nameError, 'Please enter your name.');
+        return false;
+      }
+      if (value.length < 2) {
+        showError(nameInput, nameError, 'Name must be at least 2 characters.');
+        return false;
+      }
+      clearError(nameInput, nameError);
+      return true;
+    };
+
+    const validateEmail = (): boolean => {
+      const value = emailInput.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (value.length === 0) {
+        showError(emailInput, emailError, 'Please enter your email address.');
+        return false;
+      }
+      if (!emailRegex.test(value)) {
+        showError(emailInput, emailError, 'Please enter a valid email address.');
+        return false;
+      }
+      clearError(emailInput, emailError);
+      return true;
+    };
+
+    const validateSubject = (): boolean => {
+      const value = subjectInput.value.trim();
+      if (value.length === 0) {
+        showError(subjectInput, subjectError, 'Please enter a subject.');
+        return false;
+      }
+      if (value.length < 3) {
+        showError(subjectInput, subjectError, 'Subject must be at least 3 characters.');
+        return false;
+      }
+      clearError(subjectInput, subjectError);
+      return true;
+    };
+
+    const validateMessage = (): boolean => {
+      const value = messageInput.value.trim();
+      if (value.length === 0) {
+        showError(messageInput, messageError, 'Please enter your message.');
+        return false;
+      }
+      if (value.length < 10) {
+        showError(messageInput, messageError, 'Message must be at least 10 characters.');
+        return false;
+      }
+      clearError(messageInput, messageError);
+      return true;
+    };
+
+    const showError = (input: HTMLInputElement | HTMLTextAreaElement, errorElement: HTMLElement, message: string): void => {
+      input.classList.add('is-invalid');
+      errorElement.textContent = message;
+      errorElement.classList.add('visible');
+      input.setAttribute('aria-invalid', 'true');
+    };
+
+    const clearError = (input: HTMLInputElement | HTMLTextAreaElement, errorElement: HTMLElement): void => {
+      input.classList.remove('is-invalid');
+      errorElement.textContent = '';
+      errorElement.classList.remove('visible');
+      input.removeAttribute('aria-invalid');
+    };
+
+    // Real-time validation on blur
+    nameInput.addEventListener('blur', validateName);
+    emailInput.addEventListener('blur', validateEmail);
+    subjectInput.addEventListener('blur', validateSubject);
+    messageInput.addEventListener('blur', validateMessage);
+
+    // Clear errors on input
+    nameInput.addEventListener('input', () => {
+      if (nameInput.classList.contains('error')) {
+        validateName();
+      }
+    });
+
+    emailInput.addEventListener('input', () => {
+      if (emailInput.classList.contains('error')) {
+        validateEmail();
+      }
+    });
+
+    subjectInput.addEventListener('input', () => {
+      if (subjectInput.classList.contains('error')) {
+        validateSubject();
+      }
+    });
+
+    messageInput.addEventListener('input', () => {
+      if (messageInput.classList.contains('error')) {
+        validateMessage();
+      }
+    });
+
+    // Form submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Hide previous messages
+      successMessage.classList.remove('visible');
+      errorMessage.classList.remove('visible');
+      successMessage.style.display = 'none';
+      errorMessage.style.display = 'none';
+
+      // Validate all fields
+      const isNameValid = validateName();
+      const isEmailValid = validateEmail();
+      const isSubjectValid = validateSubject();
+      const isMessageValid = validateMessage();
+
+      if (!isNameValid || !isEmailValid || !isSubjectValid || !isMessageValid) {
+        // Focus first invalid field
+        if (!isNameValid) nameInput.focus();
+        else if (!isEmailValid) emailInput.focus();
+        else if (!isSubjectValid) subjectInput.focus();
+        else if (!isMessageValid) messageInput.focus();
+        return;
+      }
+
+      // Disable submit button and show loading state
+      submitButton.disabled = true;
+      buttonText.style.display = 'none';
+      buttonTextSending.style.display = 'inline';
+
+      try {
+        // Submit form data to Netlify
+        const formData = new FormData(form);
+
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData as any).toString(),
+        });
+
+        if (response.ok) {
+          // Show success message
+          successMessage.style.display = 'flex';
+          successMessage.classList.add('visible');
+
+          // Reset form
+          form.reset();
+
+          // Scroll to success message
+          successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        // Show error message
+        errorMessage.style.display = 'flex';
+        errorMessage.classList.add('visible');
+
+        // Scroll to error message
+        errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } finally {
+        // Re-enable submit button and restore text
+        submitButton.disabled = false;
+        buttonText.style.display = 'inline';
+        buttonTextSending.style.display = 'none';
+      }
+    });
+  });
+</script>

@@ -1,0 +1,551 @@
+---
+/**
+ * French Contact Page
+ * Contact form with Netlify Forms integration and spam protection
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import type { SEOMeta } from '@/types/index';
+
+// SEO metadata
+const meta: SEOMeta = {
+  title: 'Contact',
+  description:
+    "Contactez-moi. Je suis toujours ouvert à discuter de nouveaux projets, d'idées créatives ou d'opportunités.",
+  keywords: ['Contact', 'Courriel', 'Message', 'Collaboration', 'Projets'],
+  locale: 'fr',
+  type: 'website',
+};
+---
+
+<BaseLayout meta={meta} locale="fr">
+  <div class="contact-page">
+    <div class="container">
+      <!-- Page Header -->
+      <header class="page-header">
+        <h1 class="page-title">Contact</h1>
+        <p class="page-description">
+          Je suis toujours ouvert à discuter de nouveaux projets, d'idées créatives ou d'opportunités.
+          N'hésitez pas à me contacter!
+        </p>
+      </header>
+
+      <!-- Contact Form -->
+      <div class="form-wrapper">
+        <form
+          name="contact-fr"
+          method="POST"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          class="contact-form"
+          id="contact-form"
+        >
+          <!-- Hidden fields for Netlify Forms -->
+          <input type="hidden" name="form-name" value="contact-fr" />
+
+          <!-- Honeypot field - hidden from users but visible to bots -->
+          <div class="honeypot" aria-hidden="true">
+            <label for="bot-field">Ne pas remplir si vous êtes humain:</label>
+            <input type="text" name="bot-field" id="bot-field" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <!-- Name field -->
+          <div class="form-group">
+            <label for="name" class="form-label">
+              Nom <span class="required" aria-label="requis">*</span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-input"
+              required
+              aria-required="true"
+              autocomplete="name"
+            />
+            <span class="form-error" id="name-error" role="alert"></span>
+          </div>
+
+          <!-- Email field -->
+          <div class="form-group">
+            <label for="email" class="form-label">
+              Courriel <span class="required" aria-label="requis">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-input"
+              required
+              aria-required="true"
+              autocomplete="email"
+            />
+            <span class="form-error" id="email-error" role="alert"></span>
+          </div>
+
+          <!-- Subject field -->
+          <div class="form-group">
+            <label for="subject" class="form-label">
+              Sujet <span class="required" aria-label="requis">*</span>
+            </label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              class="form-input"
+              required
+              aria-required="true"
+            />
+            <span class="form-error" id="subject-error" role="alert"></span>
+          </div>
+
+          <!-- Message field -->
+          <div class="form-group">
+            <label for="message" class="form-label">
+              Message <span class="required" aria-label="requis">*</span>
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              class="form-input form-textarea"
+              rows="6"
+              required
+              aria-required="true"
+            ></textarea>
+            <span class="form-error" id="message-error" role="alert"></span>
+          </div>
+
+          <!-- Submit button -->
+          <div class="form-actions">
+            <button type="submit" class="button button--primary button--large" id="submit-btn">
+              <span class="button-text">Envoyer le message</span>
+              <span class="button-loading" hidden>Envoi en cours...</span>
+            </button>
+          </div>
+
+          <!-- Success message -->
+          <div class="form-message form-message--success" id="success-message" hidden role="status">
+            <svg class="message-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="22 4 12 14.01 9 11.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p>Merci! Je vous répondrai bientôt.</p>
+          </div>
+
+          <!-- Error message -->
+          <div class="form-message form-message--error" id="error-message" hidden role="alert">
+            <svg class="message-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" stroke-width="2"/>
+              <line x1="12" y1="8" x2="12" y2="12" stroke-width="2" stroke-linecap="round"/>
+              <line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <p>Oups! Quelque chose s'est mal passé. Veuillez réessayer.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .contact-page {
+    width: 100%;
+    padding: var(--space-2xl) 0;
+    min-height: 60vh;
+  }
+
+  .container {
+    max-width: var(--container-narrow);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+  }
+
+  /* Page Header */
+  .page-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .page-title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .page-description {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+
+  /* Form Wrapper */
+  .form-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Contact Form */
+  .contact-form {
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Honeypot - completely hidden from users */
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Form Groups */
+  .form-group {
+    margin-bottom: var(--space-lg);
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: var(--space-xs);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+  }
+
+  .required {
+    color: hsl(0, 84%, 60%);
+  }
+
+  .form-input {
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
+    font-family: var(--font-sans);
+    line-height: var(--line-height-normal);
+    transition: all 0.2s ease-in-out;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 0 3px var(--color-accent-light);
+  }
+
+  .form-input.is-invalid {
+    border-color: hsl(0, 84%, 60%);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 150px;
+  }
+
+  .form-error {
+    display: block;
+    margin-top: var(--space-xs);
+    font-size: var(--font-size-sm);
+    color: hsl(0, 84%, 60%);
+    min-height: 1.25rem;
+  }
+
+  /* Form Actions */
+  .form-actions {
+    margin-top: var(--space-xl);
+    display: flex;
+    justify-content: center;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-lg);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    font-family: var(--font-sans);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .button--primary {
+    background-color: var(--color-accent-primary);
+    color: var(--color-text-inverse);
+  }
+
+  .button--primary:hover:not(:disabled) {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .button--primary:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  .button--primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .button--large {
+    padding: var(--space-md) var(--space-xl);
+    font-size: var(--font-size-lg);
+  }
+
+  .button-loading {
+    display: none;
+  }
+
+  .button--loading .button-text {
+    display: none;
+  }
+
+  .button--loading .button-loading {
+    display: inline;
+  }
+
+  /* Form Messages */
+  .form-message {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .form-message[hidden] {
+    display: none;
+  }
+
+  .form-message p {
+    margin: 0;
+  }
+
+  .message-icon {
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  .form-message--success {
+    background-color: hsl(142, 71%, 95%);
+    color: var(--color-success);
+    border: 1px solid hsl(142, 71%, 85%);
+  }
+
+  .form-message--error {
+    background-color: hsl(0, 84%, 95%);
+    color: hsl(0, 84%, 40%);
+    border: 1px solid hsl(0, 84%, 85%);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .contact-page {
+      padding: var(--space-xl) 0;
+    }
+
+    .page-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .contact-form {
+      padding: var(--space-lg);
+    }
+
+    .button--large {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // Client-side form validation and submission
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const successMessage = document.getElementById('success-message') as HTMLDivElement;
+  const errorMessage = document.getElementById('error-message') as HTMLDivElement;
+
+  // Form fields
+  const nameInput = document.getElementById('name') as HTMLInputElement;
+  const emailInput = document.getElementById('email') as HTMLInputElement;
+  const subjectInput = document.getElementById('subject') as HTMLInputElement;
+  const messageInput = document.getElementById('message') as HTMLTextAreaElement;
+
+  // Error elements
+  const nameError = document.getElementById('name-error') as HTMLSpanElement;
+  const emailError = document.getElementById('email-error') as HTMLSpanElement;
+  const subjectError = document.getElementById('subject-error') as HTMLSpanElement;
+  const messageError = document.getElementById('message-error') as HTMLSpanElement;
+
+  // Validation functions
+  function validateName(): boolean {
+    const value = nameInput.value.trim();
+    if (value.length === 0) {
+      nameError.textContent = 'Le nom est requis.';
+      nameInput.classList.add('is-invalid');
+      return false;
+    }
+    if (value.length < 2) {
+      nameError.textContent = 'Le nom doit contenir au moins 2 caractères.';
+      nameInput.classList.add('is-invalid');
+      return false;
+    }
+    nameError.textContent = '';
+    nameInput.classList.remove('is-invalid');
+    return true;
+  }
+
+  function validateEmail(): boolean {
+    const value = emailInput.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (value.length === 0) {
+      emailError.textContent = 'Le courriel est requis.';
+      emailInput.classList.add('is-invalid');
+      return false;
+    }
+    if (!emailRegex.test(value)) {
+      emailError.textContent = 'Veuillez entrer une adresse courriel valide.';
+      emailInput.classList.add('is-invalid');
+      return false;
+    }
+    emailError.textContent = '';
+    emailInput.classList.remove('is-invalid');
+    return true;
+  }
+
+  function validateSubject(): boolean {
+    const value = subjectInput.value.trim();
+    if (value.length === 0) {
+      subjectError.textContent = 'Le sujet est requis.';
+      subjectInput.classList.add('is-invalid');
+      return false;
+    }
+    if (value.length < 3) {
+      subjectError.textContent = 'Le sujet doit contenir au moins 3 caractères.';
+      subjectInput.classList.add('is-invalid');
+      return false;
+    }
+    subjectError.textContent = '';
+    subjectInput.classList.remove('is-invalid');
+    return true;
+  }
+
+  function validateMessage(): boolean {
+    const value = messageInput.value.trim();
+    if (value.length === 0) {
+      messageError.textContent = 'Le message est requis.';
+      messageInput.classList.add('is-invalid');
+      return false;
+    }
+    if (value.length < 10) {
+      messageError.textContent = 'Le message doit contenir au moins 10 caractères.';
+      messageInput.classList.add('is-invalid');
+      return false;
+    }
+    messageError.textContent = '';
+    messageInput.classList.remove('is-invalid');
+    return true;
+  }
+
+  function validateForm(): boolean {
+    const isNameValid = validateName();
+    const isEmailValid = validateEmail();
+    const isSubjectValid = validateSubject();
+    const isMessageValid = validateMessage();
+
+    return isNameValid && isEmailValid && isSubjectValid && isMessageValid;
+  }
+
+  // Add real-time validation on blur
+  nameInput.addEventListener('blur', validateName);
+  emailInput.addEventListener('blur', validateEmail);
+  subjectInput.addEventListener('blur', validateSubject);
+  messageInput.addEventListener('blur', validateMessage);
+
+  // Clear error on input
+  nameInput.addEventListener('input', () => {
+    if (nameError.textContent) validateName();
+  });
+  emailInput.addEventListener('input', () => {
+    if (emailError.textContent) validateEmail();
+  });
+  subjectInput.addEventListener('input', () => {
+    if (subjectError.textContent) validateSubject();
+  });
+  messageInput.addEventListener('input', () => {
+    if (messageError.textContent) validateMessage();
+  });
+
+  // Form submission
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Hide previous messages
+    successMessage.hidden = true;
+    errorMessage.hidden = true;
+
+    // Validate form
+    if (!validateForm()) {
+      return;
+    }
+
+    // Show loading state
+    submitBtn.classList.add('button--loading');
+    submitBtn.disabled = true;
+
+    try {
+      const formData = new FormData(form);
+
+      // Convert FormData to URLSearchParams for Netlify
+      const params = new URLSearchParams();
+      formData.forEach((value, key) => {
+        params.append(key, value.toString());
+      });
+
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString(),
+      });
+
+      if (response.ok) {
+        // Show success message
+        successMessage.hidden = false;
+        // Reset form
+        form.reset();
+        // Scroll to success message
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      // Show error message
+      errorMessage.hidden = false;
+      // Scroll to error message
+      errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } finally {
+      // Remove loading state
+      submitBtn.classList.remove('button--loading');
+      submitBtn.disabled = false;
+    }
+  });
+</script>

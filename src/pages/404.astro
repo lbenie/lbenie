@@ -1,0 +1,201 @@
+---
+/**
+ * 404 Error Page
+ * Displayed when a page is not found
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import type { SEOMeta } from '@/types/index';
+
+// Try to detect locale from URL
+const path = Astro.url.pathname;
+const locale = path.startsWith('/fr') ? 'fr' : 'en';
+
+// SEO metadata
+const meta: SEOMeta = {
+  title: locale === 'fr' ? 'Page introuvable' : 'Page Not Found',
+  description:
+    locale === 'fr'
+      ? "La page que vous recherchez n'existe pas ou a été déplacée."
+      : 'The page you are looking for does not exist or has been moved.',
+  locale,
+  type: 'website',
+};
+
+const content = {
+  en: {
+    title: '404',
+    heading: 'Page Not Found',
+    message: 'Sorry, the page you are looking for does not exist or has been moved.',
+    homeLink: 'Go to Homepage',
+    blogLink: 'Browse Blog',
+    projectsLink: 'View Projects',
+    suggestion: 'Here are some helpful links instead:',
+  },
+  fr: {
+    title: '404',
+    heading: 'Page introuvable',
+    message: "Désolé, la page que vous recherchez n'existe pas ou a été déplacée.",
+    homeLink: "Aller à l'accueil",
+    blogLink: 'Parcourir le blogue',
+    projectsLink: 'Voir les projets',
+    suggestion: 'Voici quelques liens utiles à la place :',
+  },
+};
+
+const t = content[locale];
+const homePath = locale === 'fr' ? '/fr/' : '/en/';
+const blogPath = locale === 'fr' ? '/fr/blogue/' : '/en/blog/';
+const projectsPath = locale === 'fr' ? '/fr/projets/' : '/en/projects/';
+---
+
+<BaseLayout meta={meta} locale={locale}>
+  <div class="error-page">
+    <div class="container">
+      <div class="error-content">
+        <div class="error-code" aria-hidden="true">
+          {t.title}
+        </div>
+
+        <h1 class="error-heading">{t.heading}</h1>
+
+        <p class="error-message">{t.message}</p>
+
+        <p class="error-suggestion">{t.suggestion}</p>
+
+        <nav class="error-nav" aria-label="Navigation">
+          <a href={homePath} class="button button--primary">
+            {t.homeLink}
+          </a>
+          <a href={blogPath} class="button button--secondary">
+            {t.blogLink}
+          </a>
+          <a href={projectsPath} class="button button--secondary">
+            {t.projectsLink}
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .error-page {
+    width: 100%;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2xl) 0;
+  }
+
+  .container {
+    max-width: var(--container-narrow);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+  }
+
+  .error-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .error-code {
+    font-size: clamp(6rem, 15vw, 10rem);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+    color: var(--color-accent-primary);
+    opacity: 0.1;
+    user-select: none;
+  }
+
+  .error-heading {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .error-message {
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    max-width: 40rem;
+    margin: 0;
+  }
+
+  .error-suggestion {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin-top: var(--space-md);
+  }
+
+  .error-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+
+  /* Buttons */
+  .button {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+
+  .button--primary {
+    background-color: var(--color-accent-primary);
+    color: var(--color-text-inverse);
+  }
+
+  .button--primary:hover {
+    background-color: var(--color-accent-hover);
+  }
+
+  .button--secondary {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border-color: var(--color-border);
+  }
+
+  .button--secondary:hover {
+    background-color: var(--color-bg-secondary);
+    border-color: var(--color-accent-primary);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .error-page {
+      min-height: 60vh;
+      padding: var(--space-xl) 0;
+    }
+
+    .error-heading {
+      font-size: var(--font-size-3xl);
+    }
+
+    .error-message {
+      font-size: var(--font-size-lg);
+    }
+
+    .error-nav {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

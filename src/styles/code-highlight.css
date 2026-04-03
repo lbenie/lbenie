@@ -1,0 +1,183 @@
+/* Code Highlighting Styles */
+
+/* Inline code */
+:not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0.125em 0.375em;
+  background-color: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+}
+
+/* Base code block styles */
+.astro-code {
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  line-height: 1.7;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-mono);
+  border: 1px solid var(--color-border);
+  margin: var(--space-lg) 0;
+}
+
+.astro-code code {
+  font-family: var(--font-mono);
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Line styles */
+.astro-code .line {
+  display: inline-block;
+  width: 100%;
+  padding: 0 var(--space-sm);
+  margin: 0;
+}
+
+/* Line numbers */
+code[data-line-numbers] {
+  counter-reset: line;
+}
+
+code[data-line-numbers] .line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 2rem;
+  margin-right: var(--space-sm);
+  text-align: right;
+  color: var(--color-text-secondary);
+  opacity: 0.4;
+  user-select: none;
+}
+
+code[data-line-numbers] .line {
+  padding-left: var(--space-sm);
+}
+
+/* Highlighted lines (from {7} syntax) */
+.astro-code .line.highlighted,
+.astro-code .line.diff.add,
+.astro-code .line.highlight,
+.astro-code .highlighted,
+.astro-code span[data-highlighted-line],
+.astro-code .line[data-highlighted-line],
+.astro-code [data-highlighted-line],
+.astro-code .line.hl,
+.astro-code .has-focus {
+  background-color: rgba(59, 130, 246, 0.15);
+  border-left: 3px solid var(--color-accent-primary);
+  padding-left: calc(var(--space-sm) - 3px);
+}
+
+/* Adjust highlighted lines when line numbers are present */
+code[data-line-numbers] .line.highlighted,
+code[data-line-numbers] .line.diff.add,
+code[data-line-numbers] .line.highlight,
+code[data-line-numbers] .highlighted,
+code[data-line-numbers] span[data-highlighted-line],
+code[data-line-numbers] .line[data-highlighted-line],
+code[data-line-numbers] [data-highlighted-line],
+code[data-line-numbers] .line.hl,
+code[data-line-numbers] .has-focus {
+  padding-left: calc(var(--space-sm) - 3px);
+}
+
+/* Make line numbers more prominent when highlighted */
+code[data-line-numbers] .line.highlighted::before,
+code[data-line-numbers] .line.diff.add::before,
+code[data-line-numbers] .line.highlight::before,
+code[data-line-numbers] .line[data-highlighted-line]::before {
+  opacity: 1;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent-primary);
+}
+
+[data-theme="dark"] .astro-code .line.highlighted,
+[data-theme="dark"] .astro-code .line.diff.add,
+[data-theme="dark"] .astro-code .line.highlight,
+[data-theme="dark"] .astro-code .highlighted,
+[data-theme="dark"] .astro-code span[data-highlighted-line],
+[data-theme="dark"] .astro-code .line[data-highlighted-line],
+[data-theme="dark"] .astro-code [data-highlighted-line],
+[data-theme="dark"] .astro-code .line.hl,
+[data-theme="dark"] .astro-code .has-focus {
+  background-color: rgba(96, 165, 250, 0.12);
+}
+
+/* Highlighted chars/words */
+.astro-code mark,
+.astro-code .highlighted-word {
+  background-color: rgba(59, 130, 246, 0.25);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+[data-theme="dark"] :not(pre) > code {
+  background-color: hsl(220, 13%, 18%);
+  border-color: hsl(220, 13%, 28%);
+}
+
+/* Pre tag wrapper */
+pre {
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+/* Scrollbar styling for code blocks */
+.astro-code::-webkit-scrollbar {
+  height: 8px;
+}
+
+.astro-code::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.astro-code::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 4px;
+}
+
+.astro-code::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(155, 155, 155, 0.7);
+}
+
+[data-theme="dark"] .astro-code::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .astro-code::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .astro-code {
+    padding: var(--space-sm);
+    font-size: 0.875rem;
+  }
+
+  .astro-code .line {
+    padding: 0 var(--space-xs);
+  }
+
+  .astro-code .line.highlighted {
+    padding-left: calc(var(--space-xs) - 3px);
+    margin-left: 0;
+    margin-right: calc(-1 * var(--space-xs));
+  }
+
+  code[data-line-numbers] .line.highlighted {
+    padding-left: calc(var(--space-xs) - 3px);
+  }
+
+  code[data-line-numbers] .line::before {
+    width: 1.5rem;
+    margin-right: var(--space-xs);
+  }
+}

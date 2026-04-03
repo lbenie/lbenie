@@ -1,0 +1,56 @@
+{
+  "title": "Projects",
+  "subtitle": "Things I've built",
+  "description": "A collection of personal and open-source projects I've worked on",
+  "featured": "Featured Projects",
+  "allProjects": "All Projects",
+  "recent": "Recent Projects",
+  "viewProject": "View Project",
+  "viewDetails": "View Details",
+  "viewSource": "View Source",
+  "liveDemo": "Live Demo",
+  "sourceCode": "Source Code",
+  "repository": "Repository",
+  "website": "Website",
+  "notAvailable": "Not Available",
+  "status": {
+    "active": "Active",
+    "completed": "Completed",
+    "archived": "Archived",
+    "inProgress": "In Progress",
+    "maintenance": "Maintenance"
+  },
+  "filter": {
+    "all": "All",
+    "featured": "Featured",
+    "byStatus": "Filter by status",
+    "byTechnology": "Filter by technology",
+    "clear": "Clear filters"
+  },
+  "sort": {
+    "label": "Sort by",
+    "newest": "Newest first",
+    "oldest": "Oldest first",
+    "name": "Name",
+    "updated": "Last updated"
+  },
+  "meta": {
+    "builtWith": "Built with",
+    "completedOn": "Completed on",
+    "startedOn": "Started on",
+    "lastUpdated": "Last updated",
+    "technologies": "Technologies used",
+    "role": "My role",
+    "duration": "Duration"
+  },
+  "empty": {
+    "title": "No projects found",
+    "description": "There are no projects matching your criteria.",
+    "action": "Clear filters"
+  },
+  "card": {
+    "viewMore": "Learn more",
+    "externalLink": "External link",
+    "githubRepo": "GitHub repository"
+  }
+}

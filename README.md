@@ -1,25 +1,64 @@
-### Hi 👋🏾
+# Hey, I'm Lucien 👋
 
-#### My name is Lucien, and I'm a Staff Software Developer
+**Staff Fullstack Software Developer** | Remote Engineering Leader | Building scalable web platforms since 2014
 
-I am a guy who just loves coding and learning new stuff about the web
+I architect and drive technical strategy for enterprise-grade applications, leading teams to deliver high-impact solutions that serve millions of users. With 10+ years of remote work experience, I specialize in building performant, accessible, and maintainable systems that scale.
 
-Frontend technologies I worked with
-- React
-- Angular
-- Vue
-- Web Components
+## 🎯 What I Do
 
-I am currently working on [GoTo](https://www.goto.com/)'s voice offering
-P.S. I love a11y too!
+- **Technical Leadership**: Drive architecture decisions, establish engineering standards, and mentor teams across multiple product lines
+- **Fullstack Architecture**: Design and implement scalable systems using TypeScript, React, Node.js, Angular, and modern web technologies
+- **Remote Engineering**: 7+ years of remote work experience (since 2018), collaborating effectively across distributed teams and time zones
+- **Accessibility Champion**: Establish WCAG compliance standards and build accessibility-first engineering practices
+- **Strategic Modernization**: Lead large-scale migrations and technical initiatives that improve performance, maintainability, and team velocity
 
-<hr />
+## 🛠️ Tech Stack
 
-![lbenie's github stats](https://github-readme-stats.vercel.app/api?username=lbenie&theme=dracula&count_private=true&show_icons=true)
-<br />
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=lbenie&theme=dracula)
+**Languages & Frameworks**
+`TypeScript` `JavaScript` `C#` `Ruby` `HTML/CSS`
 
-## Find me around the web 🌎:
+**Frontend**
+`React` `Angular` `Vue.js` `Web Components` `Next.js`
 
-- Personal website <a href="https://lbenie.xyz">lbenie.xyz</a>
-- Network with me on <a href="https://www.linkedin.com/in/lbenie/">LinkedIn</a> 💼
+**Backend & Tools**
+`Node.js` `.NET Core` `Ruby on Rails` `GraphQL` `REST APIs`
+
+## 📊 GitHub Stats
+
+<div align="center">
+
+![Lucien's GitHub Stats](https://github-readme-stats.vercel.app/api?username=lbenie&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true)
+
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=lbenie&layout=compact&theme=tokyonight&hide_border=true&langs_count=8)
+
+</div>
+
+## 🚀 Current Focus
+
+- Driving frontend architecture at **GoTo** for enterprise collaboration products
+- Building scalable Web Component libraries that serve millions of users
+- Championing engineering excellence through mentorship and technical leadership
+- Contributing to open source and the web development community
+
+## 💼 Experience Highlights
+
+**Staff Frontend Developer @ GoTo** _(Apr 2025 - Present)_ • Remote
+Leading frontend technical strategy and establishing architectural patterns across product teams
+
+**Senior Software Developer @ Shopify** _(Jun 2021 - Mar 2025)_ • Remote
+Owned critical merchant admin features serving 2M+ merchants, architected GraphQL APIs handling billions of requests
+
+**Senior Frontend Developer @ LogMeIn (GoTo)** _(Oct 2018 - Jun 2021)_ • Remote
+Architected cross-product Web Component library and led framework migration initiatives
+
+## 🌐 Let's Connect
+
+- 💼 [LinkedIn](https://www.linkedin.com/in/lbenie/)
+- 🌍 [lbenie.me](https://lbenie.me) - Portfolio & Blog (EN/FR)
+- 📧 Open to interesting opportunities and technical discussions
+
+---
+
+**Currently:** Helping engineering teams build better web experiences through technical leadership and architectural excellence.
+
+**Based in:** Sherbrooke, QC, Canada 🇨🇦 | **Working:** 100% Remote since 2018 🌍

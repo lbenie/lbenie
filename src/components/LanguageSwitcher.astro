@@ -1,0 +1,137 @@
+---
+import { getAlternateLocale, switchLocale } from '@utils/i18n';
+import type { LanguageSwitcherProps } from '@/types/index';
+
+interface Props extends Partial<LanguageSwitcherProps> {}
+
+const { currentLocale = 'en', currentPath = Astro.url.pathname } = Astro.props;
+
+const alternateLocale = getAlternateLocale(currentLocale);
+let switchPath = switchLocale(currentPath, alternateLocale);
+
+// Ensure trailing slash
+if (!switchPath.endsWith('/')) {
+  switchPath = `${switchPath}/`;
+}
+
+// Use target language name from its own translation for consistency
+const targetLanguageName = alternateLocale === 'en' ? 'English' : 'Français';
+const ariaLabel = targetLanguageName;
+---
+
+<div class="language-switcher">
+    <a
+        href={switchPath}
+        class="language-switcher__link"
+        data-base-path={switchPath}
+        aria-label={ariaLabel}
+        hreflang={alternateLocale}
+        title={ariaLabel}
+    >
+        <span class="language-switcher__icon" aria-hidden="true">
+            <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                ></path>
+            </svg>
+        </span>
+        <span class="language-switcher__text">
+            {targetLanguageName}
+        </span>
+    </a>
+</div>
+
+<script>
+  // Preserve hash when switching languages
+  document.addEventListener('DOMContentLoaded', () => {
+    const languageLink = document.querySelector('.language-switcher__link');
+
+    if (languageLink) {
+      languageLink.addEventListener('click', (e) => {
+        const hash = window.location.hash;
+        if (hash) {
+          e.preventDefault();
+          const basePath = languageLink.getAttribute('data-base-path');
+          if (basePath) {
+            window.location.href = basePath + hash;
+          }
+        }
+      });
+    }
+  });
+</script>
+
+<style>
+    .language-switcher {
+        display: flex;
+        align-items: center;
+    }
+
+    .language-switcher__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2xs);
+      padding: var(--space-2xs) var(--space-sm);
+      height: 2.25rem;
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      font-family: var(--font-sans);
+      text-decoration: none;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background-color: var(--color-bg-primary);
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+    }
+
+    .language-switcher__link:hover {
+        color: var(--color-accent-primary);
+        background-color: var(--color-accent-light);
+        border-color: var(--color-accent-primary);
+    }
+
+    .language-switcher__link:focus {
+        outline: 2px solid var(--color-border-focus);
+        outline-offset: 2px;
+        color: var(--color-accent-primary);
+        border-color: var(--color-accent-primary);
+    }
+
+    .language-switcher__link:active {
+        transform: scale(0.98);
+    }
+
+    .language-switcher__icon {
+        display: flex;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+    }
+
+    .language-switcher__text {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-3xs);
+        line-height: 1;
+    }
+
+    @media (max-width: 768px) {
+      .language-switcher__link {
+        height: 2.25rem;
+        padding: var(--space-2xs) var(--space-sm);
+      }
+    }
+</style>

@@ -1,0 +1,98 @@
+{
+  "site": {
+    "title": "Lucien Bénié",
+    "description": "Staff Software Developer specializing in web technologies",
+    "author": "Lucien Bénié"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "blog": "Blog",
+    "projects": "Projects",
+    "experience": "Experience",
+    "contact": "Contact",
+    "toggleMenu": "Toggle menu",
+    "closeMenu": "Close menu"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "builtWith": "Built with",
+    "and": "and",
+    "sourceCode": "View source code",
+    "rss": "RSS Feed"
+  },
+  "language": {
+    "en": "English",
+    "fr": "Français",
+    "current": "Current language",
+    "switchTo": "Switch to",
+    "label": "Change language"
+  },
+  "actions": {
+    "readMore": "Read more",
+    "viewAll": "View all",
+    "viewProject": "View project",
+    "viewDetails": "View details",
+    "backTo": "Back to",
+    "download": "Download",
+    "share": "Share",
+    "close": "Close",
+    "open": "Open",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "aria": {
+    "skipToMain": "Skip to main content",
+    "mainNavigation": "Main navigation",
+    "footer": "Footer",
+    "logo": "Home page",
+    "externalLink": "Opens in a new window",
+    "loading": "Loading",
+    "socialLinks": "Social media links"
+  },
+  "meta": {
+    "readingTime": "min read",
+    "publishedOn": "Published on",
+    "updatedOn": "Updated on",
+    "author": "Author",
+    "tags": "Tags",
+    "category": "Category",
+    "share": "Share this page"
+  },
+  "status": {
+    "active": "Active",
+    "completed": "Completed",
+    "archived": "Archived",
+    "current": "Current position",
+    "draft": "Draft"
+  },
+  "empty": {
+    "noPosts": "No blog posts yet",
+    "noProjects": "No projects yet",
+    "noResults": "No results found",
+    "comingSoon": "Coming soon"
+  },
+  "errors": {
+    "notFound": "Page not found",
+    "notFoundMessage": "The page you're looking for doesn't exist.",
+    "serverError": "Something went wrong",
+    "serverErrorMessage": "An error occurred while loading this page."
+  },
+  "forms": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "subject": "Subject",
+    "send": "Send",
+    "sending": "Sending...",
+    "required": "Required",
+    "invalidEmail": "Invalid email address",
+    "success": "Message sent successfully",
+    "error": "Failed to send message"
+  },
+  "accessibility": {
+    "wcagCompliant": "WCAG AA compliant",
+    "keyboardNavigation": "Keyboard navigation supported",
+    "screenReaderFriendly": "Screen reader friendly"
+  }
+}

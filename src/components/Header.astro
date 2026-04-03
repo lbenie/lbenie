@@ -1,0 +1,539 @@
+---
+import type { HeaderProps } from '@/types/index';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import Search from './Search.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props extends Partial<HeaderProps> {}
+
+const { locale = 'en', currentPath = Astro.url.pathname } = Astro.props;
+
+const navItems: Array<{ label: string; href: string }> = [
+  { label: 'Home', href: `/${locale}/` },
+  {
+    label: locale === 'fr' ? 'Blogue' : 'Blog',
+    href: `/${locale}/${locale === 'fr' ? 'blogue' : 'blog'}/`,
+  },
+  {
+    label: locale === 'fr' ? 'Projets' : 'Projects',
+    href: `/${locale}/${locale === 'fr' ? 'projets' : 'projects'}/`,
+  },
+  { label: 'Experience', href: `/${locale}/experience/` },
+  { label: 'Contact', href: `/${locale}/contact/` },
+];
+
+const isActiveLink = (href: string) => {
+  // For home page, only match exact home URLs
+  if (href === `/${locale}/`) {
+    return currentPath === '/' || currentPath === `/${locale}` || currentPath === `/${locale}/`;
+  }
+  // For other pages, check if the current path starts with the href
+  return currentPath.startsWith(href);
+};
+---
+
+<header class="header" role="banner">
+    <div class="header__container">
+        <div class="header__content">
+            <!-- Logo/Name -->
+            <div class="header__brand">
+                <a href={`/${locale}/`} class="header__logo" aria-label="Home">
+                    <span class="header__logo-text">Lucien Bénié</span>
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="header__nav" aria-label="Main navigation">
+                <ul class="header__nav-list">
+                    {
+                        navItems.map((item) => (
+                            <li class="header__nav-item">
+                                <a
+                                    href={item.href}
+                                    class:list={[
+                                        'header__nav-link',
+                                        {
+                                            'header__nav-link--active':
+                                                isActiveLink(item.href),
+                                        },
+                                    ]}
+                                    aria-current={
+                                        isActiveLink(item.href)
+                                            ? 'page'
+                                            : undefined
+                                    }
+                                >
+                                    {item.label}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </nav>
+
+            <!-- Desktop Actions: Theme, Search, Language -->
+            <div class="header__actions header__actions--desktop">
+                <ThemeToggle locale={locale} />
+                <Search locale={locale} />
+                <LanguageSwitcher
+                    currentLocale={locale}
+                    currentPath={currentPath}
+                />
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button
+                class="header__menu-button"
+                aria-label="Toggle menu"
+                aria-expanded="false"
+                aria-controls="mobile-menu"
+                type="button"
+            >
+                <span class="header__menu-icon">
+                    <span class="header__menu-line"></span>
+                    <span class="header__menu-line"></span>
+                    <span class="header__menu-line"></span>
+                </span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="header__mobile-menu" id="mobile-menu" aria-hidden="true">
+            <nav class="header__mobile-nav" aria-label="Mobile navigation">
+                <ul class="header__mobile-nav-list">
+                    {
+                        navItems.map((item) => (
+                            <li class="header__mobile-nav-item">
+                                <a
+                                    href={item.href}
+                                    class:list={[
+                                        'header__mobile-nav-link',
+                                        {
+                                            'header__mobile-nav-link--active':
+                                                isActiveLink(item.href),
+                                        },
+                                    ]}
+                                    aria-current={
+                                        isActiveLink(item.href)
+                                            ? 'page'
+                                            : undefined
+                                    }
+                                >
+                                    {item.label}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+
+                <!-- Mobile Actions: Theme, Search, Language -->
+                <div class="header__mobile-actions">
+                    <div class="mobile-actions-row">
+                        <ThemeToggle locale={locale} />
+                        <Search locale={locale} />
+                    </div>
+                    <LanguageSwitcher
+                        currentLocale={locale}
+                        currentPath={currentPath}
+                    />
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<script>
+    // Mobile menu toggle functionality
+    const menuButton = document.querySelector('.header__menu-button')
+    const mobileMenu = document.querySelector('.header__mobile-menu')
+    const header = document.querySelector('.header')
+
+    if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', () => {
+            const isExpanded =
+                menuButton.getAttribute('aria-expanded') === 'true'
+
+            menuButton.setAttribute('aria-expanded', (!isExpanded).toString())
+            mobileMenu.setAttribute('aria-hidden', isExpanded.toString())
+            menuButton.classList.toggle('header__menu-button--active')
+            mobileMenu.classList.toggle('header__mobile-menu--open')
+            document.body.classList.toggle('menu-open')
+        })
+
+        // Close menu when clicking links
+        const mobileLinks = mobileMenu.querySelectorAll('a')
+        mobileLinks.forEach((link) => {
+            link.addEventListener('click', () => {
+                menuButton.setAttribute('aria-expanded', 'false')
+                mobileMenu.setAttribute('aria-hidden', 'true')
+                menuButton.classList.remove('header__menu-button--active')
+                mobileMenu.classList.remove('header__mobile-menu--open')
+                document.body.classList.remove('menu-open')
+            })
+        })
+
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (
+                e.key === 'Escape' &&
+                menuButton.getAttribute('aria-expanded') === 'true'
+            ) {
+                menuButton.setAttribute('aria-expanded', 'false')
+                mobileMenu.setAttribute('aria-hidden', 'true')
+                menuButton.classList.remove('header__menu-button--active')
+                mobileMenu.classList.remove('header__mobile-menu--open')
+                document.body.classList.remove('menu-open')
+                ;(menuButton as HTMLButtonElement).focus()
+            }
+        })
+    }
+
+    // Add scroll behavior
+    let lastScroll = 0
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset
+
+        if (currentScroll <= 0) {
+            header?.classList.remove('header--scrolled')
+            return
+        }
+
+        if (currentScroll > lastScroll && currentScroll > 100) {
+            // Scrolling down
+            header?.classList.add('header--hidden')
+        } else {
+            // Scrolling up
+            header?.classList.remove('header--hidden')
+        }
+
+        if (currentScroll > 20) {
+            header?.classList.add('header--scrolled')
+        } else {
+            header?.classList.remove('header--scrolled')
+        }
+
+        lastScroll = currentScroll
+    })
+</script>
+
+<style>
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: var(--color-bg-primary);
+        border-bottom: 1px solid transparent;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .header--scrolled {
+        border-bottom-color: var(--color-border);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .header--hidden {
+        transform: translateY(-100%);
+    }
+
+    .header__container {
+        max-width: var(--container-max);
+        margin: 0 auto;
+        padding: 0 var(--space-md);
+    }
+
+    .header__content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 4rem;
+        gap: var(--space-md);
+    }
+
+    /* Brand/Logo */
+    .header__brand {
+        flex-shrink: 0;
+    }
+
+    .header__logo {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--color-text-primary);
+        font-weight: var(--font-weight-bold);
+        font-size: var(--font-size-lg);
+        transition: color 0.2s ease-in-out;
+    }
+
+    .header__logo:hover {
+        color: var(--color-accent-primary);
+    }
+
+    .header__logo:focus {
+        outline: 2px solid var(--color-border-focus);
+        outline-offset: 4px;
+        border-radius: var(--radius-sm);
+    }
+
+    .header__logo-text {
+        background: linear-gradient(
+            135deg,
+            var(--color-accent-primary),
+            var(--color-accent-hover)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Desktop Navigation */
+    .header__nav {
+        display: none;
+        flex: 1;
+    }
+
+    @media (min-width: 768px) {
+        .header__nav {
+            display: block;
+        }
+    }
+
+    .header__nav-list {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-sm);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header__nav-item {
+        margin: 0;
+    }
+
+    .header__nav-link {
+        display: inline-flex;
+        align-items: center;
+        padding: var(--space-2xs) var(--space-sm);
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        border-radius: var(--radius-md);
+        transition: all 0.2s ease-in-out;
+        position: relative;
+    }
+
+    .header__nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background-color: var(--color-accent-primary);
+        transform: translateX(-50%);
+        transition: width 0.2s ease-in-out;
+    }
+
+    .header__nav-link:hover {
+        color: var(--color-accent-primary);
+        background-color: var(--color-accent-light);
+    }
+
+    .header__nav-link:hover::after {
+        width: 80%;
+    }
+
+    .header__nav-link:focus {
+        outline: 2px solid var(--color-border-focus);
+        outline-offset: 2px;
+        color: var(--color-accent-primary);
+    }
+
+    .header__nav-link--active {
+        color: var(--color-accent-primary);
+        font-weight: var(--font-weight-semibold);
+    }
+
+    .header__nav-link--active::after {
+        width: 80%;
+    }
+
+    /* Desktop Actions */
+    .header__actions--desktop {
+        display: none;
+    }
+
+    @media (min-width: 768px) {
+        .header__actions--desktop {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+    }
+
+    /* Hide text labels in header actions - icon-only buttons */
+    .header__actions--desktop :global(.theme-toggle__label) {
+        display: none;
+    }
+
+    /* Adjust button styling for icon-only theme toggle */
+    .header__actions--desktop :global(.theme-toggle) {
+        min-width: auto;
+        padding: var(--space-2xs);
+    }
+
+    /* Mobile Menu Button */
+    .header__menu-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        background-color: transparent;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+
+    @media (min-width: 768px) {
+        .header__menu-button {
+            display: none;
+        }
+    }
+
+    .header__menu-button:hover {
+        background-color: var(--color-accent-light);
+        border-color: var(--color-accent-primary);
+    }
+
+    .header__menu-button:focus {
+        outline: 2px solid var(--color-border-focus);
+        outline-offset: 2px;
+    }
+
+    .header__menu-button:active {
+        transform: scale(0.95);
+    }
+
+    .header__menu-icon {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 20px;
+    }
+
+    .header__menu-line {
+        width: 100%;
+        height: 2px;
+        background-color: var(--color-text-primary);
+        border-radius: 2px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .header__menu-button--active .header__menu-line:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+    }
+
+    .header__menu-button--active .header__menu-line:nth-child(2) {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    .header__menu-button--active .header__menu-line:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+    }
+
+    /* Mobile Menu */
+    .header__mobile-menu {
+        display: block;
+        max-height: 0;
+        overflow: hidden;
+        background-color: var(--color-bg-primary);
+        border-top: 1px solid transparent;
+        transition: all 0.3s ease-in-out;
+    }
+
+    @media (min-width: 768px) {
+        .header__mobile-menu {
+            display: none;
+        }
+    }
+
+    .header__mobile-menu--open {
+        max-height: 100vh;
+        border-top-color: var(--color-border);
+        padding: var(--space-md) 0;
+    }
+
+    .header__mobile-nav-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2xs);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header__mobile-nav-item {
+        margin: 0;
+    }
+
+    .header__mobile-nav-link {
+        display: flex;
+        align-items: center;
+        padding: var(--space-sm) var(--space-md);
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-medium);
+        border-radius: var(--radius-md);
+        transition: all 0.2s ease-in-out;
+    }
+
+    .header__mobile-nav-link:hover {
+        color: var(--color-accent-primary);
+        background-color: var(--color-accent-light);
+    }
+
+    .header__mobile-nav-link:focus {
+        outline: 2px solid var(--color-border-focus);
+        outline-offset: 2px;
+    }
+
+    .header__mobile-nav-link--active {
+        color: var(--color-accent-primary);
+        background-color: var(--color-accent-light);
+        font-weight: var(--font-weight-semibold);
+    }
+
+    .header__mobile-actions {
+        margin-top: var(--space-md);
+        padding-top: var(--space-md);
+        border-top: 1px solid var(--color-border);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+
+    .mobile-actions-row {
+        display: flex;
+        gap: var(--space-sm);
+        align-items: center;
+    }
+
+    /* Prevent body scroll when menu is open */
+    :global(body.menu-open) {
+        overflow: hidden;
+    }
+
+    @media (max-width: 767px) {
+        :global(body.menu-open) {
+            position: fixed;
+            width: 100%;
+        }
+    }
+</style>

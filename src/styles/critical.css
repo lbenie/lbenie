@@ -1,0 +1,235 @@
+/* Critical CSS - Above the fold styles for faster FCP/LCP */
+/* This file contains minimal styles needed for initial paint */
+
+/* Essential CSS Variables - Light Mode Default */
+:root {
+  --color-text-primary: hsl(220, 13%, 18%);
+  --color-text-secondary: hsl(220, 9%, 40%);
+  --color-bg-primary: hsl(0, 0%, 100%);
+  --color-bg-secondary: hsl(220, 13%, 97%);
+  --color-accent-primary: hsl(217, 91%, 45%);
+  --color-accent-hover: hsl(217, 91%, 35%);
+  --color-border: hsl(220, 13%, 88%);
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --space-sm: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --space-md: clamp(1.5rem, 1.43rem + 0.36vw, 1.6875rem);
+  --space-lg: clamp(2rem, 1.89rem + 0.54vw, 2.25rem);
+  --space-xl: clamp(3rem, 2.84rem + 0.79vw, 3.375rem);
+
+  --container-max: 75rem;
+}
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+  --color-text-primary: hsl(0, 0%, 95%);
+  --color-text-secondary: hsl(220, 9%, 65%);
+  --color-bg-primary: hsl(220, 13%, 10%);
+  --color-bg-secondary: hsl(220, 13%, 15%);
+  --color-accent-primary: hsl(217, 91%, 70%);
+  --color-accent-hover: hsl(217, 91%, 75%);
+  --color-border: hsl(220, 13%, 30%);
+}
+
+/* Base Layout */
+html {
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  line-height: 1.5;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header - Critical for above-the-fold */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-bg-primary);
+  border-bottom: 1px solid transparent;
+}
+
+.header__container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.header__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+  gap: var(--space-md);
+}
+
+.header__brand {
+  flex-shrink: 0;
+}
+
+.header__logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
+}
+
+.header__logo-text {
+  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Layout Container */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+}
+
+/* Hero Section - Critical LCP Element */
+.hero {
+  padding: var(--space-xl) 0;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero__content {
+  max-width: 100%;
+}
+
+.hero__greeting {
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  color: var(--color-text-secondary);
+  margin: 0 0 0.5rem 0;
+  font-weight: var(--font-weight-medium);
+}
+
+.hero__name {
+  font-size: clamp(3rem, 2.25rem + 3vw, 4rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  margin: 0 0 1rem 0;
+  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero__tagline {
+  font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+}
+
+.hero__description {
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  color: var(--color-text-secondary);
+  margin: 0 0 2rem 0;
+  max-width: 65ch;
+  line-height: 1.75;
+}
+
+.hero__actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+/* Container */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+  width: 100%;
+}
+
+/* Buttons - Critical for CTA */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.button--primary {
+  background-color: var(--color-accent-primary);
+  color: white;
+  border-color: var(--color-accent-primary);
+}
+
+.button--secondary {
+  background-color: transparent;
+  color: var(--color-accent-primary);
+  border-color: var(--color-border);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .hero {
+    padding: var(--space-lg) 0;
+    min-height: 50vh;
+  }
+
+  .hero__name {
+    font-size: clamp(2.25rem, 1.8rem + 2vw, 3rem);
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .button {
+    width: 100%;
+    padding: 1rem 1.5rem;
+  }
+}
+
+/* Skip to content link - Accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-accent-primary);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 9999;
+}
+
+.skip-link:focus {
+  top: 0;
+}

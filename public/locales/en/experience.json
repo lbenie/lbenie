@@ -1,0 +1,69 @@
+{
+  "title": "Experience",
+  "subtitle": "My Professional Journey",
+  "description": "A veteran of {{years}} years in Web Development",
+  "downloadCV": "Download Resume",
+  "viewFullResume": "View Full Resume",
+  "yearsOfExperience": "Years of Experience",
+  "positions": "Positions",
+  "companies": "Companies",
+  "labels": {
+    "role": "Role",
+    "company": "Company",
+    "location": "Location",
+    "period": "Period",
+    "duration": "Duration",
+    "present": "Present",
+    "current": "Current Position",
+    "stack": "Technology Stack",
+    "technologies": "Technologies",
+    "highlights": "Key Achievements",
+    "responsibilities": "Responsibilities",
+    "projects": "Projects",
+    "teamSize": "Team Size"
+  },
+  "time": {
+    "year": "year",
+    "years": "years",
+    "month": "month",
+    "months": "months",
+    "present": "Present",
+    "current": "Current",
+    "from": "From",
+    "to": "to",
+    "duration": "{{count}} year",
+    "duration_plural": "{{count}} years"
+  },
+  "filters": {
+    "all": "All Positions",
+    "current": "Current",
+    "past": "Past",
+    "filterBy": "Filter by",
+    "sortBy": "Sort by",
+    "sortByDate": "Most Recent",
+    "sortByDuration": "Longest Duration"
+  },
+  "actions": {
+    "viewDetails": "View Details",
+    "readMore": "Read More",
+    "collapse": "Collapse",
+    "expand": "Expand",
+    "visitCompany": "Visit Company Website"
+  },
+  "empty": {
+    "noExperience": "No experience entries yet",
+    "comingSoon": "Experience details coming soon"
+  },
+  "meta": {
+    "pageTitle": "Work Experience - {{name}}",
+    "pageDescription": "Professional work experience and career history of {{name}}",
+    "openGraph": "View my professional experience and career journey"
+  },
+  "sections": {
+    "overview": "Overview",
+    "experience": "Work Experience",
+    "education": "Education",
+    "skills": "Skills & Expertise",
+    "certifications": "Certifications"
+  }
+}

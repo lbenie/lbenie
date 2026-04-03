@@ -1,0 +1,326 @@
+---
+/**
+ * French Blog Listing Page
+ * Displays all published blog posts in French
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { formatDate, getBlogPosts, getUniqueTags } from '@utils/content';
+import type { SEOMeta } from '@/types/index';
+
+// Fetch all French blog posts (already sorted by date, newest first)
+const posts = await getBlogPosts('fr');
+
+// Get all unique tags
+const allTags = getUniqueTags(posts);
+
+// SEO metadata
+const meta: SEOMeta = {
+  title: 'Blogue',
+  description:
+    "Articles sur le développement logiciel, les technologies web, TypeScript, React et les pratiques de développement modernes. Partage d'idées et de leçons apprises.",
+  keywords: ['Blogue', 'Développement Logiciel', 'Développement Web', 'TypeScript', 'React', 'Programmation'],
+  locale: 'fr',
+  type: 'website',
+};
+---
+
+<BaseLayout meta={meta} locale="fr">
+  <div class="blog-page">
+    <div class="container">
+      <!-- Page Header -->
+      <header class="page-header">
+        <h1 class="page-title">Blogue</h1>
+        <p class="page-description">
+          Réflexions sur le développement logiciel, les technologies web et la création de meilleures applications.
+          J'écris sur ce que j'apprends, les problèmes que j'ai résolus et les idées qui valent la peine d'être partagées.
+        </p>
+      </header>
+
+      <!-- Blog Posts Grid -->
+      {posts.length > 0 ? (
+        <div class="posts-container">
+          <div class="posts-grid">
+            {posts.map((post) => (
+              <article class="post-card">
+                <header class="post-card__header">
+                  <time class="post-card__date" datetime={post.data.date.toISOString()}>
+                    {formatDate(post.data.date, 'fr')}
+                  </time>
+                  {post.data.featured && (
+                    <span class="badge badge--featured">En vedette</span>
+                  )}
+                </header>
+
+                <h2 class="post-card__title">
+                  <a href={`/fr/blogue/${post.data.slug}/`}>
+                    {post.data.title}
+                  </a>
+                </h2>
+
+                <p class="post-card__description">{post.data.description}</p>
+
+                {post.data.tags.length > 0 && (
+                  <ul class="tag-list" aria-label="Étiquettes">
+                    {post.data.tags.map((tag) => (
+                      <li class="tag">{tag}</li>
+                    ))}
+                  </ul>
+                )}
+
+                <footer class="post-card__footer">
+                  <a href={`/fr/blogue/${post.data.slug}/`} class="read-more">
+                    Lire l'article
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </footer>
+              </article>
+            ))}
+          </div>
+
+          {/* Tags Sidebar - could be used for filtering */}
+          {allTags.length > 0 && (
+            <aside class="sidebar" aria-label="Étiquettes populaires">
+              <h2 class="sidebar__title">Étiquettes populaires</h2>
+              <ul class="tags-cloud">
+                {allTags.map((tag) => (
+                  <li>
+                    <span class="tag tag--large">{tag}</span>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <p>Aucun article pour le moment. Revenez bientôt!</p>
+        </div>
+      )}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .blog-page {
+    width: 100%;
+    padding: var(--space-2xl) 0;
+    min-height: 60vh;
+  }
+
+  .container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+  }
+
+  /* Page Header */
+  .page-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+    max-width: 45rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .page-title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .page-description {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  /* Posts Container */
+  .posts-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 1024px) {
+    .posts-container {
+      grid-template-columns: 1fr 18rem;
+    }
+  }
+
+  /* Posts Grid */
+  .posts-grid {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  /* Post Card */
+  .post-card {
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .post-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .post-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-sm);
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .post-card__date {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .post-card__title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    margin-bottom: var(--space-sm);
+  }
+
+  .post-card__title a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  .post-card__title a:hover {
+    color: var(--color-accent-primary);
+  }
+
+  .post-card__description {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-md);
+  }
+
+  .post-card__footer {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    color: var(--color-accent-primary);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: gap 0.2s ease;
+  }
+
+  .read-more:hover {
+    gap: var(--space-xs);
+    text-decoration: underline;
+  }
+
+  /* Tags */
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    list-style: none;
+    padding: 0;
+    margin: var(--space-md) 0 0;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: var(--space-2xs) var(--space-xs);
+    background-color: var(--color-accent-light);
+    color: var(--color-accent-primary);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .tag--large {
+    font-size: var(--font-size-base);
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  /* Badge */
+  .badge {
+    display: inline-block;
+    padding: var(--space-3xs) var(--space-xs);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge--featured {
+    background-color: hsl(38, 92%, 95%);
+    color: var(--color-warning);
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: sticky;
+    top: var(--space-lg);
+    height: fit-content;
+  }
+
+  .sidebar__title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-md);
+    color: var(--color-text-primary);
+  }
+
+  .tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: var(--space-3xl) var(--space-md);
+    color: var(--color-text-secondary);
+  }
+
+  .empty-state p {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .blog-page {
+      padding: var(--space-xl) 0;
+    }
+
+    .page-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .post-card__title {
+      font-size: var(--font-size-xl);
+    }
+
+    .sidebar {
+      position: static;
+      margin-top: var(--space-xl);
+      padding-top: var(--space-xl);
+      border-top: 1px solid var(--color-border);
+    }
+  }
+</style>

@@ -1,0 +1,874 @@
+---
+/**
+ * English Home Page
+ * Main landing page with hero, featured projects, blog posts, and experience
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { formatDate, getBlogPosts, getExperience, getFeaturedProjects } from '@utils/content';
+import type { SEOMeta } from '@/types/index';
+
+// Content display limits
+const FEATURED_PROJECTS_LIMIT = 3;
+const LATEST_POSTS_LIMIT = 3;
+const RECENT_EXPERIENCE_LIMIT = 2;
+
+// Fetch content using helper functions
+const featuredProjects = await getFeaturedProjects('en', FEATURED_PROJECTS_LIMIT);
+const latestPosts = (await getBlogPosts('en')).slice(0, LATEST_POSTS_LIMIT);
+const recentExperience = (await getExperience('en')).slice(0, RECENT_EXPERIENCE_LIMIT);
+
+// SEO metadata
+const meta: SEOMeta = {
+  title: 'Lucien Bénié',
+  description:
+    'Fullstack developer specializing in modern web technologies, TypeScript, and scalable applications. Building innovative solutions with React, Node.js, and cloud technologies.',
+  keywords: ['Software Developer', 'Fullstack Developer', 'TypeScript', 'React', 'Node.js', 'Web Development'],
+  locale: 'en',
+  type: 'website',
+};
+---
+
+<BaseLayout meta={meta} locale="en">
+  <div class="home">
+    <!-- Hero / About Me Section -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <p class="hero__label">Get to know me</p>
+        <h2 class="hero__section-title">About Me</h2>
+
+        <div class="hero__layout">
+          <!-- Photo Side -->
+          <div class="hero__photo-wrapper">
+            <img
+              src="/images/profile.webp"
+              alt="Lucien Bénié - Fullstack Software Developer"
+              width="400"
+              height="400"
+              class="hero__photo"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </div>
+
+          <!-- Content Side -->
+          <div class="hero__content">
+            <div class="hero__badge">
+              <span class="hero__badge-dot"></span>
+              Happily coding at GoTo
+            </div>
+
+            <h1 id="hero-heading" class="hero__greeting">
+              Hello! 👋
+            </h1>
+
+            <p class="hero__description">
+              My name is <strong>Lucien Bénié</strong>, and I'm a highly experienced Staff Fullstack Developer
+              based in Sherbrooke, Québec, Canada. I specialize in creating scalable, performant applications using modern
+              technologies like TypeScript, React, and Node.js.
+            </p>
+
+            <p class="hero__description">
+              I've been working in web development since 2014, building innovative solutions and leading development teams.
+              Passionate about clean code, user experience, and continuous learning.
+            </p>
+
+
+
+            <div class="hero__actions">
+              <a href="/cv/Lucien-Benie-CV-EN.pdf" download class="button button--primary button--cv">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 10L4 6h2.5V1h3v5H12L8 10zM14 13v1H2v-1H0v3h16v-3h-2z" fill="currentColor"/>
+                </svg>
+                Download CV (EN)
+              </a>
+              <a href="/cv/Lucien-Benie-CV-FR.pdf" download class="button button--secondary button--cv">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 10L4 6h2.5V1h3v5H12L8 10zM14 13v1H2v-1H0v3h16v-3h-2z" fill="currentColor"/>
+                </svg>
+                Télécharger CV (FR)
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    {featuredProjects.length > 0 && (
+      <section class="section section--featured-projects" aria-labelledby="projects-heading">
+        <div class="container">
+          <header class="section__header">
+            <h2 id="projects-heading" class="section__title">Featured Projects</h2>
+            <p class="section__subtitle">
+              Recent work and open-source contributions I'm proud of
+            </p>
+          </header>
+
+          <div class="projects-grid">
+            {featuredProjects.map((project) => (
+              <article class="project-card">
+                <div class="project-card__content">
+                  <h3 class="project-card__title">
+                    <a href={`/en/projects/${project.data.slug}/`}>
+                      {project.data.title}
+                    </a>
+                  </h3>
+                  <p class="project-card__summary">{project.data.summary}</p>
+
+                  {project.data.tags.length > 0 && (
+                    <ul class="tag-list" aria-label="Technologies">
+                      {project.data.tags.slice(0, 4).map((tag) => (
+                        <li class="tag">{tag}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  <div class="project-card__meta">
+                    <span class={`status status--${project.data.status}`}>
+                      {project.data.status}
+                    </span>
+                  </div>
+
+                  <div class="project-card__links">
+                    <a href={`/en/projects/${project.data.slug}/`} class="link">
+                      Learn more →
+                    </a>
+                    {project.data.repository && (
+                      <a
+                        href={project.data.repository}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="link"
+                      >
+                        View Code ↗
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div class="section__footer">
+            <a href="/en/projects/" class="button button--outline">
+              View All Projects
+            </a>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Latest Blog Posts Section -->
+    {latestPosts.length > 0 && (
+      <section class="section section--blog" aria-labelledby="blog-heading">
+        <div class="container">
+          <header class="section__header">
+            <h2 id="blog-heading" class="section__title">Latest Articles</h2>
+            <p class="section__subtitle">
+              Thoughts on software development, web technologies, and more
+            </p>
+          </header>
+
+          <div class="blog-grid">
+            {latestPosts.map((post) => (
+              <article class="blog-card">
+                <time class="blog-card__date" datetime={post.data.date.toISOString()}>
+                  {formatDate(post.data.date, 'en')}
+                </time>
+                <h3 class="blog-card__title">
+                  <a href={`/en/blog/${post.data.slug}/`}>
+                    {post.data.title}
+                  </a>
+                </h3>
+                <p class="blog-card__description">{post.data.description}</p>
+
+                {post.data.tags.length > 0 && (
+                  <ul class="tag-list" aria-label="Tags">
+                    {post.data.tags.slice(0, 3).map((tag) => (
+                      <li class="tag tag--small">{tag}</li>
+                    ))}
+                  </ul>
+                )}
+
+                <a href={`/en/blog/${post.data.slug}/`} class="blog-card__link">
+                  Read article →
+                </a>
+              </article>
+            ))}
+          </div>
+
+          <div class="section__footer">
+            <a href="/en/blog/" class="button button--outline">
+              View All Articles
+            </a>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Experience Summary Section -->
+    {recentExperience.length > 0 && (
+      <section class="section section--experience" aria-labelledby="experience-heading">
+        <div class="container">
+          <header class="section__header">
+            <h2 id="experience-heading" class="section__title">Recent Experience</h2>
+            <p class="section__subtitle">
+              Where I've worked and what I've built
+            </p>
+          </header>
+
+          <div class="experience-list">
+            {recentExperience.map((exp) => (
+              <article class="experience-card">
+                <div class="experience-card__header">
+                  <h3 class="experience-card__role">{exp.data.role}</h3>
+                  {exp.data.current && (
+                    <span class="badge badge--current">Current</span>
+                  )}
+                </div>
+                <p class="experience-card__company">
+                  {exp.data.companyUrl ? (
+                    <a href={exp.data.companyUrl} target="_blank" rel="noopener noreferrer">
+                      {exp.data.company}
+                    </a>
+                  ) : (
+                    exp.data.company
+                  )}
+                  {' · '}
+                  {exp.data.location}
+                </p>
+                <p class="experience-card__date">
+                  {formatDate(exp.data.from, 'en')} – {exp.data.current ? 'Present' : formatDate(exp.data.to!, 'en')}
+                </p>
+                <p class="experience-card__description">{exp.data.description}</p>
+
+                {exp.data.stack.length > 0 && (
+                  <ul class="tag-list" aria-label="Technologies used">
+                    {exp.data.stack.slice(0, 5).map((tech) => (
+                      <li class="tag tag--small">{tech}</li>
+                    ))}
+                  </ul>
+                )}
+              </article>
+            ))}
+          </div>
+
+          <div class="section__footer">
+            <a href="/en/experience/" class="button button--outline">
+              View Full Experience
+            </a>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- CTA Section -->
+    <section class="section section--cta" aria-labelledby="cta-heading">
+      <div class="container container--narrow">
+        <div class="cta">
+          <h2 id="cta-heading" class="cta__title">Let's Work Together</h2>
+          <p class="cta__description">
+            I'm always interested in hearing about new projects and opportunities.
+            Whether you have a question or just want to say hi, feel free to reach out!
+          </p>
+          <div class="cta__actions">
+            <a href="mailto:contact@lbenie.com" class="button button--primary button--large">
+              Get in Touch
+            </a>
+            <a href="https://github.com/lbenie" target="_blank" rel="noopener noreferrer" class="button button--outline button--large">
+              View GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .home {
+    width: 100%;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    background: linear-gradient(
+      135deg,
+      var(--color-bg-primary) 0%,
+      var(--color-bg-secondary) 100%
+    );
+  }
+
+  .hero__label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-xs);
+    text-align: center;
+  }
+
+  .hero__section-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2xl);
+    text-align: center;
+  }
+
+  .hero__layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .hero__photo-wrapper {
+    position: relative;
+  }
+
+  .hero__photo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: var(--radius-lg);
+    object-fit: cover;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    background-color: rgba(37, 99, 235, 0.1);
+    color: rgb(37, 99, 235);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    width: fit-content;
+  }
+
+  .hero__badge-dot {
+    width: 8px;
+    height: 8px;
+    background-color: rgb(37, 99, 235);
+    border-radius: 50%;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .hero__greeting {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .hero__description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+  }
+
+  .hero__description strong {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-top: var(--space-md);
+  }
+
+  .button--cv {
+    gap: 0.375rem;
+  }
+
+  .button--cv svg {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Section Styles */
+  .section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .section--featured-projects {
+    background-color: var(--color-bg-primary);
+  }
+
+  .section--blog {
+    background-color: var(--color-bg-secondary);
+  }
+
+  .section--experience {
+    background-color: var(--color-bg-primary);
+  }
+
+  .section--cta {
+    background: linear-gradient(
+      135deg,
+      var(--color-accent-primary) 0%,
+      var(--color-accent-hover) 100%
+    );
+    color: var(--color-text-inverse);
+  }
+
+  .section__header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .section__title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-sm);
+  }
+
+  .section__subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .section__footer {
+    text-align: center;
+    margin-top: var(--space-xl);
+  }
+
+  /* Container */
+  .container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+  }
+
+  .container--narrow {
+    max-width: var(--container-narrow);
+  }
+
+  /* Projects Grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-lg);
+  }
+
+  .project-card {
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .project-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    height: 100%;
+  }
+
+  .project-card__title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin: 0;
+  }
+
+  .project-card__title a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  .project-card__title a:hover {
+    color: var(--color-accent-primary);
+  }
+
+  .project-card__summary {
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    flex: 1;
+  }
+
+  .project-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .project-card__links {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-sm);
+  }
+
+  /* Blog Grid */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .blog-card {
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .blog-card__date {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .blog-card__title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-sm);
+  }
+
+  .blog-card__title a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  .blog-card__title a:hover {
+    color: var(--color-accent-primary);
+  }
+
+  .blog-card__description {
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-sm);
+  }
+
+  .blog-card__link {
+    display: inline-block;
+    color: var(--color-accent-primary);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    margin-top: var(--space-sm);
+  }
+
+  .blog-card__link:hover {
+    text-decoration: underline;
+  }
+
+  /* Experience List */
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    max-width: 50rem;
+    margin: 0 auto;
+  }
+
+  .experience-card {
+    background-color: var(--color-bg-secondary);
+    border-left: 3px solid var(--color-accent-primary);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+  }
+
+  .experience-card__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xs);
+  }
+
+  .experience-card__role {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin: 0;
+  }
+
+  .experience-card__company {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-3xs);
+  }
+
+  .experience-card__company a {
+    color: var(--color-accent-primary);
+    text-decoration: none;
+  }
+
+  .experience-card__company a:hover {
+    text-decoration: underline;
+  }
+
+  .experience-card__date {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .experience-card__description {
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-sm);
+  }
+
+  /* CTA */
+  .cta {
+    text-align: center;
+    padding: var(--space-xl);
+  }
+
+  .cta__title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-md);
+    color: var(--color-text-inverse);
+  }
+
+  .cta__description {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-lg);
+    color: var(--color-text-inverse);
+    opacity: 0.95;
+  }
+
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: center;
+  }
+
+  /* Tags */
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    list-style: none;
+    padding: 0;
+    margin: var(--space-sm) 0 0;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: var(--space-2xs) var(--space-xs);
+    background-color: var(--color-accent-light);
+    color: var(--color-accent-primary);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .tag--small {
+    font-size: var(--font-size-xs);
+    padding: var(--space-3xs) var(--space-2xs);
+  }
+
+  /* Status Badge */
+  .status {
+    display: inline-block;
+    padding: var(--space-3xs) var(--space-xs);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    text-transform: capitalize;
+  }
+
+  .status--active {
+    background-color: hsl(142, 71%, 95%);
+    color: var(--color-success);
+  }
+
+  .status--completed {
+    background-color: hsl(217, 91%, 95%);
+    color: var(--color-accent-primary);
+  }
+
+  .status--archived {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: var(--space-3xs) var(--space-xs);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .badge--current {
+    background-color: hsl(142, 76%, 32%);
+    color: white;
+  }
+
+  /* Links */
+  .link {
+    color: var(--color-accent-primary);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-sm);
+  }
+
+  .link:hover {
+    text-decoration: underline;
+  }
+
+  /* Buttons */
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+
+  .button--primary {
+    background-color: var(--color-accent-primary);
+    color: var(--color-text-inverse);
+  }
+
+  .button--primary:hover {
+    background-color: var(--color-accent-hover);
+  }
+
+  .button--secondary {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border-color: var(--color-border);
+  }
+
+  .button--secondary:hover {
+    background-color: var(--color-bg-secondary);
+  }
+
+  .button--outline {
+    background-color: transparent;
+    color: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+  }
+
+  .button--outline:hover {
+    background-color: var(--color-accent-light);
+  }
+
+  .section--cta .button--outline {
+    color: var(--color-text-inverse);
+    border-color: var(--color-text-inverse);
+  }
+
+  .section--cta .button--outline:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .section--cta .button--primary {
+    background-color: var(--color-text-inverse);
+    color: var(--color-accent-primary);
+  }
+
+  .section--cta .button--primary:hover {
+    background-color: var(--color-bg-tertiary);
+  }
+
+  .button--large {
+    padding: var(--space-md) var(--space-lg);
+    font-size: var(--font-size-lg);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero {
+      padding: var(--space-2xl) 0 var(--space-xl);
+    }
+
+    .hero__layout {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    .hero__photo-wrapper {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .hero__greeting {
+      font-size: var(--font-size-2xl);
+    }
+
+    .hero__actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .hero__actions .button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section {
+      padding: var(--space-xl) 0;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__actions,
+    .cta__actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
