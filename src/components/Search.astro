@@ -503,9 +503,16 @@ const t = translations[locale as keyof typeof translations];
       display: none;
     }
 
+    .search-trigger__text {
+      display: none;
+    }
+
     .search-trigger {
-      height: 2.25rem;
-      padding: var(--space-2xs) var(--space-sm);
+      height: 2.5rem;
+      width: 2.5rem;
+      min-width: unset;
+      padding: 0;
+      justify-content: center;
     }
 
     .search-modal {
