@@ -202,7 +202,13 @@ const skills = {
       color: #4a4a4a;
     }
 
-    /* Education and Languages */
+    /* Education and Languages side by side */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
     .one-liner {
       font-size: 8.5pt;
       line-height: 1.3;
@@ -402,7 +408,7 @@ const skills = {
         )}
         {exp.data.stack && exp.data.stack.length > 0 && (
           <div class="experience-stack">
-            {exp.data.stack.map((tech) => (
+            {exp.data.stack.slice(0, 6).map((tech) => (
               <span class="tech-tag">{tech}</span>
             ))}
           </div>
@@ -419,20 +425,21 @@ const skills = {
     </div>
   </section>
 
-  <!-- Education and Languages -->
-  <section class="section">
-    <h2 class="section-title">Formation</h2>
-    <div class="one-liner">
-      Baccalauréat en informatique<br>
-      Université de Sherbrooke<br>
-      2015
-    </div>
-  </section>
+  <!-- Education and Languages side by side -->
+  <div class="two-col">
+    <section class="section">
+      <h2 class="section-title">Formation</h2>
+      <div class="one-liner">
+        Baccalauréat en informatique<br>
+        Université de Sherbrooke, 2015
+      </div>
+    </section>
 
-  <section class="section">
-    <h2 class="section-title">Langues</h2>
-    <div class="one-liner">Anglais (Compétence professionnelle) • Français (Langue maternelle)</div>
-  </section>
+    <section class="section">
+      <h2 class="section-title">Langues</h2>
+      <div class="one-liner">Anglais (Professionnel) • Français (Natif)</div>
+    </section>
+  </div>
 
   <!-- Copyright footer -->
   <footer class="copyright">
