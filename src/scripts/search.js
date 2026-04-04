@@ -4,7 +4,7 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
 
 (() => {
   const modal = document.getElementById('search-modal');
-  const trigger = document.getElementById('search-trigger');
+  const triggers = document.querySelectorAll('#search-trigger');
   const input = document.getElementById('search-input');
   const resultsList = document.getElementById('search-results-list');
   const emptyState = document.getElementById('search-empty');
@@ -194,7 +194,7 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
     }
   };
 
-  if (trigger) trigger.addEventListener('click', openModal);
+  triggers.forEach((trigger) => trigger.addEventListener('click', openModal));
 
   closeButtons.forEach((btn) => btn.addEventListener('click', closeModal));
 

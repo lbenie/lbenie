@@ -70,15 +70,16 @@ const t = translations[locale as keyof typeof translations];
     };
 
     const theme = getThemePreference();
-    const button = document.getElementById('theme-toggle');
-    if (button && theme === 'dark') {
-      button.classList.add('theme-toggle--dark');
-      button.setAttribute('aria-checked', 'true');
-    }
     updateFavicon(theme);
-    // Remove no-transition class after a frame to enable animations for user interactions
-    requestAnimationFrame(() => {
-      if (button) button.classList.remove('theme-toggle--no-transition');
+    document.querySelectorAll('#theme-toggle').forEach((button) => {
+      if (theme === 'dark') {
+        button.classList.add('theme-toggle--dark');
+        button.setAttribute('aria-checked', 'true');
+      }
+      // Remove no-transition class after a frame to enable animations for user interactions
+      requestAnimationFrame(() => {
+        button.classList.remove('theme-toggle--no-transition');
+      });
     });
   })();
 </script>
@@ -109,27 +110,26 @@ const t = translations[locale as keyof typeof translations];
   };
 
   const updateButton = (theme: Theme, skipAnimation = false) => {
-    const button = document.getElementById('theme-toggle');
-    if (!button) return;
-
     const isDark = theme === 'dark';
-    button.setAttribute('aria-checked', isDark.toString());
+    document.querySelectorAll('#theme-toggle').forEach((button) => {
+      button.setAttribute('aria-checked', isDark.toString());
 
-    if (skipAnimation) {
-      button.classList.add('theme-toggle--no-transition');
-    }
+      if (skipAnimation) {
+        button.classList.add('theme-toggle--no-transition');
+      }
 
-    if (isDark) {
-      button.classList.add('theme-toggle--dark');
-    } else {
-      button.classList.remove('theme-toggle--dark');
-    }
+      if (isDark) {
+        button.classList.add('theme-toggle--dark');
+      } else {
+        button.classList.remove('theme-toggle--dark');
+      }
 
-    if (skipAnimation) {
-      requestAnimationFrame(() => {
-        button.classList.remove('theme-toggle--no-transition');
-      });
-    }
+      if (skipAnimation) {
+        requestAnimationFrame(() => {
+          button.classList.remove('theme-toggle--no-transition');
+        });
+      }
+    });
   };
 
   const toggleTheme = () => {
@@ -145,10 +145,9 @@ const t = translations[locale as keyof typeof translations];
     applyTheme(theme);
     // Don't update button here - it's already set by inline script
 
-    const button = document.getElementById('theme-toggle');
-    if (button) {
+    document.querySelectorAll('#theme-toggle').forEach((button) => {
       button.addEventListener('click', toggleTheme);
-    }
+    });
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     mediaQuery.addEventListener('change', (e) => {
