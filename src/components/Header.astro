@@ -462,7 +462,7 @@ const isActiveLink = (href: string) => {
         overflow: hidden;
         background-color: var(--color-bg-primary);
         border-top: 1px solid transparent;
-        transition: all 0.3s ease-in-out;
+        transition: max-height 0.3s ease-in-out, border-top-color 0.3s ease-in-out, padding 0.3s ease-in-out;
     }
 
     @media (min-width: 768px) {
@@ -473,6 +473,7 @@ const isActiveLink = (href: string) => {
 
     .header__mobile-menu--open {
         max-height: 100vh;
+        overflow: visible;
         border-top-color: var(--color-border);
         padding: var(--space-md) 0;
     }
