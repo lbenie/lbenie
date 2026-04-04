@@ -160,16 +160,24 @@ const isActiveLink = (href: string) => {
             document.body.classList.toggle('menu-open')
         })
 
+        const closeMenu = () => {
+            menuButton.setAttribute('aria-expanded', 'false')
+            mobileMenu.setAttribute('aria-hidden', 'true')
+            menuButton.classList.remove('header__menu-button--active')
+            mobileMenu.classList.remove('header__mobile-menu--open')
+            document.body.classList.remove('menu-open')
+        }
+
         // Close menu when clicking links
         const mobileLinks = mobileMenu.querySelectorAll('a')
         mobileLinks.forEach((link) => {
-            link.addEventListener('click', () => {
-                menuButton.setAttribute('aria-expanded', 'false')
-                mobileMenu.setAttribute('aria-hidden', 'true')
-                menuButton.classList.remove('header__menu-button--active')
-                mobileMenu.classList.remove('header__mobile-menu--open')
-                document.body.classList.remove('menu-open')
-            })
+            link.addEventListener('click', closeMenu)
+        })
+
+        // Close menu when opening search
+        const searchTriggers = mobileMenu.querySelectorAll('#search-trigger')
+        searchTriggers.forEach((trigger) => {
+            trigger.addEventListener('click', closeMenu)
         })
 
         // Close menu on escape key
@@ -528,12 +536,5 @@ const isActiveLink = (href: string) => {
     /* Prevent body scroll when menu is open */
     :global(body.menu-open) {
         overflow: hidden;
-    }
-
-    @media (max-width: 767px) {
-        :global(body.menu-open) {
-            position: fixed;
-            width: 100%;
-        }
     }
 </style>
