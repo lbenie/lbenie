@@ -132,17 +132,6 @@ const isActiveLink = (href: string) => {
                 <div class="header__mobile-actions">
                     <div class="mobile-actions-row">
                         <ThemeToggle locale={locale} />
-                        <button
-                            type="button"
-                            id="search-trigger"
-                            class="search-trigger mobile-search-trigger"
-                            aria-label={locale === 'fr' ? 'Rechercher' : 'Search'}
-                        >
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span class="search-trigger__text">{locale === 'fr' ? 'Rechercher' : 'Search'}</span>
-                        </button>
                     </div>
                     <LanguageSwitcher
                         currentLocale={locale}
@@ -188,12 +177,6 @@ const isActiveLink = (href: string) => {
         const mobileLinks = mobileMenu.querySelectorAll('a')
         mobileLinks.forEach((link) => {
             link.addEventListener('click', closeMenu)
-        })
-
-        // Close menu when opening search (deferred so openModal fires first)
-        const searchTriggers = mobileMenu.querySelectorAll('#search-trigger')
-        searchTriggers.forEach((trigger) => {
-            trigger.addEventListener('click', () => setTimeout(closeMenu, 0))
         })
 
         // Close menu on escape key
@@ -550,17 +533,6 @@ const isActiveLink = (href: string) => {
         align-items: center;
     }
 
-
-    /* Hide desktop search trigger on mobile (mobile menu has its own trigger) */
-    :global(.search-trigger:not(.mobile-search-trigger)) {
-        display: none;
-    }
-
-    @media (min-width: 768px) {
-        :global(.search-trigger:not(.mobile-search-trigger)) {
-            display: inline-flex;
-        }
-    }
 
     /* Prevent body scroll when menu is open */
     :global(body.menu-open) {
