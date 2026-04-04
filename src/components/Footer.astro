@@ -27,20 +27,6 @@ const socialLinks = [
   },
 ].filter((link): link is { name: string; url: string; label: string } => !!link.url);
 
-const footerLinks: Array<{ label: string; href: string }> = [
-  { label: 'Home', href: `/${locale}/` },
-  {
-    label: locale === 'fr' ? 'Blogue' : 'Blog',
-    href: `/${locale}/${locale === 'fr' ? 'blogue' : 'blog'}/`,
-  },
-  {
-    label: locale === 'fr' ? 'Projets' : 'Projects',
-    href: `/${locale}/${locale === 'fr' ? 'projets' : 'projects'}/`,
-  },
-  { label: 'Experience', href: `/${locale}/experience/` },
-  { label: 'Contact', href: `/${locale}/contact/` },
-];
-
 const copyrightText =
   locale === 'fr'
     ? `© ${currentYear} ${SITE_CONFIG.author}. Tous droits réservés.`
@@ -50,21 +36,6 @@ const copyrightText =
 <footer class="footer" role="contentinfo">
     <div class="footer__container">
         <div class="footer__content">
-            <!-- Footer Navigation -->
-            <nav class="footer__nav" aria-label="Footer navigation">
-                <ul class="footer__nav-list">
-                    {
-                        footerLinks.map((link) => (
-                            <li class="footer__nav-item">
-                                <a href={link.href} class="footer__nav-link">
-                                    {link.label}
-                                </a>
-                            </li>
-                        ))
-                    }
-                </ul>
-            </nav>
-
             <!-- Copyright -->
             <p class="footer__copyright">{copyrightText}</p>
 
@@ -136,47 +107,10 @@ const copyrightText =
         gap: var(--space-lg);
     }
 
-
-
-    /* Navigation */
-    .footer__nav-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--space-xs) var(--space-md);
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    .footer__nav-item {
-        margin: 0;
-    }
-
-    .footer__nav-link {
-        color: var(--color-text-secondary);
-        text-decoration: none;
-        font-size: var(--font-size-sm);
-        font-weight: var(--font-weight-medium);
-        transition: color 0.2s ease-in-out;
-    }
-
-    .footer__nav-link:hover {
-        color: var(--color-accent-primary);
-    }
-
-    .footer__nav-link:focus {
-        outline: 2px solid var(--color-border-focus);
-        outline-offset: 2px;
-        border-radius: var(--radius-sm);
-        color: var(--color-accent-primary);
-    }
-
     /* Social Links */
-
     .footer__social-list {
         display: flex;
-        flex-wrap: wrap;
-        gap: var(--space-xs) var(--space-sm);
+        gap: var(--space-sm);
         list-style: none;
         margin: 0;
         padding: 0;
@@ -189,9 +123,9 @@ const copyrightText =
     .footer__social-link {
         color: var(--color-text-secondary);
         text-decoration: none;
-        font-size: var(--font-size-sm);
-        font-weight: var(--font-weight-medium);
         transition: color 0.2s ease-in-out;
+        display: flex;
+        align-items: center;
     }
 
     .footer__social-link:hover {
@@ -210,31 +144,17 @@ const copyrightText =
         color: var(--color-text-secondary);
         font-size: var(--font-size-xs);
         margin: 0;
-        padding: 0 var(--space-lg);
-        border-left: 1px solid var(--color-border);
-        border-right: 1px solid var(--color-border);
     }
 
     @media (max-width: 768px) {
         .footer {
-            padding: var(--space-xs) 0 var(--space-2xs);
+            padding: var(--space-sm) 0;
         }
 
         .footer__content {
             flex-direction: column;
-            align-items: flex-start;
-            gap: var(--space-md);
-            margin-bottom: var(--space-xs);
+            align-items: center;
+            gap: var(--space-sm);
         }
-
-        .footer__social {
-            align-self: center;
-        }
-
-        .footer__nav-list {
-            gap: var(--space-2xs) var(--space-sm);
-        }
-
-
     }
 </style>
