@@ -3,8 +3,7 @@
   command = "pnpm run build"
   [build.environment]
     NODE_VERSION = "24"
-    PUPPETEER_SKIP_DOWNLOAD = "true"
-    PUPPETEER_EXECUTABLE_PATH = "/usr/bin/google-chrome"
+    PUPPETEER_CACHE_DIR = "/opt/build/cache/puppeteer"
 
 
 # Redirect default Netlify subdomain to primary domain
