@@ -71,15 +71,17 @@ const isActiveLink = (href: string) => {
                 </ul>
             </nav>
 
-            <!-- Desktop Actions: Theme, Search, Language -->
+            <!-- Desktop Actions: Theme, Language -->
             <div class="header__actions header__actions--desktop">
                 <ThemeToggle locale={locale} />
-                <Search locale={locale} />
                 <LanguageSwitcher
                     currentLocale={locale}
                     currentPath={currentPath}
                 />
             </div>
+
+            <!-- Search: always in DOM so modal works on mobile and desktop -->
+            <Search locale={locale} />
 
             <!-- Mobile Menu Button -->
             <button
@@ -133,7 +135,7 @@ const isActiveLink = (href: string) => {
                         <button
                             type="button"
                             id="search-trigger"
-                            class="search-trigger"
+                            class="search-trigger mobile-search-trigger"
                             aria-label={locale === 'fr' ? 'Rechercher' : 'Search'}
                         >
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -548,6 +550,17 @@ const isActiveLink = (href: string) => {
         align-items: center;
     }
 
+
+    /* Hide desktop search trigger on mobile (mobile menu has its own trigger) */
+    :global(.search-trigger:not(.mobile-search-trigger)) {
+        display: none;
+    }
+
+    @media (min-width: 768px) {
+        :global(.search-trigger:not(.mobile-search-trigger)) {
+            display: inline-flex;
+        }
+    }
 
     /* Prevent body scroll when menu is open */
     :global(body.menu-open) {
