@@ -14,7 +14,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro check && astro build && node scripts/generate-cv.mjs",
+    "generate:cv": "node scripts/generate-cv.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check --watch",
@@ -41,6 +42,12 @@
     "@biomejs/biome": "2.4.10",
     "@lbenie/linting": "2.1.11",
     "@types/node": "20.19.39",
+    "puppeteer": "24.40.0",
     "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "puppeteer"
+    ]
   }
 }
