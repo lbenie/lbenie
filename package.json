@@ -40,7 +40,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.10",
     "@lbenie/linting": "2.1.11",
-    "@types/node": "20.19.37",
+    "@types/node": "20.19.39",
     "typescript": "5.9.3"
   }
 }
