@@ -188,10 +188,10 @@ const isActiveLink = (href: string) => {
             link.addEventListener('click', closeMenu)
         })
 
-        // Close menu when opening search
+        // Close menu when opening search (deferred so openModal fires first)
         const searchTriggers = mobileMenu.querySelectorAll('#search-trigger')
         searchTriggers.forEach((trigger) => {
-            trigger.addEventListener('click', closeMenu)
+            trigger.addEventListener('click', () => setTimeout(closeMenu, 0))
         })
 
         // Close menu on escape key
@@ -201,7 +201,7 @@ const isActiveLink = (href: string) => {
                 menuButton.getAttribute('aria-expanded') === 'true'
             ) {
                 menuButton.setAttribute('aria-expanded', 'false')
-                mobileMenu.setAttribute('aria-hidden', 'true')
+                ;(mobileMenu as HTMLElement).inert = true
                 menuButton.classList.remove('header__menu-button--active')
                 mobileMenu.classList.remove('header__mobile-menu--open')
                 document.body.classList.remove('menu-open')
