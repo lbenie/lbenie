@@ -81,18 +81,6 @@ const isActiveLink = (href: string) => {
                 />
             </div>
 
-            <!-- Mobile Search Trigger (outside mobile menu to avoid aria-hidden) -->
-            <button
-                type="button"
-                id="search-trigger"
-                class="header__mobile-search"
-                aria-label={locale === 'fr' ? 'Rechercher' : 'Search'}
-            >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
-
             <!-- Mobile Menu Button -->
             <button
                 class="header__menu-button"
@@ -110,7 +98,7 @@ const isActiveLink = (href: string) => {
         </div>
 
         <!-- Mobile Menu -->
-        <div class="header__mobile-menu" id="mobile-menu" aria-hidden="true">
+        <div class="header__mobile-menu" id="mobile-menu" inert>
             <nav class="header__mobile-nav" aria-label="Mobile navigation">
                 <ul class="header__mobile-nav-list">
                     {
@@ -138,10 +126,21 @@ const isActiveLink = (href: string) => {
                     }
                 </ul>
 
-                <!-- Mobile Actions: Theme, Language -->
+                <!-- Mobile Actions: Theme, Search, Language -->
                 <div class="header__mobile-actions">
                     <div class="mobile-actions-row">
                         <ThemeToggle locale={locale} />
+                        <button
+                            type="button"
+                            id="search-trigger"
+                            class="search-trigger"
+                            aria-label={locale === 'fr' ? 'Rechercher' : 'Search'}
+                        >
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="search-trigger__text">{locale === 'fr' ? 'Rechercher' : 'Search'}</span>
+                        </button>
                     </div>
                     <LanguageSwitcher
                         currentLocale={locale}
@@ -165,7 +164,11 @@ const isActiveLink = (href: string) => {
                 menuButton.getAttribute('aria-expanded') === 'true'
 
             menuButton.setAttribute('aria-expanded', (!isExpanded).toString())
-            mobileMenu.setAttribute('aria-hidden', isExpanded.toString())
+            if (isExpanded) {
+                (mobileMenu as HTMLElement).inert = true
+            } else {
+                (mobileMenu as HTMLElement).inert = false
+            }
             menuButton.classList.toggle('header__menu-button--active')
             mobileMenu.classList.toggle('header__mobile-menu--open')
             document.body.classList.toggle('menu-open')
@@ -173,7 +176,7 @@ const isActiveLink = (href: string) => {
 
         const closeMenu = () => {
             menuButton.setAttribute('aria-expanded', 'false')
-            mobileMenu.setAttribute('aria-hidden', 'true')
+            ;(mobileMenu as HTMLElement).inert = true
             menuButton.classList.remove('header__menu-button--active')
             mobileMenu.classList.remove('header__mobile-menu--open')
             document.body.classList.remove('menu-open')
@@ -545,33 +548,6 @@ const isActiveLink = (href: string) => {
         align-items: center;
     }
 
-    /* Mobile search button in header bar */
-    .header__mobile-search {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 2.5rem;
-        height: 2.5rem;
-        padding: 0;
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-md);
-        background-color: transparent;
-        color: var(--color-text-secondary);
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-    }
-
-    .header__mobile-search:hover {
-        background-color: var(--color-accent-light);
-        border-color: var(--color-accent-primary);
-        color: var(--color-accent-primary);
-    }
-
-    @media (min-width: 768px) {
-        .header__mobile-search {
-            display: none;
-        }
-    }
 
     /* Prevent body scroll when menu is open */
     :global(body.menu-open) {
