@@ -16,7 +16,7 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
 
   const isMac = navigator.userAgent.toUpperCase().indexOf('MAC') >= 0;
   if (kbdHint) {
-    kbdHint.textContent = isMac ? '⌘+K' : 'Ctrl+K';
+    kbdHint.textContent = isMac ? '⌘ + K' : 'Ctrl + K';
   }
 
   const initializeFuse = () => {
