@@ -45,8 +45,8 @@ I architect and drive technical strategy for enterprise-grade applications, lead
 **Staff Frontend Developer @ GoTo** _(Apr 2025 - Present)_ • Remote
 Leading frontend technical strategy and establishing architectural patterns across product teams
 
-**Senior Software Developer @ Shopify** _(Jun 2021 - Mar 2025)_ • Remote
-Owned critical merchant admin features serving 2M+ merchants, architected GraphQL APIs handling billions of requests
+**Senior Frontend Developer @ Shopify** _(Jun 2021 - Mar 2025)_ • Remote
+Built mission-critical e-commerce features serving millions of merchants globally, integrated Shopify Magic AI capabilities, and led modernization of legacy systems
 
 **Senior Frontend Developer @ LogMeIn (GoTo)** _(Oct 2018 - Jun 2021)_ • Remote
 Architected cross-product Web Component library and led framework migration initiatives
