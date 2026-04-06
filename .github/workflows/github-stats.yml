@@ -17,7 +17,7 @@ jobs:
           token: ${{ secrets.GH_PAT }}
 
       - name: Generate stats card
-        uses: stats-organization/github-readme-stats-action@v1
+        uses: stats-organization/github-readme-stats-action@b4d2ef3b8051484b318d455163153b23a2b35fa2 # v1
         with:
           card: stats
           options: username=lbenie&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true
@@ -25,7 +25,7 @@ jobs:
           token: ${{ secrets.GH_PAT }}
 
       - name: Generate top languages card
-        uses: stats-organization/github-readme-stats-action@v1
+        uses: stats-organization/github-readme-stats-action@b4d2ef3b8051484b318d455163153b23a2b35fa2 # v1
         with:
           card: top-langs
           options: username=lbenie&layout=compact&theme=tokyonight&hide_border=true&langs_count=8
