@@ -39,7 +39,7 @@
     "open-props": "1.7.23"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.10",
+    "@biomejs/biome": "2.4.11",
     "@lbenie/linting": "2.1.11",
     "@types/node": "20.19.39",
     "puppeteer": "24.40.0",
