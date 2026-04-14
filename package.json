@@ -24,7 +24,11 @@
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
-    "format:check": "biome format ."
+    "format:check": "biome format .",
+    "test": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@astrojs/check": "0.9.8",
@@ -44,8 +48,11 @@
     "@biomejs/biome": "2.4.11",
     "@lbenie/linting": "2.1.11",
     "@types/node": "20.19.39",
+    "@vitest/coverage-v8": "4.1.4",
+    "@vitest/ui": "4.1.4",
     "puppeteer": "24.40.0",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "4.1.4"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
