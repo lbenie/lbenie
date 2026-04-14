@@ -136,6 +136,14 @@ const t = translations[locale as keyof typeof translations];
       </div>
     </div>
 
+    <!-- Screen reader announcement region for search results -->
+    <div
+      id="search-aria-live"
+      class="sr-only"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+
     <div class="search-results" id="search-results" role="listbox">
       <div class="search-empty" id="search-empty" hidden>
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -496,6 +504,19 @@ const t = translations[locale as keyof typeof translations];
     padding: var(--space-3xs) var(--space-2xs);
     min-width: 1.5rem;
     text-align: center;
+  }
+
+  /* Screen reader only - visually hidden but accessible */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 
   @media (max-width: 768px) {
