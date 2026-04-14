@@ -1,24 +1,55 @@
 ---
 /**
  * Root index page - Redirects to default locale (/en/)
+ * Includes Open Graph meta tags for social media sharing
  */
+
+const siteUrl = 'https://lbenie.me';
+const title = 'Lucien Bénié - Staff Frontend Developer';
+const description = 'Staff Frontend Developer specializing in modern web technologies, TypeScript, and scalable applications. Building innovative solutions with React, Node.js, and cloud technologies.';
+const ogImage = `${siteUrl}/images/og-default.jpg`;
 ---
-
-<script>
-  // Immediate redirect to default locale
-  window.location.replace('/en/');
-</script>
-
-<meta http-equiv="refresh" content="0; url=/en/" />
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redirecting...</title>
+
+    <!-- Redirect -->
+    <meta http-equiv="refresh" content="0; url=/en/" />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Lucien Bénié" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={siteUrl} />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Lucien Bénié" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={title} />
+    <meta name="twitter:creator" content="@lbenie" />
   </head>
   <body>
     <p>Redirecting to <a href="/en/">English version</a>...</p>
+    <script>
+      // Immediate redirect to default locale
+      window.location.replace('/en/');
+    </script>
   </body>
 </html>
