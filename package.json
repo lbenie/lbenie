@@ -9,7 +9,7 @@
   "packageManager": "pnpm@10.33.0",
   "engines": {
     "node": ">=18.14.1",
-    "pnpm": ">=8.0.0"
+    "pnpm": ">=10.0.0"
   },
   "scripts": {
     "dev": "astro dev",
@@ -28,7 +28,8 @@
     "test": "vitest run",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/check": "0.9.8",
@@ -50,6 +51,8 @@
     "@types/node": "20.19.39",
     "@vitest/coverage-v8": "4.1.4",
     "@vitest/ui": "4.1.4",
+    "husky": "9.1.7",
+    "lint-staged": "16.4.0",
     "puppeteer": "24.40.0",
     "typescript": "5.9.3",
     "vitest": "4.1.4"
