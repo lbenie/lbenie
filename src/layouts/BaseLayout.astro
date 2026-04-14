@@ -3,6 +3,7 @@
 import Footer from '@components/Footer.astro';
 import Header from '@components/Header.astro';
 import SkipLink from '@components/SkipLink.astro';
+import Clarity from '@components/analytics/Clarity.astro';
 import { getAlternateLinks } from '@utils/i18n';
 import {
   buildCanonicalURL,
@@ -115,6 +116,7 @@ const skipLinkLabel = locale === 'fr' ? 'Aller au contenu principal' : 'Skip to 
             set:html={JSON.stringify(websiteSchema)}
         />
 
+        <Clarity />
 
     </head>
 

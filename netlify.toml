@@ -4,6 +4,9 @@
   [build.environment]
     NODE_VERSION = "24"
     PUPPETEER_CACHE_DIR = "/opt/build/cache/puppeteer"
+    # Note: PUBLIC_CLARITY_PROJECT_ID should be set in Netlify UI:
+    # Site settings > Environment variables > Add a variable
+    # Key: PUBLIC_CLARITY_PROJECT_ID
 
 
 # Redirect default Netlify subdomain to primary domain
