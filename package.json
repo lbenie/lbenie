@@ -14,8 +14,9 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build && node scripts/generate-cv.mjs",
+    "build": "node scripts/generate-og-image.mjs && astro check && astro build && node scripts/generate-cv.mjs",
     "generate:cv": "node scripts/generate-cv.mjs",
+    "generate:og": "node scripts/generate-og-image.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check --watch",

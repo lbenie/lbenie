@@ -5,6 +5,9 @@ node_modules/
 dist/
 .astro/
 
+# Generated files
+public/images/og-default.jpg
+
 # Environment variables
 .env
 .env.*
