@@ -1,11 +1,10 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
   DEFAULT_LOCALE,
-  SUPPORTED_LOCALES,
-  isValidLocale,
-  getLocaleFromPath,
-  switchLocale,
   getAlternateLocale,
+  getLocaleFromPath,
+  isValidLocale,
+  switchLocale,
 } from './i18n';
 
 describe('i18n utilities', () => {
