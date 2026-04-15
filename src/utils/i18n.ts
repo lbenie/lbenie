@@ -1,6 +1,6 @@
 /**
  * Internationalization utility functions
- * Handles locale detection, route translation, and i18n helpers
+ * Handles locale detection, route translation, and i18n helpers with comprehensive error handling
  */
 
 import type { Locale, LocaleRoutes } from '@/types/index';
@@ -50,169 +50,427 @@ export const LOCALE_ROUTES: LocaleRoutes = {
 };
 
 /**
- * Check if a locale is valid
+ * Check if a locale string is valid and supported
+ * Type guard function for Locale type
+ *
+ * @param {string} locale - The locale string to validate
+ * @returns {boolean} True if locale is valid and supported
+ *
+ * @example
+ * isValidLocale('en') // returns true
+ * isValidLocale('es') // returns false
  */
 export function isValidLocale(locale: string): locale is Locale {
-  return SUPPORTED_LOCALES.includes(locale as Locale);
+  try {
+    if (!locale || typeof locale !== 'string') {
+      return false;
+    }
+    return SUPPORTED_LOCALES.includes(locale as Locale);
+  } catch (error) {
+    console.error('isValidLocale: Error validating locale', error);
+    return false;
+  }
 }
 
 /**
- * Get locale from path
+ * Extract locale from URL path
+ * Returns the default locale if path is invalid or locale not found
+ *
+ * @param {string} path - The URL path to extract locale from
+ * @returns {Locale} The extracted locale or default locale
+ *
+ * @example
+ * getLocaleFromPath('/en/about') // returns 'en'
+ * getLocaleFromPath('/fr/blogue') // returns 'fr'
+ * getLocaleFromPath('/about') // returns 'en' (default)
  */
 export function getLocaleFromPath(path: string): Locale {
-  const segments = path.split('/').filter(Boolean);
-  const potentialLocale = segments[0];
+  try {
+    // Validate path
+    if (!path || typeof path !== 'string') {
+      console.warn('getLocaleFromPath: Invalid path provided, using default locale');
+      return DEFAULT_LOCALE;
+    }
 
-  if (potentialLocale && isValidLocale(potentialLocale)) {
-    return potentialLocale;
+    const segments = path.split('/').filter(Boolean);
+
+    if (segments.length === 0) {
+      return DEFAULT_LOCALE;
+    }
+
+    const potentialLocale = segments[0];
+
+    if (potentialLocale && isValidLocale(potentialLocale)) {
+      return potentialLocale;
+    }
+
+    return DEFAULT_LOCALE;
+  } catch (error) {
+    console.error('getLocaleFromPath: Error extracting locale', error);
+    return DEFAULT_LOCALE;
   }
-
-  return DEFAULT_LOCALE;
 }
 
 /**
- * Remove locale from path
+ * Remove locale prefix from path
+ * Returns the path without the locale prefix
+ *
+ * @param {string} path - The URL path to process
+ * @returns {string} The path without locale prefix
+ *
+ * @example
+ * removeLocaleFromPath('/en/about') // returns '/about'
+ * removeLocaleFromPath('/fr/blogue') // returns '/blogue'
+ * removeLocaleFromPath('/about') // returns '/about'
  */
 export function removeLocaleFromPath(path: string): string {
-  const segments = path.split('/').filter(Boolean);
-  const potentialLocale = segments[0];
+  try {
+    // Validate path
+    if (!path || typeof path !== 'string') {
+      console.warn('removeLocaleFromPath: Invalid path provided, returning root');
+      return '/';
+    }
 
-  if (potentialLocale && isValidLocale(potentialLocale)) {
-    return `/${segments.slice(1).join('/')}`;
+    const segments = path.split('/').filter(Boolean);
+
+    if (segments.length === 0) {
+      return '/';
+    }
+
+    const potentialLocale = segments[0];
+
+    if (potentialLocale && isValidLocale(potentialLocale)) {
+      const remainingPath = segments.slice(1).join('/');
+      return `/${remainingPath}`;
+    }
+
+    return path;
+  } catch (error) {
+    console.error('removeLocaleFromPath: Error removing locale', error);
+    return path || '/';
   }
-
-  return path;
 }
 
 /**
  * Get localized path for a route
+ * Translates routes based on locale and adds locale prefix
+ *
+ * @param {string} route - The route to localize
+ * @param {Locale} locale - The target locale
+ * @returns {string} The localized path with locale prefix
+ *
+ * @example
+ * getLocalizedPath('/about', 'en') // returns '/en/about'
+ * getLocalizedPath('/about', 'fr') // returns '/fr/a-propos'
  */
 export function getLocalizedPath(route: string, locale: Locale): string {
-  // Remove leading slash for lookup
-  const routeKey = route.replace(/^\//, '').split('/')[0] || 'home';
+  try {
+    // Validate route
+    if (!route || typeof route !== 'string') {
+      console.warn('getLocalizedPath: Invalid route provided, using root');
+      route = '/';
+    }
 
-  // Check if we have a translation for this route
-  const localizedRoute = LOCALE_ROUTES[routeKey];
+    // Validate and sanitize locale
+    const validLocale = isValidLocale(locale) ? locale : DEFAULT_LOCALE;
 
-  if (localizedRoute) {
-    const path = localizedRoute[locale];
-    // Always add locale prefix since site uses explicit locale prefixes
-    return `/${locale}${path}`;
+    if (locale !== validLocale) {
+      console.warn(`getLocalizedPath: Invalid locale "${locale}", falling back to "${DEFAULT_LOCALE}"`);
+    }
+
+    // Remove leading slash for lookup
+    const routeKey = route.replace(/^\//, '').split('/')[0] || 'home';
+
+    // Check if we have a translation for this route
+    const localizedRoute = LOCALE_ROUTES[routeKey];
+
+    if (localizedRoute && localizedRoute[validLocale]) {
+      const path = localizedRoute[validLocale];
+      // Always add locale prefix since site uses explicit locale prefixes
+      return `/${validLocale}${path}`;
+    }
+
+    // For routes without specific translations, always add locale prefix
+    const normalizedRoute = route.startsWith('/') ? route : `/${route}`;
+    return `/${validLocale}${normalizedRoute}`;
+  } catch (error) {
+    console.error('getLocalizedPath: Error generating localized path', error);
+    return `/${locale || DEFAULT_LOCALE}${route || '/'}`;
   }
-
-  // For routes without specific translations, always add locale prefix
-  return `/${locale}${route}`;
 }
 
 /**
  * Switch locale for current path
+ * Translates the current path to the target locale, preserving query params and hash
+ *
+ * @param {string} currentPath - The current URL path
+ * @param {Locale} targetLocale - The target locale to switch to
+ * @returns {string} The path in the target locale
+ *
+ * @example
+ * switchLocale('/en/about', 'fr') // returns '/fr/a-propos'
+ * switchLocale('/fr/blogue?page=1#section', 'en') // returns '/en/blog?page=1#section'
  */
 export function switchLocale(currentPath: string, targetLocale: Locale): string {
-  // Parse URL to extract pathname, search, and hash
-  let pathname = currentPath;
-  let search = '';
-  let hash = '';
+  try {
+    // Validate currentPath
+    if (!currentPath || typeof currentPath !== 'string') {
+      console.warn('switchLocale: Invalid current path, using root');
+      currentPath = '/';
+    }
 
-  // Extract hash if present
-  const hashIndex = currentPath.indexOf('#');
-  if (hashIndex !== -1) {
-    hash = currentPath.slice(hashIndex);
-    pathname = currentPath.slice(0, hashIndex);
+    // Validate and sanitize target locale
+    const validTargetLocale = isValidLocale(targetLocale) ? targetLocale : DEFAULT_LOCALE;
+
+    if (targetLocale !== validTargetLocale) {
+      console.warn(`switchLocale: Invalid target locale "${targetLocale}", falling back to "${DEFAULT_LOCALE}"`);
+    }
+
+    // Parse URL to extract pathname, search, and hash
+    let pathname = currentPath;
+    let search = '';
+    let hash = '';
+
+    // Extract hash if present
+    const hashIndex = currentPath.indexOf('#');
+    if (hashIndex !== -1) {
+      hash = currentPath.slice(hashIndex);
+      pathname = currentPath.slice(0, hashIndex);
+    }
+
+    // Extract search params if present
+    const searchIndex = pathname.indexOf('?');
+    if (searchIndex !== -1) {
+      search = pathname.slice(searchIndex);
+      pathname = pathname.slice(0, searchIndex);
+    }
+
+    const currentLocale = getLocaleFromPath(pathname);
+    const pathWithoutLocale = removeLocaleFromPath(pathname);
+
+    // Find the route key from the current path
+    const routeKey = Object.keys(LOCALE_ROUTES).find((key) => {
+      const route = LOCALE_ROUTES[key];
+      return route && route[currentLocale] === pathWithoutLocale;
+    });
+
+    let newPath: string;
+    if (routeKey) {
+      const targetPath = LOCALE_ROUTES[routeKey]?.[validTargetLocale] || '/';
+      newPath = `/${validTargetLocale}${targetPath}`;
+    } else {
+      // Fallback: always add locale prefix since site uses explicit locale prefixes
+      newPath = `/${validTargetLocale}${pathWithoutLocale}`;
+    }
+
+    // Preserve search params and hash
+    return `${newPath}${search}${hash}`;
+  } catch (error) {
+    console.error('switchLocale: Error switching locale', error);
+    return `/${targetLocale || DEFAULT_LOCALE}/`;
   }
-
-  // Extract search params if present
-  const searchIndex = pathname.indexOf('?');
-  if (searchIndex !== -1) {
-    search = pathname.slice(searchIndex);
-    pathname = pathname.slice(0, searchIndex);
-  }
-
-  const currentLocale = getLocaleFromPath(pathname);
-  const pathWithoutLocale = removeLocaleFromPath(pathname);
-
-  // Find the route key from the current path
-  const routeKey = Object.keys(LOCALE_ROUTES).find((key) => {
-    return LOCALE_ROUTES[key]?.[currentLocale] === pathWithoutLocale;
-  });
-
-  let newPath: string;
-  if (routeKey) {
-    const targetPath = LOCALE_ROUTES[routeKey]?.[targetLocale] || '/';
-    newPath = `/${targetLocale}${targetPath}`;
-  } else {
-    // Fallback: always add locale prefix since site uses explicit locale prefixes
-    newPath = `/${targetLocale}${pathWithoutLocale}`;
-  }
-
-  // Preserve search params and hash
-  return `${newPath}${search}${hash}`;
 }
 
 /**
- * Get alternate locale
+ * Get alternate locale (toggle between en/fr)
+ * Returns the other supported locale
+ *
+ * @param {Locale} currentLocale - The current locale
+ * @returns {Locale} The alternate locale
+ *
+ * @example
+ * getAlternateLocale('en') // returns 'fr'
+ * getAlternateLocale('fr') // returns 'en'
  */
 export function getAlternateLocale(currentLocale: Locale): Locale {
-  return currentLocale === 'en' ? 'fr' : 'en';
+  try {
+    // Validate and sanitize locale
+    const validLocale = isValidLocale(currentLocale) ? currentLocale : DEFAULT_LOCALE;
+
+    if (currentLocale !== validLocale) {
+      console.warn(`getAlternateLocale: Invalid locale "${currentLocale}", falling back to "${DEFAULT_LOCALE}"`);
+    }
+
+    return validLocale === 'en' ? 'fr' : 'en';
+  } catch (error) {
+    console.error('getAlternateLocale: Error getting alternate locale', error);
+    return DEFAULT_LOCALE;
+  }
 }
 
 /**
  * Get locale display name
+ * Returns the native or English name of the locale
+ *
+ * @param {Locale} locale - The locale to get the name for
+ * @param {Locale} [inLocale] - If provided, returns English name; otherwise native name
+ * @returns {string} The locale display name
+ *
+ * @example
+ * getLocaleName('fr') // returns 'Français'
+ * getLocaleName('fr', 'en') // returns 'French'
  */
 export function getLocaleName(locale: Locale, inLocale?: Locale): string {
-  if (inLocale) {
-    return LOCALE_NAMES[locale]?.english || locale;
+  try {
+    // Validate and sanitize locale
+    const validLocale = isValidLocale(locale) ? locale : DEFAULT_LOCALE;
+
+    if (locale !== validLocale) {
+      console.warn(`getLocaleName: Invalid locale "${locale}", falling back to "${DEFAULT_LOCALE}"`);
+    }
+
+    const names = LOCALE_NAMES[validLocale];
+
+    if (!names) {
+      console.warn(`getLocaleName: No names found for locale "${validLocale}"`);
+      return validLocale;
+    }
+
+    if (inLocale) {
+      return names.english || validLocale;
+    }
+
+    return names.native || validLocale;
+  } catch (error) {
+    console.error('getLocaleName: Error getting locale name', error);
+    return locale || DEFAULT_LOCALE;
   }
-  return LOCALE_NAMES[locale]?.native || locale;
 }
 
 /**
  * Format date according to locale
+ * Uses Intl.DateTimeFormat for locale-aware date formatting
+ *
+ * @param {Date | string} date - The date to format
+ * @param {Locale} locale - The locale for formatting
+ * @param {Intl.DateTimeFormatOptions} [options] - Optional formatting options
+ * @returns {string} Formatted date string
+ *
+ * @example
+ * formatDate(new Date('2024-01-15'), 'en') // returns 'January 15, 2024'
+ * formatDate(new Date('2024-01-15'), 'fr') // returns '15 janvier 2024'
  */
 export function formatDate(date: Date | string, locale: Locale, options?: Intl.DateTimeFormatOptions): string {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  try {
+    // Validate and parse date
+    let dateObj: Date;
+    if (typeof date === 'string') {
+      dateObj = new Date(date);
+      if (isNaN(dateObj.getTime())) {
+        console.warn(`formatDate: Invalid date string "${date}", using current date`);
+        dateObj = new Date();
+      }
+    } else if (date instanceof Date) {
+      if (isNaN(date.getTime())) {
+        console.warn('formatDate: Invalid date object, using current date');
+        dateObj = new Date();
+      } else {
+        dateObj = date;
+      }
+    } else {
+      console.warn('formatDate: Invalid date type, using current date');
+      dateObj = new Date();
+    }
 
-  const defaultOptions: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    ...options,
-  };
+    // Validate and sanitize locale
+    const validLocale = isValidLocale(locale) ? locale : DEFAULT_LOCALE;
 
-  return new Intl.DateTimeFormat(locale === 'fr' ? 'fr-CA' : 'en-US', defaultOptions).format(dateObj);
+    if (locale !== validLocale) {
+      console.warn(`formatDate: Invalid locale "${locale}", falling back to "${DEFAULT_LOCALE}"`);
+    }
+
+    const defaultOptions: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      ...options,
+    };
+
+    const localeString = validLocale === 'fr' ? 'fr-CA' : 'en-US';
+
+    return new Intl.DateTimeFormat(localeString, defaultOptions).format(dateObj);
+  } catch (error) {
+    console.error('formatDate: Error formatting date', error);
+    return new Date().toLocaleDateString();
+  }
 }
 
 /**
  * Format number according to locale
+ * Uses Intl.NumberFormat for locale-aware number formatting
+ *
+ * @param {number} number - The number to format
+ * @param {Locale} locale - The locale for formatting
+ * @param {Intl.NumberFormatOptions} [options] - Optional formatting options
+ * @returns {string} Formatted number string
+ *
+ * @example
+ * formatNumber(1234.56, 'en') // returns '1,234.56'
+ * formatNumber(1234.56, 'fr') // returns '1 234,56'
  */
 export function formatNumber(number: number, locale: Locale, options?: Intl.NumberFormatOptions): string {
-  return new Intl.NumberFormat(locale === 'fr' ? 'fr-CA' : 'en-US', options).format(number);
-}
+  try {
+    // Validate number
+    if (typeof number !== 'number' || isNaN(number)) {
+      console.warn(`formatNumber: Invalid number "${number}", returning as string`);
+      return String(number);
+    }
 
-/**
- * Get reading time estimate (in minutes)
- */
-export function getReadingTime(content: string, locale: Locale): string {
-  const wordsPerMinute = 200;
-  const words = content.trim().split(/\s+/).length;
-  const minutes = Math.ceil(words / wordsPerMinute);
+    // Validate and sanitize locale
+    const validLocale = isValidLocale(locale) ? locale : DEFAULT_LOCALE;
 
-  if (locale === 'fr') {
-    return minutes === 1 ? '1 minute' : `${minutes} minutes`;
+    if (locale !== validLocale) {
+      console.warn(`formatNumber: Invalid locale "${locale}", falling back to "${DEFAULT_LOCALE}"`);
+    }
+
+    const localeString = validLocale === 'fr' ? 'fr-CA' : 'en-US';
+
+    return new Intl.NumberFormat(localeString, options).format(number);
+  } catch (error) {
+    console.error('formatNumber: Error formatting number', error);
+    return String(number);
   }
-
-  return minutes === 1 ? '1 min read' : `${minutes} min read`;
 }
 
+
+
 /**
- * Get language direction (for RTL support if needed in future)
+ * Get language direction for locale
+ * Returns text direction (LTR or RTL) - future-proofed for RTL support
+ *
+ * @param {Locale} _locale - The locale (currently unused, both supported locales are LTR)
+ * @returns {'ltr' | 'rtl'} The text direction
+ *
+ * @example
+ * getLanguageDirection('en') // returns 'ltr'
+ * getLanguageDirection('fr') // returns 'ltr'
  */
 export function getLanguageDirection(_locale: Locale): 'ltr' | 'rtl' {
-  // Both English and French are LTR
-  return 'ltr';
+  try {
+    // Both English and French are LTR
+    // This function is future-proofed for RTL language support
+    return 'ltr';
+  } catch (error) {
+    console.error('getLanguageDirection: Error determining language direction', error);
+    return 'ltr';
+  }
 }
 
 /**
- * Build alternate links for SEO
+ * Build alternate links for SEO hreflang tags
+ * Generates alternate link objects for all supported locales
+ *
+ * @param {string} currentPath - The current path to generate alternates for
+ * @param {string} baseUrl - The base URL of the site
+ * @returns {Array<{ hreflang: string; href: string }>} Array of alternate link objects
+ *
+ * @example
+ * getAlternateLinks('/about', 'https://lbenie.me')
+ * // returns [
+ * //   { hreflang: 'en', href: 'https://lbenie.me/en/about' },
+ * //   { hreflang: 'fr', href: 'https://lbenie.me/fr/a-propos' },
+ * //   { hreflang: 'x-default', href: 'https://lbenie.me/en/about' }
+ * // ]
  */
 export function getAlternateLinks(
   currentPath: string,
@@ -221,33 +479,107 @@ export function getAlternateLinks(
   hreflang: string;
   href: string;
 }> {
-  const links: Array<{ hreflang: string; href: string }> = SUPPORTED_LOCALES.map((locale) => ({
-    hreflang: locale,
-    href: `${baseUrl}${getLocalizedPath(currentPath, locale)}`,
-  }));
+  try {
+    // Validate currentPath
+    if (!currentPath || typeof currentPath !== 'string') {
+      console.warn('getAlternateLinks: Invalid current path, using root');
+      currentPath = '/';
+    }
 
-  // Add x-default
-  links.push({
-    hreflang: 'x-default',
-    href: `${baseUrl}${getLocalizedPath(currentPath, DEFAULT_LOCALE)}`,
-  });
+    // Validate baseUrl
+    if (!baseUrl || typeof baseUrl !== 'string') {
+      console.error('getAlternateLinks: Invalid base URL provided');
+      return [];
+    }
 
-  return links;
+    // Validate URL format
+    try {
+      new URL(baseUrl);
+    } catch {
+      console.error(`getAlternateLinks: Invalid base URL format: ${baseUrl}`);
+      return [];
+    }
+
+    // Remove trailing slash from base URL
+    const sanitizedBaseUrl = baseUrl.replace(/\/$/, '');
+
+    const links: Array<{ hreflang: string; href: string }> = SUPPORTED_LOCALES.map((locale) => {
+      try {
+        const localizedPath = getLocalizedPath(currentPath, locale);
+        return {
+          hreflang: locale,
+          href: `${sanitizedBaseUrl}${localizedPath}`,
+        };
+      } catch (error) {
+        console.error(`getAlternateLinks: Error generating link for locale "${locale}"`, error);
+        return {
+          hreflang: locale,
+          href: `${sanitizedBaseUrl}/${locale}`,
+        };
+      }
+    });
+
+    // Add x-default
+    try {
+      const defaultPath = getLocalizedPath(currentPath, DEFAULT_LOCALE);
+      links.push({
+        hreflang: 'x-default',
+        href: `${sanitizedBaseUrl}${defaultPath}`,
+      });
+    } catch (error) {
+      console.error('getAlternateLinks: Error generating x-default link', error);
+      links.push({
+        hreflang: 'x-default',
+        href: `${sanitizedBaseUrl}/${DEFAULT_LOCALE}`,
+      });
+    }
+
+    return links;
+  } catch (error) {
+    console.error('getAlternateLinks: Error generating alternate links', error);
+    return [];
+  }
 }
 
 /**
- * Normalize path (remove trailing slashes, etc.)
+ * Normalize path by ensuring proper formatting
+ * Removes trailing slashes (except root) and ensures leading slash
+ *
+ * @param {string} path - The path to normalize
+ * @returns {string} Normalized path
+ *
+ * @example
+ * normalizePath('about/') // returns '/about'
+ * normalizePath('blog') // returns '/blog'
+ * normalizePath('/') // returns '/'
  */
 export function normalizePath(path: string): string {
-  // Remove trailing slash except for root
-  if (path.length > 1 && path.endsWith('/')) {
-    path = path.slice(0, -1);
-  }
+  try {
+    // Validate path
+    if (!path || typeof path !== 'string') {
+      console.warn('normalizePath: Invalid path provided, returning root');
+      return '/';
+    }
 
-  // Ensure leading slash
-  if (!path.startsWith('/')) {
-    path = `/${path}`;
-  }
+    let normalizedPath = path.trim();
 
-  return path;
+    if (normalizedPath.length === 0) {
+      return '/';
+    }
+
+    // Remove trailing slash except for root
+    if (normalizedPath.length > 1 && normalizedPath.endsWith('/')) {
+      normalizedPath = normalizedPath.slice(0, -1);
+    }
+
+    // Ensure leading slash
+    if (!normalizedPath.startsWith('/')) {
+      normalizedPath = `/${normalizedPath}`;
+    }
+
+    return normalizedPath;
+  } catch (error) {
+    console.error('normalizePath: Error normalizing path', error);
+    return path || '/';
+  }
 }
