@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+
+# Get the commit message (the first parameter is the file containing the message)
+commit_msg=$(cat "$1")
+
+# Define the conventional commit pattern
+# Format: type(optional scope): description
+# Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+conventional_commit_regex="^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?(!)?: .{1,}"
+
+# Check if commit message matches the pattern
+if ! echo "$commit_msg" | grep -Eq "$conventional_commit_regex"; then
+    echo "❌ ERROR: Commit message does not follow Conventional Commits format."
+    echo ""
+    echo "Expected format: <type>(<optional scope>): <description>"
+    echo ""
+    echo "Examples:"
+    echo "  feat: add new search functionality"
+    echo "  fix(ui): correct button alignment"
+    echo "  docs: update README with setup instructions"
+    echo "  chore(deps): update dependencies"
+    echo ""
+    echo "Valid types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+    echo ""
+    echo "Your commit message:"
+    echo "$commit_msg"
+    exit 1
+fi
+
+exit 0
