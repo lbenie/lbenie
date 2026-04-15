@@ -58,14 +58,7 @@ export const formatDateRange = (from: Date, to: Date | undefined, locale: Locale
   return `${fromFormatted} - ${toFormatted}`;
 };
 
-/**
- * Calculate reading time in minutes
- */
-export const calculateReadingTime = (content: string): number => {
-  const wordsPerMinute = 200;
-  const words = content.trim().split(/\s+/).length;
-  return Math.ceil(words / wordsPerMinute);
-};
+
 
 /**
  * Get all blog posts for a specific locale

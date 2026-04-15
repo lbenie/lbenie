@@ -432,54 +432,7 @@ export function formatNumber(number: number, locale: Locale, options?: Intl.Numb
   }
 }
 
-/**
- * Get reading time estimate in minutes
- * Calculates estimated reading time based on average reading speed
- *
- * @param {string} content - The text content to analyze
- * @param {Locale} locale - The locale for output format
- * @returns {string} Localized reading time estimate
- *
- * @example
- * getReadingTime('Lorem ipsum...', 'en') // returns '5 min read'
- * getReadingTime('Lorem ipsum...', 'fr') // returns '5 minutes'
- */
-export function getReadingTime(content: string, locale: Locale): string {
-  try {
-    // Validate content
-    if (!content || typeof content !== 'string') {
-      console.warn('getReadingTime: Invalid content provided');
-      return locale === 'fr' ? '0 minute' : '0 min read';
-    }
 
-    const trimmedContent = content.trim();
-
-    if (trimmedContent.length === 0) {
-      console.warn('getReadingTime: Empty content provided');
-      return locale === 'fr' ? '0 minute' : '0 min read';
-    }
-
-    // Validate and sanitize locale
-    const validLocale = isValidLocale(locale) ? locale : DEFAULT_LOCALE;
-
-    if (locale !== validLocale) {
-      console.warn(`getReadingTime: Invalid locale "${locale}", falling back to "${DEFAULT_LOCALE}"`);
-    }
-
-    const wordsPerMinute = 200;
-    const words = trimmedContent.split(/\s+/).length;
-    const minutes = Math.max(1, Math.ceil(words / wordsPerMinute));
-
-    if (validLocale === 'fr') {
-      return minutes === 1 ? '1 minute' : `${minutes} minutes`;
-    }
-
-    return minutes === 1 ? '1 min read' : `${minutes} min read`;
-  } catch (error) {
-    console.error('getReadingTime: Error calculating reading time', error);
-    return locale === 'fr' ? '1 minute' : '1 min read';
-  }
-}
 
 /**
  * Get language direction for locale
