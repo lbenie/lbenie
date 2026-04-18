@@ -46,14 +46,14 @@
     "open-props": "1.7.23"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.11",
-    "@lbenie/linting": "2.1.11",
+    "@biomejs/biome": "2.4.12",
+    "@lbenie/linting": "2.1.13",
     "@types/node": "20.19.39",
     "@vitest/coverage-v8": "4.1.4",
     "@vitest/ui": "4.1.4",
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
-    "puppeteer": "24.40.0",
+    "puppeteer": "24.41.0",
     "typescript": "5.9.3",
     "vitest": "4.1.4"
   },
