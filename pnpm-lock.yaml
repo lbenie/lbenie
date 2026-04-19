@@ -39,8 +39,8 @@ importers:
         specifier: 26.0.6
         version: 26.0.6(typescript@5.9.3)
       i18next-fs-backend:
-        specifier: 2.6.3
-        version: 2.6.3
+        specifier: 2.6.4
+        version: 2.6.4
       open-props:
         specifier: 1.7.23
         version: 1.7.23
@@ -2734,8 +2734,8 @@ packages:
   i18next-browser-languagedetector@7.2.2:
     resolution: {integrity: sha512-6b7r75uIJDWCcCflmbof+sJ94k9UQO4X0YR62oUfqGI/GjCLVzlCwu8TFdRZIqVLzWbzNcmkmhfqKEr4TLz4HQ==}
 
-  i18next-fs-backend@2.6.3:
-    resolution: {integrity: sha512-/5aW996nbolGh/qVU9urjAJ2QiXpiyGuhG8x/ZvvZQ3bMlrK+ouUdD6whS4e+sU9CCdUIzl7x/heEjsBh/3xtw==}
+  i18next-fs-backend@2.6.4:
+    resolution: {integrity: sha512-lzbUnowXYd5RFO8flpQhd9khYWNgrzwtxHw1kktJCiTRBaAEiLB2t9EPSXRj8qlC7WcEgFDIsmBUixyludcznw==}
 
   i18next-http-backend@2.7.3:
     resolution: {integrity: sha512-FgZxrXdRA5u44xfYsJlEBL4/KH3f2IluBpgV/7riW0YW2VEyM8FzVt2XHAOi6id0Ppj7vZvCZVpp5LrGXnc8Ig==}
@@ -6418,7 +6418,7 @@ snapshots:
       astro: 6.1.6(@netlify/blobs@10.7.4)(@types/node@20.19.39)(jiti@2.6.1)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
       i18next: 22.5.1
       i18next-browser-languagedetector: 7.2.2
-      i18next-fs-backend: 2.6.3
+      i18next-fs-backend: 2.6.4
       i18next-http-backend: 2.7.3
       iso-639-1: 2.1.15
       locale-emoji: 0.3.0
@@ -7692,7 +7692,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.29.2
 
-  i18next-fs-backend@2.6.3: {}
+  i18next-fs-backend@2.6.4: {}
 
   i18next-http-backend@2.7.3:
     dependencies:
