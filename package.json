@@ -46,16 +46,16 @@
     "open-props": "1.7.23"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.12",
-    "@lbenie/linting": "2.1.13",
+    "@biomejs/biome": "2.4.13",
+    "@lbenie/linting": "2.1.14",
     "@types/node": "20.19.39",
-    "@vitest/coverage-v8": "4.1.4",
-    "@vitest/ui": "4.1.4",
+    "@vitest/coverage-v8": "4.1.5",
+    "@vitest/ui": "4.1.5",
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
-    "puppeteer": "24.41.0",
+    "puppeteer": "24.42.0",
     "typescript": "5.9.3",
-    "vitest": "4.1.4"
+    "vitest": "4.1.5"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
