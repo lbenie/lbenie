@@ -46,7 +46,7 @@
     "open-props": "1.7.23"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.13",
+    "@biomejs/biome": "2.4.14",
     "@lbenie/linting": "2.1.14",
     "@types/node": "20.19.39",
     "@vitest/coverage-v8": "4.1.5",
