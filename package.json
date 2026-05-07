@@ -32,13 +32,13 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.8",
+    "@astrojs/check": "0.9.9",
     "@astrojs/netlify": "7.0.8",
     "@astrojs/rss": "4.0.18",
     "@astrojs/sitemap": "3.7.2",
     "@microsoft/clarity": "1.0.2",
     "@shikijs/transformers": "4.0.2",
-    "astro": "6.1.9",
+    "astro": "6.3.0",
     "astro-i18next": "1.0.0-beta.21",
     "fuse.js": "7.3.0",
     "i18next": "26.0.8",
