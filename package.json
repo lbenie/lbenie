@@ -49,13 +49,13 @@
     "@biomejs/biome": "2.4.15",
     "@lbenie/linting": "2.1.14",
     "@types/node": "20.19.41",
-    "@vitest/coverage-v8": "4.1.6",
-    "@vitest/ui": "4.1.6",
+    "@vitest/coverage-v8": "4.1.7",
+    "@vitest/ui": "4.1.7",
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
     "puppeteer": "24.43.1",
     "typescript": "5.9.3",
-    "vitest": "4.1.6"
+    "vitest": "4.1.7"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
