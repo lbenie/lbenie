@@ -1,6 +1,6 @@
 # Hey, I'm Lucien 👋
 
-**Staff Fullstack Software Developer** | Remote Engineering Leader | Building scalable web platforms since 2014
+**Staff Frontend Software Developer** | Remote Engineering Leader | Building scalable web platforms since 2014
 
 I architect and drive technical strategy for enterprise-grade applications, leading teams to deliver high-impact solutions that serve millions of users. With 10+ years of remote work experience, I specialize in building performant, accessible, and maintainable systems that scale.
 
