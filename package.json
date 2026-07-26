@@ -38,7 +38,7 @@
     "@astrojs/sitemap": "3.7.2",
     "@microsoft/clarity": "1.0.2",
     "@shikijs/transformers": "4.3.1",
-    "astro": "6.1.10",
+    "astro": "7.1.0",
     "astro-i18next": "1.0.0-beta.21",
     "fuse.js": "7.5.0",
     "i18next": "26.3.6",
