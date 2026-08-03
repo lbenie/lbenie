@@ -1,5 +1,4 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.10/schema.json",
   "extends": ["@lbenie/linting/biome"],
   "vcs": {
     "enabled": true,
@@ -11,37 +10,12 @@
     "includes": ["src/**/*", "*.config.{js,mjs,ts}"],
     "ignoreUnknown": true
   },
-  "formatter": {
-    "enabled": true,
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineWidth": 120,
-    "lineEnding": "lf"
-  },
   "javascript": {
     "formatter": {
-      "quoteStyle": "single",
-      "semicolons": "always",
-      "trailingCommas": "all",
-      "indentStyle": "space",
-      "indentWidth": 2
-    }
-  },
-  "json": {
-    "formatter": {
-      "trailingCommas": "none",
-      "indentStyle": "space",
-      "indentWidth": 2
-    }
-  },
-  "css": {
-    "formatter": {
-      "indentStyle": "space",
-      "indentWidth": 2
+      "quoteStyle": "single"
     }
   },
   "linter": {
-    "enabled": true,
     "rules": {
       "style": {
         "noDefaultExport": "off"
@@ -57,27 +31,12 @@
       "linter": {
         "rules": {
           "style": {
-            "noDefaultExport": "off",
             "useConst": "off",
             "useImportType": "off"
           },
           "correctness": {
             "noUnusedVariables": "off",
             "noUnusedImports": "off"
-          }
-        }
-      },
-      "formatter": {
-        "indentStyle": "space",
-        "indentWidth": 2
-      }
-    },
-    {
-      "includes": ["src/pages/**/*.astro", "src/layouts/**/*.astro", "src/content/config.ts", "*.config.{js,mjs,ts}"],
-      "linter": {
-        "rules": {
-          "style": {
-            "noDefaultExport": "off"
           }
         }
       }
@@ -89,9 +48,17 @@
       }
     },
     {
-      "includes": ["src/styles/reset.css"],
+      "includes": ["**/*.test.ts", "**/*.test.tsx"],
       "linter": {
-        "enabled": true
+        "rules": {
+          "style": {
+            "noMagicNumbers": "off",
+            "noNonNullAssertion": "off"
+          },
+          "suspicious": {
+            "noUnnecessaryConditions": "off"
+          }
+        }
       }
     }
   ]

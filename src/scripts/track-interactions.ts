@@ -2,19 +2,22 @@
 // This script tracks user interactions on the portfolio site
 // All tracking events are automatically initialized on page load
 
-import clarity from './clarity';
 import { debug } from '@utils/logger';
+import clarity from './clarity';
 
 /**
  * Constants
  */
+// biome-ignore lint/style/noMagicNumbers: named scroll-depth milestone percentages
 const SCROLL_MILESTONES = [25, 50, 75, 100] as const;
+// biome-ignore lint/style/noMagicNumbers: named time-on-page milestones in seconds
 const TIME_MILESTONES = [30, 60, 120, 180, 300] as const;
 const TIME_CHECK_INTERVAL = 10_000; // 10 seconds
+const MS_PER_SECOND = 1000;
 
 type Language = 'en' | 'fr';
-type ScrollMilestone = typeof SCROLL_MILESTONES[number];
-type TimeMilestone = typeof TIME_MILESTONES[number];
+type ScrollMilestone = (typeof SCROLL_MILESTONES)[number];
+type TimeMilestone = (typeof TIME_MILESTONES)[number];
 
 /**
  * Social media platform selectors
@@ -62,14 +65,14 @@ const getPageType = (pathname: string): PageType => {
 
   // Check for exact matches first (home page)
   for (const pageType of pageTypes) {
-    if (PAGE_TYPE_ROUTES[pageType].some(route => pathname === route)) {
+    if (PAGE_TYPE_ROUTES[pageType].some((route) => pathname === route)) {
       return pageType;
     }
   }
 
   // Check for includes matches
   for (const pageType of pageTypes) {
-    if (PAGE_TYPE_ROUTES[pageType].some(route => pathname.includes(route))) {
+    if (PAGE_TYPE_ROUTES[pageType].some((route) => pathname.includes(route))) {
       return pageType;
     }
   }
@@ -329,9 +332,11 @@ export const trackHighEngagement = (reason: string) => {
 const initScrollTracking = () => {
   const trackedMilestones = new Set<ScrollMilestone>();
 
+  const PERCENT_SCALE = 100;
+
   const handleScroll = () => {
     const scrollPercent = Math.round(
-      (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+      (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * PERCENT_SCALE,
     );
 
     for (const milestone of SCROLL_MILESTONES) {
@@ -353,7 +358,7 @@ const initTimeTracking = () => {
   const startTime = Date.now();
 
   const checkTime = () => {
-    const secondsOnPage = Math.floor((Date.now() - startTime) / 1000);
+    const secondsOnPage = Math.floor((Date.now() - startTime) / MS_PER_SECOND);
 
     for (const milestone of TIME_MILESTONES) {
       if (secondsOnPage >= milestone && !trackedMilestones.has(milestone)) {

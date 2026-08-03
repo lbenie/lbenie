@@ -1,6 +1,7 @@
 // Microsoft Clarity Analytics Initialization
 // This script runs on the client-side to initialize Clarity tracking
 
+// biome-ignore lint/style/noExportedImports: initialized here and re-exported below, not a pure re-export
 import clarity from '@microsoft/clarity';
 import { debug, error as logError, warn } from '@utils/logger';
 

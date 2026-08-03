@@ -33,6 +33,9 @@ import Fuse from 'fuse.js';
 
 const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
 
+const MODAL_FOCUS_DELAY_MS = 100;
+const MAX_VISIBLE_TAGS = 3;
+
 (() => {
   /** @type {HTMLElement | null} */
   const modal = document.getElementById('search-modal');
@@ -102,14 +105,12 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
       'input:not([disabled])',
       'button:not([disabled])',
       'a[href]:not([disabled])',
-      '[tabindex]:not([tabindex="-1"]):not([disabled])'
+      '[tabindex]:not([tabindex="-1"]):not([disabled])',
     ];
 
     const elements = modal.querySelectorAll(selectors.join(', '));
-    focusableElements = Array.from(elements).filter(el => {
-      return el instanceof HTMLElement &&
-             el.offsetParent !== null &&
-             !el.hasAttribute('hidden');
+    focusableElements = Array.from(elements).filter((el) => {
+      return el instanceof HTMLElement && el.offsetParent !== null && !el.hasAttribute('hidden');
     });
   };
 
@@ -149,9 +150,7 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
    */
   const openModal = () => {
     if (modal) {
-      lastFocusedElement = document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
+      lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
 
       modal.hidden = false;
       document.body.style.overflow = 'hidden';
@@ -161,7 +160,7 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
           input.focus();
           updateFocusableElements();
         }
-      }, 100);
+      }, MODAL_FOCUS_DELAY_MS);
 
       initializeFuse();
       document.addEventListener('keydown', handleFocusTrap);
@@ -263,7 +262,7 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
       const tagsContainer = document.createElement('div');
       tagsContainer.className = 'search-result-tags';
 
-      item.tags.slice(0, 3).forEach(tagText => {
+      item.tags.slice(0, MAX_VISIBLE_TAGS).forEach((tagText) => {
         tagsContainer.appendChild(createTagElement(tagText));
       });
 
@@ -336,7 +335,7 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
         const listDiv = document.createElement('div');
         listDiv.className = 'search-result-list';
 
-        items.forEach(item => {
+        items.forEach((item) => {
           listDiv.appendChild(createResultItem(item, globalIndex));
           globalIndex++;
         });
@@ -372,8 +371,11 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
 
         if (title) title.style.color = 'white';
         if (description) description.style.color = 'white';
-        if (arrow) { arrow.style.opacity = '1'; arrow.style.color = 'white'; }
-        tags.forEach(tag => {
+        if (arrow) {
+          arrow.style.opacity = '1';
+          arrow.style.color = 'white';
+        }
+        tags.forEach((tag) => {
           tag.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
           tag.style.color = 'white';
           tag.style.borderColor = 'rgba(255, 255, 255, 0.3)';
@@ -393,8 +395,11 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
 
         if (title) title.style.color = '';
         if (description) description.style.color = '';
-        if (arrow) { arrow.style.opacity = ''; arrow.style.color = ''; }
-        tags.forEach(tag => {
+        if (arrow) {
+          arrow.style.opacity = '';
+          arrow.style.color = '';
+        }
+        tags.forEach((tag) => {
           tag.style.backgroundColor = '';
           tag.style.color = '';
           tag.style.borderColor = '';
@@ -432,9 +437,13 @@ const { searchIndex, t } = window.__SEARCH_DATA__ || { searchIndex: [], t: {} };
     }
   };
 
-  triggers.forEach((trigger) => trigger.addEventListener('click', openModal));
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', openModal);
+  });
 
-  closeButtons.forEach((btn) => btn.addEventListener('click', closeModal));
+  closeButtons.forEach((btn) => {
+    btn.addEventListener('click', closeModal);
+  });
 
   if (input) {
     input.addEventListener('input', (e) => {

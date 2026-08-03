@@ -1,11 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  DEFAULT_LOCALE,
-  getAlternateLocale,
-  getLocaleFromPath,
-  isValidLocale,
-  switchLocale,
-} from './i18n';
+import { DEFAULT_LOCALE, getAlternateLocale, getLocaleFromPath, isValidLocale, switchLocale } from './i18n';
 
 describe('i18n utilities', () => {
   it('should have correct default locale', () => {

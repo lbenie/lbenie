@@ -3,7 +3,7 @@
  * French Print-Optimized Resume/CV Page
  * Designed for printing to PDF - visit /fr/resume and press Ctrl+P
  */
-import { getExperience, formatDateShort, formatDuration } from '@utils/content';
+import { formatDateShort, formatDuration, getExperience } from '@utils/content';
 
 // Fetch all English experience entries (sorted by order and date)
 const experiences = await getExperience('fr');
@@ -28,7 +28,7 @@ const skills = {
   frontend: ['React', 'TypeScript', 'JavaScript', 'Angular', 'Vue.js', 'HTML/CSS'],
   backend: ['Node.js', 'Ruby on Rails', 'GraphQL', 'REST APIs', 'Microservices'],
   tools: ['Git', 'Docker', 'CI/CD', 'AWS', 'Agile/Scrum'],
-  ai: ['Intégration IA', 'Cursor', 'GitHub Copilot', 'Claude']
+  ai: ['Intégration IA', 'Cursor', 'GitHub Copilot', 'Claude'],
 };
 ---
 

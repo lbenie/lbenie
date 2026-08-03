@@ -1,10 +1,10 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
-  SITE_CONFIG,
-  buildPageTitle,
   buildCanonicalURL,
+  buildPageTitle,
   generateOpenGraphMeta,
   generateTwitterCardMeta,
+  SITE_CONFIG,
   sanitizeDescription,
   validateMeta,
 } from './seo';

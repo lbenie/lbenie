@@ -184,7 +184,7 @@ export function getLocalizedPath(route: string, locale: Locale): string {
     // Check if we have a translation for this route
     const localizedRoute = LOCALE_ROUTES[routeKey];
 
-    if (localizedRoute && localizedRoute[validLocale]) {
+    if (localizedRoute?.[validLocale]) {
       const path = localizedRoute[validLocale];
       // Always add locale prefix since site uses explicit locale prefixes
       return `/${validLocale}${path}`;
@@ -356,12 +356,12 @@ export function formatDate(date: Date | string, locale: Locale, options?: Intl.D
     let dateObj: Date;
     if (typeof date === 'string') {
       dateObj = new Date(date);
-      if (isNaN(dateObj.getTime())) {
+      if (Number.isNaN(dateObj.getTime())) {
         console.warn(`formatDate: Invalid date string "${date}", using current date`);
         dateObj = new Date();
       }
     } else if (date instanceof Date) {
-      if (isNaN(date.getTime())) {
+      if (Number.isNaN(date.getTime())) {
         console.warn('formatDate: Invalid date object, using current date');
         dateObj = new Date();
       } else {
@@ -411,7 +411,7 @@ export function formatDate(date: Date | string, locale: Locale, options?: Intl.D
 export function formatNumber(number: number, locale: Locale, options?: Intl.NumberFormatOptions): string {
   try {
     // Validate number
-    if (typeof number !== 'number' || isNaN(number)) {
+    if (typeof number !== 'number' || Number.isNaN(number)) {
       console.warn(`formatNumber: Invalid number "${number}", returning as string`);
       return String(number);
     }
@@ -431,8 +431,6 @@ export function formatNumber(number: number, locale: Locale, options?: Intl.Numb
     return String(number);
   }
 }
-
-
 
 /**
  * Get language direction for locale

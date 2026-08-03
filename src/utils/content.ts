@@ -58,8 +58,6 @@ export const formatDateRange = (from: Date, to: Date | undefined, locale: Locale
   return `${fromFormatted} - ${toFormatted}`;
 };
 
-
-
 /**
  * Get all blog posts for a specific locale
  */

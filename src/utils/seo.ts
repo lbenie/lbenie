@@ -329,7 +329,7 @@ export const generateBlogPostSchema = (
     // Validate and handle dates
     let validPublishDate: Date;
     try {
-      validPublishDate = publishDate instanceof Date && !isNaN(publishDate.getTime()) ? publishDate : new Date();
+      validPublishDate = publishDate instanceof Date && !Number.isNaN(publishDate.getTime()) ? publishDate : new Date();
 
       if (validPublishDate.toString() === 'Invalid Date') {
         validPublishDate = new Date();
@@ -341,7 +341,7 @@ export const generateBlogPostSchema = (
 
     let validModifiedDate: Date;
     try {
-      if (modifiedDate instanceof Date && !isNaN(modifiedDate.getTime())) {
+      if (modifiedDate instanceof Date && !Number.isNaN(modifiedDate.getTime())) {
         validModifiedDate = modifiedDate;
       } else {
         validModifiedDate = validPublishDate;

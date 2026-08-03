@@ -97,8 +97,6 @@ describe('formatDateRange', () => {
   });
 });
 
-
-
 describe('formatDuration', () => {
   it('should format duration less than a year in months (English)', () => {
     const from = new Date('2024-01-01');
@@ -347,9 +345,9 @@ describe('sortByDateDesc', () => {
 
     const result = sortByDateDesc(items);
 
-    expect(result[0]!.data.date.getFullYear()).toBe(2024);
-    expect(result[1]!.data.date.getFullYear()).toBe(2023);
-    expect(result[2]!.data.date.getFullYear()).toBe(2022);
+    expect(result[0]?.data.date.getFullYear()).toBe(2024);
+    expect(result[1]?.data.date.getFullYear()).toBe(2023);
+    expect(result[2]?.data.date.getFullYear()).toBe(2022);
   });
 
   it('should not mutate original array', () => {
@@ -380,9 +378,9 @@ describe('sortByDateAsc', () => {
 
     const result = sortByDateAsc(items);
 
-    expect(result[0]!.data.date.getFullYear()).toBe(2022);
-    expect(result[1]!.data.date.getFullYear()).toBe(2023);
-    expect(result[2]!.data.date.getFullYear()).toBe(2024);
+    expect(result[0]?.data.date.getFullYear()).toBe(2022);
+    expect(result[1]?.data.date.getFullYear()).toBe(2023);
+    expect(result[2]?.data.date.getFullYear()).toBe(2024);
   });
 
   it('should not mutate original array', () => {
@@ -428,7 +426,7 @@ describe('getRelatedContent', () => {
     // post-2 has 2 shared tags (typescript, react)
     // post-5 has 2 shared tags (react, testing)
     // post-4 has 1 shared tag (typescript)
-    expect(result[0]!.data.slug).toMatch(/post-2|post-5/);
+    expect(result[0]?.data.slug).toMatch(/post-2|post-5/);
   });
 
   it('should respect limit parameter', () => {
@@ -467,7 +465,7 @@ describe('paginate', () => {
     const result = paginate(items, 1, 10);
 
     expect(result.items).toHaveLength(10);
-    expect(result.items[0]!.id).toBe(1);
+    expect(result.items[0]?.id).toBe(1);
     expect(result.totalPages).toBe(3);
     expect(result.currentPage).toBe(1);
     expect(result.hasNext).toBe(true);
@@ -478,7 +476,7 @@ describe('paginate', () => {
     const result = paginate(items, 2, 10);
 
     expect(result.items).toHaveLength(10);
-    expect(result.items[0]!.id).toBe(11);
+    expect(result.items[0]?.id).toBe(11);
     expect(result.currentPage).toBe(2);
     expect(result.hasNext).toBe(true);
     expect(result.hasPrev).toBe(true);
@@ -488,7 +486,7 @@ describe('paginate', () => {
     const result = paginate(items, 3, 10);
 
     expect(result.items).toHaveLength(5);
-    expect(result.items[0]!.id).toBe(21);
+    expect(result.items[0]?.id).toBe(21);
     expect(result.currentPage).toBe(3);
     expect(result.hasNext).toBe(false);
     expect(result.hasPrev).toBe(true);
@@ -498,7 +496,7 @@ describe('paginate', () => {
     const result = paginate(items, 0, 10);
 
     expect(result.currentPage).toBe(1);
-    expect(result.items[0]!.id).toBe(1);
+    expect(result.items[0]?.id).toBe(1);
   });
 
   it('should handle page number greater than total pages', () => {
