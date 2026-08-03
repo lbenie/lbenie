@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.6",
-    "@lbenie/linting": "2.1.15",
+    "@lbenie/linting": "2.1.16",
     "@types/node": "20.19.43",
     "@vitest/coverage-v8": "4.1.10",
     "@vitest/ui": "4.1.10",
