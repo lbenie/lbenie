@@ -6,7 +6,11 @@
       "formatter": {
         "external": {
           "command": "biome",
-          "arguments": ["format", "--stdin-file-path", "{buffer_path}"]
+          "arguments": [
+            "format",
+            "--stdin-file-path",
+            "{buffer_path}"
+          ]
         }
       },
       "code_actions_on_format": {
@@ -18,7 +22,11 @@
       "formatter": {
         "external": {
           "command": "biome",
-          "arguments": ["format", "--stdin-file-path", "{buffer_path}"]
+          "arguments": [
+            "format",
+            "--stdin-file-path",
+            "{buffer_path}"
+          ]
         }
       },
       "code_actions_on_format": {
@@ -30,7 +38,11 @@
       "formatter": {
         "external": {
           "command": "biome",
-          "arguments": ["format", "--stdin-file-path", "{buffer_path}"]
+          "arguments": [
+            "format",
+            "--stdin-file-path",
+            "{buffer_path}"
+          ]
         }
       },
       "code_actions_on_format": {
@@ -42,7 +54,11 @@
       "formatter": {
         "external": {
           "command": "biome",
-          "arguments": ["format", "--stdin-file-path", "{buffer_path}"]
+          "arguments": [
+            "format",
+            "--stdin-file-path",
+            "{buffer_path}"
+          ]
         }
       },
       "code_actions_on_format": {
@@ -54,7 +70,11 @@
       "formatter": {
         "external": {
           "command": "biome",
-          "arguments": ["format", "--stdin-file-path", "{buffer_path}"]
+          "arguments": [
+            "format",
+            "--stdin-file-path",
+            "{buffer_path}"
+          ]
         }
       }
     },
@@ -79,12 +99,17 @@
   },
   "tab_size": 2,
   "preferred_line_length": 120,
-  "soft_wrap": "preferred_line_length",
+  "soft_wrap": "prefer_line",
   "show_whitespaces": "selection",
   "remove_trailing_whitespace_on_save": true,
   "ensure_final_newline_on_save": true,
   "file_types": {
-    "Astro": ["astro"],
-    "Markdown": ["md", "mdx"]
+    "Astro": [
+      "astro"
+    ],
+    "Markdown": [
+      "md",
+      "mdx"
+    ]
   }
 }
