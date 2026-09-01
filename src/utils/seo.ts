@@ -602,7 +602,7 @@ export const getDefaultMeta = (locale: Locale): SEOMeta => {
  * @example
  * mergeMeta({ title: 'Custom Title' }, 'en')
  */
-export const mergeMeta = (meta: Partial<SEOMeta>, locale: Locale): SEOMeta => {
+export const mergeMeta = (meta: Partial<SEOMeta> | null | undefined, locale: Locale): SEOMeta => {
   try {
     // Validate locale
     const validLocale: Locale = locale === 'fr' || locale === 'en' ? locale : 'en';
@@ -612,7 +612,7 @@ export const mergeMeta = (meta: Partial<SEOMeta>, locale: Locale): SEOMeta => {
     }
 
     // Validate meta object
-    if (!meta || typeof meta !== 'object') {
+    if (!meta) {
       console.warn('mergeMeta: Invalid meta object provided, using defaults only');
       return getDefaultMeta(validLocale);
     }

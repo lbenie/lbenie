@@ -84,6 +84,7 @@ const experienceCollection = defineCollection({
     to: z.coerce.date().optional(),
     current: z.boolean().default(false),
     description: z.string(),
+    resumeSummary: z.string().optional(),
     stack: z.array(z.string()).default([]),
     highlights: z.array(z.string()).default([]),
     locale: z.enum(['en', 'fr']),

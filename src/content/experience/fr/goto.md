@@ -8,6 +8,7 @@ remote: true
 from: 2025-04-14T00:00:00.000Z
 current: true
 description: "Assure un leadership et un accompagnement techniques à l'échelle de l'organisation Communications unifiées et collaboration de GoTo dans son adoption du développement logiciel piloté par l'IA. Contribue à définir une plateforme agentique visant à automatiser progressivement les flux de travail à travers l'ensemble du cycle de développement logiciel, tout en poursuivant la modernisation des plateformes vocales et de messagerie d'entreprise de GoTo. Supervise actuellement un stagiaire et contribue au recrutement par des entretiens techniques avec des candidats en ingénierie."
+resumeSummary: "Leader technique contribuant à la stratégie de plateformes d'IA agentique et de cycles de développement pilotés par l'IA à l'échelle des communications unifiées, avec une expertise approfondie en architecture de plateformes, expérience développeur et livraison de produits de bout en bout."
 stack: ["TypeScript", "Lit", "Redux", "Vite", "Biome", "Vitest", "PNPM", "Plateformes d'IA agentique", "Outils IA (Claude, Copilot)"]
 highlights: [
   "Guide la stratégie de développement logiciel piloté par l'IA de l'organisation UCC et contribue à définir une plateforme agentique qui normalise l'adoption de flux de développement de plus en plus autonomes par les équipes d'ingénierie",

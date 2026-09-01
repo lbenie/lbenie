@@ -10,6 +10,9 @@
     "includes": ["src/**/*", "*.config.{js,mjs,ts}"],
     "ignoreUnknown": true
   },
+  "formatter": {
+    "lineEnding": "auto"
+  },
   "javascript": {
     "formatter": {
       "quoteStyle": "single"
