@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+import avatar from '@/assets/avatar.webp';
+
+interface Props {
+  alt: string;
+}
+
+const { alt } = Astro.props;
+---
+
+<div class="profile-avatar" style={`--avatar-aspect-ratio: ${avatar.width} / ${avatar.height}`}>
+  <Image
+    src={avatar}
+    alt={alt}
+    widths={[300, 525, 800]}
+    sizes="(max-width: 768px) 300px, (max-width: 1200px) 40vw, 480px"
+    format="webp"
+    quality={80}
+    class="profile-avatar__image"
+    loading="eager"
+    fetchpriority="high"
+  />
+</div>
+
+<style>
+  .profile-avatar {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--avatar-aspect-ratio);
+  }
+
+  .profile-avatar__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-lg);
+    object-fit: cover;
+    box-shadow: var(--shadow-xl);
+  }
+
+  @media (max-width: 768px) {
+    .profile-avatar {
+      width: min(100%, 300px);
+      margin: 0 auto;
+    }
+  }
+</style>

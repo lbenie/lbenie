@@ -3,6 +3,7 @@
  * English Home Page
  * Main landing page with hero, featured projects, blog posts, and experience
  */
+import ProfileAvatar from '@components/ProfileAvatar.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { formatDate, getBlogPosts, getExperience, getFeaturedProjects } from '@utils/content';
 import type { SEOMeta } from '@/types/index';
@@ -37,18 +38,7 @@ const meta: SEOMeta = {
         <h2 class="hero__section-title">About Me</h2>
 
         <div class="hero__layout">
-          <!-- Photo Side -->
-          <div class="hero__photo-wrapper">
-            <img
-              src="/images/avatar.webp"
-              alt="Avatar of Lucien Bénié waving"
-              width="400"
-              height="400"
-              class="hero__photo"
-              loading="eager"
-              fetchpriority="high"
-            />
-          </div>
+          <ProfileAvatar alt="Avatar of Lucien Bénié waving" />
 
           <!-- Content Side -->
           <div class="hero__content">
@@ -325,18 +315,6 @@ const meta: SEOMeta = {
     align-items: start;
   }
 
-  .hero__photo-wrapper {
-    position: relative;
-  }
-
-  .hero__photo {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1;
-    border-radius: var(--radius-lg);
-    object-fit: cover;
-    box-shadow: var(--shadow-xl);
-  }
 
   .hero__content {
     display: flex;
@@ -825,10 +803,6 @@ const meta: SEOMeta = {
       gap: var(--space-xl);
     }
 
-    .hero__photo-wrapper {
-      max-width: 300px;
-      margin: 0 auto;
-    }
 
     .hero__greeting {
       font-size: var(--font-size-2xl);

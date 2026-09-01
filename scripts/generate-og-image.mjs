@@ -13,6 +13,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const PUBLIC_DIR = join(ROOT, 'public');
 const IMAGES_DIR = join(PUBLIC_DIR, 'images');
+const AVATAR_PATH = join(ROOT, 'src', 'assets', 'avatar.webp');
 const OUTPUT_PATH = join(IMAGES_DIR, 'og-default.jpg');
 
 // OG Image dimensions
@@ -122,16 +123,15 @@ const generateOGImage = async () => {
   mkdirSync(IMAGES_DIR, { recursive: true });
 
   // Check if avatar image exists
-  const profileImagePath = join(IMAGES_DIR, 'avatar.webp');
-  if (!existsSync(profileImagePath)) {
-    console.error('❌ Avatar image not found at:', profileImagePath);
+  if (!existsSync(AVATAR_PATH)) {
+    console.error('❌ Avatar image not found at:', AVATAR_PATH);
     process.exit(1);
   }
 
   console.log('🎨 Generating Open Graph image...');
 
   // Read and convert profile image to base64
-  const profileImageBuffer = readFileSync(profileImagePath);
+  const profileImageBuffer = readFileSync(AVATAR_PATH);
   const profileImageBase64 = `data:image/webp;base64,${profileImageBuffer.toString('base64')}`;
 
   const browser = await puppeteer.launch({

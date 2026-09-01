@@ -12,5 +12,13 @@
 // See src/scripts/clarity.ts for the initialization logic.
 ---
 
-<script src="../../scripts/clarity.ts"></script>
-<script src="../../scripts/track-interactions.ts"></script>
+<script>
+  const loadTracking = () => import('../../scripts/track-interactions');
+  const requestIdle = Reflect.get(window, 'requestIdleCallback') as typeof window.requestIdleCallback | undefined;
+
+  if (requestIdle) {
+    requestIdle(loadTracking, { timeout: 3000 });
+  } else {
+    window.setTimeout(loadTracking, 2000);
+  }
+</script>
