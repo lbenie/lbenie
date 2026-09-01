@@ -262,6 +262,7 @@ export const generatePersonSchema = (): Record<string, unknown> => {
       '@type': 'Person',
       '@id': `${SITE_CONFIG.url}/#person`,
       name: SITE_CONFIG.author,
+      alternateName: 'Luke',
       url: SITE_CONFIG.url,
       email: SITE_CONFIG.socialLinks?.email,
       jobTitle: 'Staff Frontend Software Developer',

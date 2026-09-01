@@ -41,6 +41,7 @@ describe('SEO utilities', () => {
   it('should generate professional person schema', () => {
     const schema = generatePersonSchema();
     expect(schema['@type']).toBe('Person');
+    expect(schema.alternateName).toBe('Luke');
     expect(schema.jobTitle).toBe('Staff Frontend Software Developer');
     expect(schema.knowsAbout).toContain('Agentic AI platforms');
   });
