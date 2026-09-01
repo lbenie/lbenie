@@ -33,16 +33,12 @@
   },
   "dependencies": {
     "@astrojs/check": "0.9.10",
-    "@astrojs/netlify": "8.2.4",
     "@astrojs/rss": "4.0.19",
-    "@astrojs/sitemap": "3.7.3",
+    "@astrojs/sitemap": "3.7.4",
     "@microsoft/clarity": "1.0.2",
     "@shikijs/transformers": "4.4.3",
-    "astro": "7.2.9",
-    "astro-i18next": "1.0.0-beta.21",
+    "astro": "7.2.10",
     "fuse.js": "7.5.0",
-    "i18next": "26.4.0",
-    "i18next-fs-backend": "2.6.7",
     "open-props": "1.7.23"
   },
   "devDependencies": {
@@ -53,7 +49,7 @@
     "@vitest/ui": "4.1.11",
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
-    "puppeteer": "24.43.1",
+    "puppeteer": "25.9.0",
     "typescript": "5.9.3",
     "vitest": "4.1.11"
   },

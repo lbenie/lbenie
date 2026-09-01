@@ -1,8 +1,6 @@
-import netlify from '@astrojs/netlify';
 import sitemap from '@astrojs/sitemap';
 import { transformerMetaHighlight } from '@shikijs/transformers';
 import { defineConfig } from 'astro/config';
-import astroI18next from 'astro-i18next';
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,7 +9,6 @@ export default defineConfig({
   trailingSlash: 'always',
 
   integrations: [
-    astroI18next(),
     sitemap({
       i18n: {
         defaultLocale: 'en',
@@ -26,12 +23,7 @@ export default defineConfig({
     }),
   ],
 
-  adapter: netlify(),
-
   vite: {
-    optimizeDeps: {
-      exclude: ['astro-i18next'],
-    },
     build: {
       cssCodeSplit: true,
       modulePreload: {
