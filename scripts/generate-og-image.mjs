@@ -121,10 +121,10 @@ const generateOGImage = async () => {
   // Ensure output directory exists
   mkdirSync(IMAGES_DIR, { recursive: true });
 
-  // Check if profile image exists
-  const profileImagePath = join(IMAGES_DIR, 'profile.webp');
+  // Check if avatar image exists
+  const profileImagePath = join(IMAGES_DIR, 'avatar.webp');
   if (!existsSync(profileImagePath)) {
-    console.error('❌ Profile image not found at:', profileImagePath);
+    console.error('❌ Avatar image not found at:', profileImagePath);
     process.exit(1);
   }
 
