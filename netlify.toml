@@ -31,3 +31,9 @@
   for = "/_astro/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Keep downloadable CVs out of search results
+[[headers]]
+  for = "/cv/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
