@@ -3,6 +3,7 @@ import {
   buildCanonicalURL,
   buildPageTitle,
   generateOpenGraphMeta,
+  generatePersonSchema,
   generateTwitterCardMeta,
   SITE_CONFIG,
   sanitizeDescription,
@@ -35,6 +36,13 @@ describe('SEO utilities', () => {
     const meta = generateTwitterCardMeta({ title: 'Test', description: 'Desc', locale: 'en' });
     expect(meta.title).toBe('Test');
     expect(meta.card).toBe('summary');
+  });
+
+  it('should generate professional person schema', () => {
+    const schema = generatePersonSchema();
+    expect(schema['@type']).toBe('Person');
+    expect(schema.jobTitle).toBe('Staff Frontend Software Developer');
+    expect(schema.knowsAbout).toContain('Agentic AI platforms');
   });
 
   it('should sanitize description', () => {

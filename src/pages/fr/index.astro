@@ -20,10 +20,16 @@ const recentExperience = (await getExperience('fr')).slice(0, RECENT_EXPERIENCE_
 
 // SEO metadata
 const meta: SEOMeta = {
-  title: 'Lucien Bénié',
+  title: 'Développeur frontend Staff & leader IA',
   description:
-    'Développeur fullstack spécialisé dans les technologies web modernes, TypeScript et les applications évolutives. Création de solutions innovantes avec React, Node.js et les technologies cloud.',
-  keywords: ['Développeur Logiciel', 'Développeur Fullstack', 'TypeScript', 'React', 'Node.js', 'Développement Web'],
+    'Lucien Bénié est développeur frontend Staff à Sherbrooke, spécialisé en TypeScript, architecture frontend, plateformes d’IA agentique et logiciels d’entreprise.',
+  keywords: [
+    'Développeur frontend Staff',
+    'Plateformes IA agentique',
+    'TypeScript',
+    'Architecture frontend',
+    'Développeur logiciel Sherbrooke',
+  ],
   locale: 'fr',
   type: 'website',
 };
@@ -52,14 +58,14 @@ const meta: SEOMeta = {
             </h1>
 
             <p class="hero__description">
-              Je m'appelle <strong>Lucien Bénié</strong>, et je suis un développeur Staff fullstack hautement expérimenté
-              basé à Sherbrooke, Québec, Canada. Je me spécialise dans la création d'applications évolutives et performantes
-              utilisant des technologies modernes comme TypeScript, React et Node.js.
+              Je m'appelle <strong>Lucien Bénié</strong>, et je suis un développeur frontend Staff hautement expérimenté
+              basé à Sherbrooke, Québec, Canada. Je me spécialise en architecture frontend, TypeScript et création
+              d'applications d'entreprise évolutives.
             </p>
 
             <p class="hero__description">
-              Je travaille dans le développement web depuis 2014, créant des solutions innovantes et dirigeant des équipes de développement.
-              Passionné par le code propre, l'expérience utilisateur et l'apprentissage continu.
+              Chez GoTo, je contribue à façonner des plateformes d'IA agentique et des flux de travail de plus en plus autonomes à travers le cycle de développement logiciel.
+              Je travaille dans le développement web depuis 2014, créant des solutions innovantes et dirigeant des équipes.
             </p>
 
 
@@ -211,7 +217,9 @@ const meta: SEOMeta = {
             {recentExperience.map((exp) => (
               <article class="experience-card">
                 <div class="experience-card__header">
-                  <h3 class="experience-card__role">{exp.data.role}</h3>
+                  <h3 class="experience-card__role">
+                    <a href={`/fr/experience/${exp.data.slug}/`}>{exp.data.role}</a>
+                  </h3>
                   {exp.data.current && (
                     <span class="badge badge--current">Actuel</span>
                   )}
@@ -595,6 +603,15 @@ const meta: SEOMeta = {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
     margin: 0;
+  }
+
+  .experience-card__role a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .experience-card__role a:hover {
+    color: var(--color-accent-primary);
   }
 
   .experience-card__company {

@@ -110,7 +110,7 @@ const generateHTML = (profileImageBase64) => `
     <img src="${profileImageBase64}" alt="Profile" class="profile-image">
     <div class="content">
       <h1 class="name">Lucien Bénié</h1>
-      <p class="title">Staff Frontend Developer</p>
+      <p class="title">Staff Frontend Developer · AI Leader</p>
       <p class="website">lbenie.me</p>
     </div>
   </div>

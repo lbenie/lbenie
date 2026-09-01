@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_LOCALE, getAlternateLocale, getLocaleFromPath, isValidLocale, switchLocale } from './i18n';
+import {
+  DEFAULT_LOCALE,
+  getAlternateLinks,
+  getAlternateLocale,
+  getLocaleFromPath,
+  isValidLocale,
+  switchLocale,
+} from './i18n';
 
 describe('i18n utilities', () => {
   it('should have correct default locale', () => {
@@ -18,8 +25,16 @@ describe('i18n utilities', () => {
   });
 
   it('should switch locales', () => {
-    const result = switchLocale('/en/blog', 'fr');
-    expect(result).toContain('/fr/');
+    expect(switchLocale('/en/blog', 'fr')).toBe('/fr/blogue');
+    expect(switchLocale('/fr/blogue/article', 'en')).toBe('/en/blog/article');
+  });
+
+  it('should build alternate links from localized paths', () => {
+    expect(getAlternateLinks('/fr/', 'https://lbenie.me')).toEqual([
+      { hreflang: 'en', href: 'https://lbenie.me/en/' },
+      { hreflang: 'fr', href: 'https://lbenie.me/fr/' },
+      { hreflang: 'x-default', href: 'https://lbenie.me/en/' },
+    ]);
   });
 
   it('should return alternate locale', () => {

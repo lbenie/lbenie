@@ -20,10 +20,16 @@ const recentExperience = (await getExperience('en')).slice(0, RECENT_EXPERIENCE_
 
 // SEO metadata
 const meta: SEOMeta = {
-  title: 'Lucien Bénié',
+  title: 'Staff Frontend Developer & AI Leader',
   description:
-    'Fullstack developer specializing in modern web technologies, TypeScript, and scalable applications. Building innovative solutions with React, Node.js, and cloud technologies.',
-  keywords: ['Software Developer', 'Fullstack Developer', 'TypeScript', 'React', 'Node.js', 'Web Development'],
+    'Lucien Bénié is a Staff Frontend Developer in Sherbrooke specializing in TypeScript, frontend architecture, agentic AI platforms, and enterprise software.',
+  keywords: [
+    'Staff Frontend Developer',
+    'Agentic AI Platforms',
+    'TypeScript',
+    'Frontend Architecture',
+    'Sherbrooke Software Developer',
+  ],
   locale: 'en',
   type: 'website',
 };
@@ -52,14 +58,14 @@ const meta: SEOMeta = {
             </h1>
 
             <p class="hero__description">
-              My name is <strong>Lucien Bénié</strong>, and I'm a highly experienced Staff Fullstack Developer
-              based in Sherbrooke, Québec, Canada. I specialize in creating scalable, performant applications using modern
-              technologies like TypeScript, React, and Node.js.
+              My name is <strong>Lucien Bénié</strong>, and I'm a highly experienced Staff Frontend Developer
+              based in Sherbrooke, Québec, Canada. I specialize in frontend architecture, TypeScript, and building
+              scalable enterprise applications.
             </p>
 
             <p class="hero__description">
-              I've been working in web development since 2014, building innovative solutions and leading development teams.
-              Passionate about clean code, user experience, and continuous learning.
+              At GoTo, I help shape agentic AI platforms and increasingly autonomous workflows across the software development lifecycle.
+              I've worked in web development since 2014, building innovative solutions and leading development teams.
             </p>
 
 
@@ -211,7 +217,9 @@ const meta: SEOMeta = {
             {recentExperience.map((exp) => (
               <article class="experience-card">
                 <div class="experience-card__header">
-                  <h3 class="experience-card__role">{exp.data.role}</h3>
+                  <h3 class="experience-card__role">
+                    <a href={`/en/experience/${exp.data.slug}/`}>{exp.data.role}</a>
+                  </h3>
                   {exp.data.current && (
                     <span class="badge badge--current">Current</span>
                   )}
@@ -593,6 +601,15 @@ const meta: SEOMeta = {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
     margin: 0;
+  }
+
+  .experience-card__role a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .experience-card__role a:hover {
+    color: var(--color-accent-primary);
   }
 
   .experience-card__company {

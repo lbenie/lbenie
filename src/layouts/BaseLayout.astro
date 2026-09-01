@@ -9,6 +9,7 @@ import {
   buildCanonicalURL,
   buildPageTitle,
   generateOpenGraphMeta,
+  generatePersonSchema,
   generateTwitterCardMeta,
   generateWebsiteSchema,
   SITE_CONFIG,
@@ -30,6 +31,7 @@ const canonicalURL = meta.canonicalURL || buildCanonicalURL(currentPath);
 const ogMeta = generateOpenGraphMeta(meta, SITE_CONFIG.url);
 const twitterMeta = generateTwitterCardMeta(meta);
 const websiteSchema = generateWebsiteSchema(locale);
+const personSchema = generatePersonSchema();
 const alternateLinks = getAlternateLinks(currentPath, SITE_CONFIG.url);
 
 const htmlLang = locale === 'fr' ? 'fr-CA' : 'en-US';
@@ -127,6 +129,11 @@ const skipLinkLabel = locale === 'fr' ? 'Aller au contenu principal' : 'Skip to 
             is:inline
             type="application/ld+json"
             set:html={JSON.stringify(websiteSchema)}
+        />
+        <script
+            is:inline
+            type="application/ld+json"
+            set:html={JSON.stringify(personSchema)}
         />
 
         <Clarity />

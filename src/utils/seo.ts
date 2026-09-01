@@ -10,8 +10,9 @@ import type { Locale, OpenGraphMeta, SEOMeta, SiteConfig, TwitterCardMeta } from
  */
 export const SITE_CONFIG: SiteConfig = {
   name: 'Lucien Bénié',
-  title: 'Lucien Bénié - Software Developer',
-  description: 'Staff Frontend Developer specializing in modern web technologies and accessibility',
+  title: 'Lucien Bénié - Staff Frontend Developer',
+  description:
+    'Staff Frontend Developer specializing in TypeScript, frontend architecture, agentic AI platforms, and enterprise software.',
   author: 'Lucien Bénié',
   defaultLocale: 'en',
   locales: ['en', 'fr'],
@@ -230,10 +231,7 @@ export const generateWebsiteSchema = (locale: Locale): Record<string, unknown> =
       description: SITE_CONFIG.description,
       inLanguage: validLocale === 'fr' ? 'fr-CA' : 'en-US',
       author: {
-        '@type': 'Person',
-        name: SITE_CONFIG.author,
-        url: SITE_CONFIG.url,
-        sameAs: [SITE_CONFIG.socialLinks?.github, SITE_CONFIG.socialLinks?.linkedin].filter(Boolean),
+        '@id': `${SITE_CONFIG.url}/#person`,
       },
     };
   } catch (error) {
@@ -262,10 +260,33 @@ export const generatePersonSchema = (): Record<string, unknown> => {
     return {
       '@context': 'https://schema.org',
       '@type': 'Person',
+      '@id': `${SITE_CONFIG.url}/#person`,
       name: SITE_CONFIG.author,
       url: SITE_CONFIG.url,
       email: SITE_CONFIG.socialLinks?.email,
-      jobTitle: 'Staff Frontend Developer',
+      jobTitle: 'Staff Frontend Software Developer',
+      homeLocation: {
+        '@type': 'Place',
+        name: 'Sherbrooke, Québec, Canada',
+      },
+      worksFor: {
+        '@type': 'Organization',
+        name: 'GoTo',
+        url: 'https://www.goto.com/',
+      },
+      alumniOf: {
+        '@type': 'CollegeOrUniversity',
+        name: 'Université de Sherbrooke',
+      },
+      knowsAbout: [
+        'TypeScript',
+        'Frontend architecture',
+        'Frontend development',
+        'Agentic AI platforms',
+        'AI-driven software development lifecycle',
+        'Enterprise software',
+        'Web accessibility',
+      ],
       sameAs: [SITE_CONFIG.socialLinks?.github, SITE_CONFIG.socialLinks?.linkedin].filter(Boolean),
     };
   } catch (error) {

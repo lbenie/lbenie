@@ -20,7 +20,7 @@ export default defineConfig({
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
-      filter: (page) => !page.endsWith('/resume/'),
+      filter: (page) => page !== 'https://lbenie.me/' && !page.endsWith('/resume/'),
     }),
   ],
 

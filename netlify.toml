@@ -16,6 +16,13 @@
   status = 301
   force = true
 
+# Use the English homepage as the single canonical root
+[[redirects]]
+  from = "/"
+  to = "/en/"
+  status = 301
+  force = true
+
 # Headers for security and performance
 [[headers]]
   for = "/*"

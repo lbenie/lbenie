@@ -251,13 +251,20 @@ export function switchLocale(currentPath: string, targetLocale: Locale): string 
     // Find the route key from the current path
     const routeKey = Object.keys(LOCALE_ROUTES).find((key) => {
       const route = LOCALE_ROUTES[key];
-      return route && route[currentLocale] === pathWithoutLocale;
+      const localizedBase = route?.[currentLocale];
+      return (
+        localizedBase &&
+        (pathWithoutLocale === localizedBase ||
+          (localizedBase !== '/' && pathWithoutLocale.startsWith(`${localizedBase}/`)))
+      );
     });
 
     let newPath: string;
     if (routeKey) {
+      const currentBase = LOCALE_ROUTES[routeKey]?.[currentLocale] || '/';
       const targetPath = LOCALE_ROUTES[routeKey]?.[validTargetLocale] || '/';
-      newPath = `/${validTargetLocale}${targetPath}`;
+      const remainingPath = pathWithoutLocale.slice(currentBase.length);
+      newPath = `/${validTargetLocale}${targetPath}${remainingPath}`;
     } else {
       // Fallback: always add locale prefix since site uses explicit locale prefixes
       newPath = `/${validTargetLocale}${pathWithoutLocale}`;
@@ -503,7 +510,7 @@ export function getAlternateLinks(
 
     const links: Array<{ hreflang: string; href: string }> = SUPPORTED_LOCALES.map((locale) => {
       try {
-        const localizedPath = getLocalizedPath(currentPath, locale);
+        const localizedPath = switchLocale(currentPath, locale);
         return {
           hreflang: locale,
           href: `${sanitizedBaseUrl}${localizedPath}`,
@@ -519,7 +526,7 @@ export function getAlternateLinks(
 
     // Add x-default
     try {
-      const defaultPath = getLocalizedPath(currentPath, DEFAULT_LOCALE);
+      const defaultPath = switchLocale(currentPath, DEFAULT_LOCALE);
       links.push({
         hreflang: 'x-default',
         href: `${sanitizedBaseUrl}${defaultPath}`,
