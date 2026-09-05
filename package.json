@@ -44,14 +44,14 @@
   "devDependencies": {
     "@biomejs/biome": "2.5.12",
     "@lbenie/linting": "2.1.20",
-    "@types/node": "20.19.43",
-    "@vitest/coverage-v8": "4.1.11",
-    "@vitest/ui": "4.1.11",
+    "@types/node": "24.13.3",
+    "@vitest/coverage-v8": "5.0.0",
+    "@vitest/ui": "5.0.0",
     "husky": "9.1.7",
-    "lint-staged": "16.4.0",
+    "lint-staged": "17.5.0",
     "puppeteer": "25.10.0",
-    "typescript": "6.0.3",
-    "vitest": "4.1.11"
+    "typescript": "7.0.2",
+    "vitest": "5.0.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
