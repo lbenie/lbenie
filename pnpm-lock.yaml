@@ -55,8 +55,8 @@ importers:
         specifier: 16.4.0
         version: 16.4.0
       puppeteer:
-        specifier: 25.11.0
-        version: 25.11.0
+        specifier: 25.12.0
+        version: 25.12.0
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -770,8 +770,8 @@ packages:
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
 
-  '@puppeteer/browsers@3.2.2':
-    resolution: {integrity: sha512-q2BU4YfO9h/Wt7IcWPcggpOOqLk2Tbs1hDwolvKZrweRjy751OJBKMN9zO5bfD0pzU7X/tvKw/exQds4pM/LOg==}
+  '@puppeteer/browsers@3.2.3':
+    resolution: {integrity: sha512-2Bt3m6dDAJqmZehn0wiXSYyQmuhyiHHZ7FjvrVaS1W2RoFGV6eCK71UvKYkNJjkwC1Q9nobjhvTMhLQztFVINA==}
     engines: {node: '>=22.12.0'}
     hasBin: true
     peerDependencies:
@@ -1221,8 +1221,8 @@ packages:
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
 
-  devtools-protocol@0.0.1680125:
-    resolution: {integrity: sha512-rVARKAvOFJCFkvgX01VLvYqKIvt+cRCqvUxIhB2oAqVGPalxk3w3sb5TUGDagpow/EFblBpm/Zl/29QA2dd+jA==}
+  devtools-protocol@0.0.1687809:
+    resolution: {integrity: sha512-t7kSb+UKYdyxcmqy98U2P86ne6rCve3DIJ4+lp54i/hhClgFuG35JrLj23rO14Jw3sWDsp7i+22QhNU0+/qk8g==}
 
   diff@9.0.0:
     resolution: {integrity: sha512-svtcdpS8CgJyqAjEQIXdb3OjhFVVYjzGAPO8WGCmRbrml64SPw/jJD4GoE98aR7r25A0XcgrK3F02yw9R/vhQw==}
@@ -1698,12 +1698,12 @@ packages:
   property-information@7.2.0:
     resolution: {integrity: sha512-IAtzIB6sUiWaJYrX9smp3V46pBGbBeLFRGdh25kg1334VcBlD8HzhPeNIWQH9zhGmo2itIe25EHt9dQP7G5hmg==}
 
-  puppeteer-core@25.11.0:
-    resolution: {integrity: sha512-Ujym7JbxoAqanaxGcHgmTomfhC01HfDCSuGZ8Hs9boHrDjzbNVMnFRJo2KtbDT9LCRgeJoFnkn9JQZ41eEUrLw==}
+  puppeteer-core@25.12.0:
+    resolution: {integrity: sha512-z6LQUt5SH7jwGtGA+nMtJuEjZIsqPiwQ+EFHCYuVDQrJpvifNmmGuyDvTzAKPyFzihxgHc5f3aMzu2kn8Ps37A==}
     engines: {node: '>=22.12.0'}
 
-  puppeteer@25.11.0:
-    resolution: {integrity: sha512-n+psxZFH/qlJ3gwTZMxTLUZoE98FAOEjT/BSxHXvPmNCGAfN/kq0UnIZ8m9RB4rAVvJr7zRHUnKKg98GLMUyyQ==}
+  puppeteer@25.12.0:
+    resolution: {integrity: sha512-agM9cYcxbvmU17w9qtF17s7/Vv7Dhbyig6AWwIgvQQLR2dKZdPqNvRPanac7xH4iMPcNYOCfyCkwqCnR4nVOcA==}
     engines: {node: '>=22.12.0'}
     hasBin: true
 
@@ -2829,7 +2829,7 @@ snapshots:
 
   '@polka/url@1.0.0-next.29': {}
 
-  '@puppeteer/browsers@3.2.2':
+  '@puppeteer/browsers@3.2.3':
     dependencies:
       modern-tar: 0.8.5
       yargs: 18.1.0
@@ -3250,9 +3250,9 @@ snapshots:
     dependencies:
       readdirp: 5.1.1
 
-  chromium-bidi@17.0.2(devtools-protocol@0.0.1680125):
+  chromium-bidi@17.0.2(devtools-protocol@0.0.1687809):
     dependencies:
-      devtools-protocol: 0.0.1680125
+      devtools-protocol: 0.0.1687809
       mitt: 3.0.1
       zod: 3.25.76
 
@@ -3333,7 +3333,7 @@ snapshots:
     dependencies:
       dequal: 2.0.3
 
-  devtools-protocol@0.0.1680125: {}
+  devtools-protocol@0.0.1687809: {}
 
   diff@9.0.0: {}
 
@@ -3778,11 +3778,11 @@ snapshots:
 
   property-information@7.2.0: {}
 
-  puppeteer-core@25.11.0:
+  puppeteer-core@25.12.0:
     dependencies:
-      '@puppeteer/browsers': 3.2.2
-      chromium-bidi: 17.0.2(devtools-protocol@0.0.1680125)
-      devtools-protocol: 0.0.1680125
+      '@puppeteer/browsers': 3.2.3
+      chromium-bidi: 17.0.2(devtools-protocol@0.0.1687809)
+      devtools-protocol: 0.0.1687809
       typed-query-selector: 2.12.2
       webdriver-bidi-protocol: 0.4.3
       ws: 8.21.3
@@ -3792,13 +3792,13 @@ snapshots:
       - utf-8-validate
       - yauzl
 
-  puppeteer@25.11.0:
+  puppeteer@25.12.0:
     dependencies:
-      '@puppeteer/browsers': 3.2.2
-      chromium-bidi: 17.0.2(devtools-protocol@0.0.1680125)
-      devtools-protocol: 0.0.1680125
+      '@puppeteer/browsers': 3.2.3
+      chromium-bidi: 17.0.2(devtools-protocol@0.0.1687809)
+      devtools-protocol: 0.0.1687809
       lilconfig: 3.1.3
-      puppeteer-core: 25.11.0
+      puppeteer-core: 25.12.0
       typed-query-selector: 2.12.2
     transitivePeerDependencies:
       - bufferutil
